@@ -38,6 +38,4 @@ else
 	tail /etc/shadow | grep miller >> /misseditems
 	passwd -l miller
 fi
-
 echo "$score"
-

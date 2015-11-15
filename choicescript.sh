@@ -264,7 +264,7 @@ fi
 if [ $choice == "3" ]; then
   echo "Backing up etc now"
   if [ -d /backupetc ]; then
-  	cp /etc /backupetc -r
+#  	cp /etc /backupetc -r
   	echo "/backupetc already exist..etc has been backed up"
   else
   	mkdir /backupetc
@@ -273,7 +273,7 @@ if [ $choice == "3" ]; then
   fi
   echo "Moving on to backing up /home/"
   if [ -d /backuphome ]; then
-  	cp /home/ /backuphome -r
+#  	cp /home/ /backuphome -r
   	echo "/backuphome already exist..home/ has been backed up"
   else
   	mkdir /backuphome
