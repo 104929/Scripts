@@ -32,7 +32,7 @@ echo "22 to set alias's"
 echo "23 to set default permissions for /etc/ & /etc/shadow & /etc/host"
 echo "24 to start apparmor and system logging"
 echo "25 to enable auditing"
-echo -n "Choice:"
+echo -n "Choice: "
 read choice
 #Checks Commands
 if [ $choice == "1" ]; then
