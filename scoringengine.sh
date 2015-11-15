@@ -6,4 +6,4 @@ else
 	exit 1
 fi
 echo "Welcome to the Cyberpatriot Round One Replica!"
-echo ""
+echo "Test add"
