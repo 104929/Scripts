@@ -7,3 +7,4 @@ else
 fi
 echo "Welcome to the Cyberpatriot Round One Replica!"
 echo "Test add"
+echo "test two"
