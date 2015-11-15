@@ -22,5 +22,22 @@ else
   ufw status verbose | grep Logging >> /misseditems
   ufw logging high
 fi
+tail /etc/shadow | grep tommy | grep "!"
+if [ $? -eq = 0 ]; then
+	let "score += 5"
+else
+	echo "you missed locking out tommy from logging in" >> /misseditems
+	tail /etc/shadow | grep tommy >> /misseditems
+	passwd -l tommy
+fi
+tail /etc/shadow | grep miller | grep "!"
+if [ $? -eq = 0 ]; then
+	let "score += 5"
+else
+	echo "you missed locking out miller from logging in" >> /misseditems
+	tail /etc/shadow | grep miller >> /misseditems
+	passwd -l miller
+fi
+
 echo "$score"
 
