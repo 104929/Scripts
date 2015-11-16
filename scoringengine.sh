@@ -16,7 +16,7 @@ else
   ufw enable
 fi
 tail /etc/shadow | grep gunter | grep "!"
-if [ $? -eq = 0 ]; then
+if [ $? -eq 0 ]; then
 	let "score += 4"
 	echo "Removed unauthorized user gunter +4"
 else
@@ -24,20 +24,24 @@ else
 	tail /etc/shadow | grep gunter >> /misseditems
 fi
 tail /etc/shadow | grep hunsonadeer | grep "!"
-if [ $? -eq = 0 ]; then
+if [ $? -eq 0 ]; then
 	let "score += 4"
 	echo "Removed unauthorized user hunsonadeer +4"
 else
 	echo "you missed locking out hunsonadeer from logging in" >> /misseditems
 	tail /etc/shadow | grep hunsonadeer >> /misseditems
 fi
-tail /etc/group | grep sudo | grep "lumpyspaceprincess"
-if [ $? -eq = 0 ]; then
-	let "score += 4"
-	echo "User lumpyspaceprincess is not an administrator"
+lumpyspaceprincess=$(less /etc/group | grep "lumpyspaceprincess")
+lumpyspaceprincesssudo=$(grep sudo $lumpyspaceprincess)
+lumpyspaceprincessadm=$(grep adm $lumpyspaceprincess)
+if [ $lumpyspaceprincesssudo -eq 0 ]; then
+	if [ $lumpyspaceprincessadm -eq 0 ]; then
+		let "score += 4"
+		echo "User lumpyspaceprincess is not an administrator"
+	fi
 else
 	echo "lumpyspaceprincess is an admin" >> /misseditems
-	tail /etc/shadow | grep miller >> /misseditems
-	passwd -l miller
+	#tail /etc/shadow | grep miller >> /misseditems
+	#passwd -l miller
 fi
 echo "$score"
