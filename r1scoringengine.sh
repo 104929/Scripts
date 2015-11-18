@@ -13,8 +13,8 @@ score=0
 hostname candykingdom
 
 #resets the misseditems file
-rm /misseditems
 touch /misseditems
+rm /misseditems
 
 #Forensics Question 1 correct - 8 pts
 less /home/finn/Desktop/ForensicsQuestion1 | grep /home/jake > /dev/null
