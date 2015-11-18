@@ -65,7 +65,7 @@ fi
 tail /etc/shadow | grep hunsonabadeer | grep "!" > /devnull
 if [ $? -eq 0 ]; then
 	let "score += 4"
-	echo "Removed unauthorized user hunsonabadeer +4"
+	echo "Removed unauthorized user hunsonabadeer - 4"
 else
 	echo "you missed locking out hunsonabadeer from logging in (kind of)" >> /misseditems
 	tail /etc/shadow | grep hunsonabadeer >> /misseditems
