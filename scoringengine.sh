@@ -9,8 +9,22 @@ fi
 score=0
 
 #Forensics Question 1 correct - 8 pts
+less /home/finn/Desktop/ForensicsQuestion1 | grep /home/jake
+if [ $? -eq = 0 ]; then
+	let "score += 8"
+	echo "Forensics Question 1 correct - 8 pts"
+else
+	echo "you missed ForensicsQuestion1" >> /misseditems
+fi
 
 #Forensics Question 2 correct - 8 pts
+less /home/finn/Desktop/ForensicsQuestion2 | grep candykingdom.earth
+if [ $? -eq = 0 ]; then
+	let "score += 8"
+	echo "Forensics Question 2 correct - 8 pts"
+else
+	echo "you missed ForensicsQuestion2" >> /misseditems
+fi
 
 #Created user abracadaniel - 5 pts
 
@@ -23,7 +37,7 @@ else
 	echo "you missed locking out gunter from logging in" >> /misseditems
 	tail /etc/shadow | grep gunter >> /misseditems
 fi
-
+https://www.youtube.com/watch?v=id5wEaxOVL0
 #Removed unauthorized user hunsonadeer - 4 pts
 tail /etc/shadow | grep hunsonadeer | grep "!"
 if [ $? -eq = 0 ]; then
