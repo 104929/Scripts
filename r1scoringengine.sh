@@ -108,7 +108,7 @@ if [ "$pbcounter" ==  2 ]; then
 	let "score += 4"
 	echo "User peppermintbutler is not an administrator - 4 pts"
 else
-	echo "you missed peppermintbutler as an adm"
+	echo "you missed peppermintbutler as an adm" >> /misseditems
 fi
 
 #Changed insecure root password - 4 pts
