@@ -43,17 +43,15 @@ if [ $? -eq 0 ]; then
 	echo "Removed unauthorized user gunter - 4 pts"
 else
 	echo "you missed locking out gunter from logging in" >> /misseditems
-	tail /etc/shadow | grep gunter >> /misseditems
 fi
 
 #Removed unauthorized user gunter - 4 pts
-tail /etc/shadow | grep gunter
+tail /etc/shadow | grep gunter > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 4"
 	echo "Removed unauthorized user gunter - 4 pts"
 else
 	echo "you missed locking out gunter from logging in (kind of)" >> /misseditems
-	tail /etc/shadow | grep gunter >> /misseditems
 fi
 
 #Removed unauthorized user hunsonabadeer - 4 pts
@@ -168,7 +166,7 @@ else
 fi
 
 #Prohibited MP3 files are removed - 6 pts
-find /home/jake -iname "*.mp3"
+find /home/jake -iname "*.mp3" > /dev/null
 if [ $? -ne 0 ]; then
     let "score += 6"
 		echo "Prohibited MP3 files are removed - 6 pts"
