@@ -174,7 +174,7 @@ fi
 
 #Prohibited MP3 files are removed - 6 pts
 find /home/jake -iname "*.mp3" > /dev/null
-if [ $? -eq 0 ]; then
+if [ $? -ne 0 ]; then
     let "score += 6"
 		echo "Prohibited MP3 files are removed - 6 pts"
 else
@@ -183,7 +183,7 @@ fi
 
 #DNS is disabled or removed - 6 pts
 dpkg -l | grep bind9 | grep "Internet Domain Name" > /dev/null
-if [ $? -eq 0 ]; then
+if [ $? -ne 0 ]; then
     let "score += 6"
 		echo "DNS is disabled or removed - 6 pts"
 else
