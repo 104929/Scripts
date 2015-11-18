@@ -10,7 +10,7 @@ fi
 score=0
 
 #Forensics Question 1 correct - 8 pts
-less /home/finn/Desktop/ForensicsQuestion1 | grep /home/jake
+less /home/finn/Desktop/ForensicsQuestion1 | grep /home/jake > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 8"
 	echo "Forensics Question 1 correct - 8 pts"
@@ -19,7 +19,7 @@ else
 fi
 
 #Forensics Question 2 correct - 8 pts
-less /home/finn/Desktop/ForensicsQuestion2 | grep candykingdom.earth
+less /home/finn/Desktop/ForensicsQuestion2 | grep candykingdom.earth > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 8"
 	echo "Forensics Question 2 correct - 8 pts"
@@ -28,7 +28,7 @@ else
 fi
 
 #Created user abracadaniel - 5 pts
-tail /etc/passwd | grep abracadaniel
+tail /etc/passwd | grep abracadaniel > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "Created user abracadaniel - 5 pts"
@@ -37,7 +37,7 @@ else
 fi
 
 #Removed unauthorized user gunter - 4 pts
-tail /etc/shadow | grep gunter | grep "!"
+tail /etc/shadow | grep gunter | grep "!" > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 4"
 	echo "Removed unauthorized user gunter - 4 pts"
@@ -56,35 +56,35 @@ else
 	tail /etc/shadow | grep gunter >> /misseditems
 fi
 
-#Removed unauthorized user hunsonadeer - 4 pts
-tail /etc/shadow | grep hunsonadeer | grep "!"
+#Removed unauthorized user hunsonabadeer - 4 pts
+tail /etc/shadow | grep hunsonabadeer | grep "!" > /devnull
 if [ $? -eq 0 ]; then
 	let "score += 4"
-	echo "Removed unauthorized user hunsonadeer +4"
+	echo "Removed unauthorized user hunsonabadeer +4"
 else
-	echo "you missed locking out hunsonadeer from logging in (kind of)" >> /misseditems
-	tail /etc/shadow | grep hunsonadeer >> /misseditems
+	echo "you missed locking out hunsonabadeer from logging in (kind of)" >> /misseditems
+	tail /etc/shadow | grep hunsonabadeer >> /misseditems
 fi
 
-#Removed unauthorized user hunsonadeer - 4 pts
-tail /etc/shadow | grep hunsonadeer
+#Removed unauthorized user hunsonabadeer - 4 pts
+tail /etc/shadow | grep hunsonabadeer > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 4"
-	echo "Removed unauthorized user hunsonadeer - 4pts"
+	echo "Removed unauthorized user hunsonabadeer - 4pts"
 else
-	echo "you missed locking out hunsonadeer from logging in" >> /misseditems
-	tail /etc/shadow | grep hunsonadeer >> /misseditems
+	echo "you missed locking out hunsonabadeer from logging in" >> /misseditems
+	tail /etc/shadow | grep hunsonabadeer >> /misseditems
 fi
 
 
 #User lumpyspaceprincess is not an administrator - 4 pts
 lspcounter=0
-cat /etc/group | grep adm | grep lumpyspaceprincess
+cat /etc/group | grep adm | grep lumpyspaceprincess > /dev/null
 if [ $? -ne 0 ]; then
 	let "lspcounter += 1"
 fi
 
-cat /etc/group | grep sudo | grep lumpyspaceprincess
+cat /etc/group | grep sudo | grep lumpyspaceprincess > /dev/null
 if [ $? -ne 0 ]; then
 	let "lspcounter += 1"
 fi
@@ -96,12 +96,12 @@ fi
 
 #User peppermintbutler is not an administrator - 4 pts
 pbcounter=0
-cat /etc/group | grep adm | grep peppermintbutler
+cat /etc/group | grep adm | grep peppermintbutler > /dev/null
 if [ $? -ne 0 ]; then
 	let "pbcounter += 1"
 fi
 
-cat /etc/group | grep sudo | grep peppermintbutler
+cat /etc/group | grep sudo | grep peppermintbutler > /dev/null
 if [ $? -ne 0 ]; then
 	let "pbcounter += 1"
 fi
@@ -114,7 +114,7 @@ else
 fi
 
 #Changed insecure root password - 4 pts
-less /etc/shadow | grep root | grep "!"
+less /etc/shadow | grep root | grep "!" > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 4"
 	echo "Changed insecure root password - 4 pts"
@@ -123,8 +123,8 @@ else
 fi
 
 #Guest account is disabled - 6 pts
-less /etc/lightdm/lightdm.conf | grep allow-guest | grep false
-if [ $? -ne 0 ]; then
+less /etc/lightdm/lightdm.conf | grep allow-guest | grep false > /dev/null
+if [ $? -eq 0 ]; then
 	let "score += 6"
 	echo "Guest account is disabled - 6 pts"
 else
@@ -132,7 +132,7 @@ else
 fi
 
 #A default minimum password age is set - 6 pts
-less /etc/login.defs | grep PASS_MIN_DAYS | grep "0"
+less /etc/login.defs | grep PASS_MIN_DAYS | grep "0" > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 6"
 	echo "A default minimum password age is set - 6 pts"
@@ -141,7 +141,7 @@ else
 fi
 
 #Install updates from important security updates - 7 pts
-less /etc/apt/sources.list | grep precise-security
+less /etc/apt/sources.list | grep precise-security > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 7"
 	echo "Install updates from important security updates - 7 pts"
@@ -150,7 +150,7 @@ else
 fi
 
 #Linux kernel has been updated - 7 pts
-uname -a | grep 3.13
+uname -a | grep 3.13 > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 7"
 	echo "Linux kernel has been updated - 7 pts"
@@ -159,7 +159,7 @@ else
 fi
 
 #Sudo has been updated - 7 pts
-dpkg -l | grep sudo | grep 1.8.3
+dpkg -l | grep sudo | grep 1.8.3 > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 7"
 	echo "Sudo has been updated - 7 pts"
@@ -177,7 +177,7 @@ else
 fi
 
 #DNS is disabled or removed - 6 pts
-dpkg -l | grep bind9 | grep "Internet Domain Name"
+dpkg -l | grep bind9 | grep "Internet Domain Name" > /dev/null
 if [ $? -ne 0 ]; then
     let "score += 6"
 		echo "DNS is disabled or removed - 6 pts"
@@ -186,7 +186,7 @@ else
 fi
 
 #Firewall has been enabled - 5 pts
-ufw status | grep inactive
+ufw status | grep inactive > /dev/null
 if [ $? -ne 0 ]; then
     let "score += 5"
 		echo "Firewall has been enabled - 5 pts"
@@ -196,7 +196,7 @@ else
 fi
 
 #SSH root login has been disabled - 7 pts
-cat /etc/ssh/sshd_config | grep PermitRootLogin | grep "no"
+cat /etc/ssh/sshd_config | grep PermitRootLogin | grep "no" > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 7"
 	echo "SSH root login has been disabled - 7 pts"
