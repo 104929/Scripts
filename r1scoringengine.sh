@@ -9,6 +9,9 @@ fi
 
 score=0
 
+#Hostname reset on the VM
+hostname candykingdom
+
 #resets the misseditems file
 rm /misseditems
 touch /misseditems
