@@ -204,8 +204,16 @@ else
 	echo "you missed locking out root from logging in" >> /misseditems
 fi
 
+if [ "$score" -gt 100 ]; then
+	let "score -= 4 "
+fi
 #End of score report
 echo " "
 echo -n "Your current total score is: "
 echo -n "$score"
 echo " pts"
+if [ "$score" == 100 ]; then
+	apt-get -qq install sl -y
+	sl && sl && sl && sl && sl
+	echo "Congratulations, you got a perfect score!"
+fi
