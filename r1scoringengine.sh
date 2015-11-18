@@ -9,6 +9,10 @@ fi
 
 score=0
 
+#resets the misseditems file
+rm /misseditems
+touch /misseditems
+
 #Forensics Question 1 correct - 8 pts
 less /home/finn/Desktop/ForensicsQuestion1 | grep /home/jake > /dev/null
 if [ $? -eq 0 ]; then
