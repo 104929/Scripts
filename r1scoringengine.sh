@@ -174,7 +174,7 @@ fi
 
 #Prohibited MP3 files are removed - 6 pts
 ls /home/jake | grep *.mp3 > /dev/null
-if [ $? -eq 0 ]; then
+if [ $? -ne 0 ]; then
     let "score += 6"
 		echo "Prohibited MP3 files are removed - 6 pts"
 else
