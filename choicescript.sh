@@ -622,6 +622,10 @@ if [ $choice == "21" ]; then
   ufw enable
   ufw logging high
   ufw reload
+  ufw status verbose | grep Default | grep -v "Default: deny (incoming), allow (outgoing), disabled (routed)"
+  if [ $? -ne 0 ] ; then
+  	echo "Ufw is not at the Default configuration"
+  fi
 fi
 #Sets alias's
 if [ $choice == "22" ]; then
