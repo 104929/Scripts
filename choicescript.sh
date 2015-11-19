@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Make sure you are done with the Forensics Questions before running the script "
 if [ $(whoami) = "root" ]; then
 	echo "You are root"
 else
@@ -9,14 +10,14 @@ echo "What would you like to do?"
 echo "Enter a number 1-25 to select a choice:"
 echo "1 for checking commands"
 echo "2 for recon"
-echo "3 for making /etc/ and /home backups"
+echo "3 for making /etc/ and /home/ backups"
 echo "4 for user managment"
 echo "5 for finding users"
 echo "6 for updates"
 echo "7 for making a safety account "
 echo "8 for managing cron "
 echo "9 for locking out root account"
-echo "10 for changing the host file"
+#echo "10 for changing the host file"
 echo "11 to disable IPv6"
 echo "12 to uninstall john"
 echo "13 to look for a netcat backdoor"
@@ -258,6 +259,13 @@ if [ $choice == "2" ]; then
   #dpkg -l | grep bind -i | grep -vi Binding >> /files/services
   #ps aux | grep bind -i | grep -v grep >> /files/services
   echo "   " >> /files/services
+  dpkg -l | grep mariadb -i >> /files/services
+  ps aux | grep mariadb -i >> /files/services
+  find / -iname "mariadb" -print >> /files/services
+  echo "	" >> /files/services
+  dpkg -l | grep sql -i | grep server -i >> /files/services
+  ps aux | grep sql >> /files/services
+  echo "	" >> /files/services
   echo "Make sure you check the files called mediafiles, malware, services, and phpbackdoors that are located in /files/ "
 fi
 #Back up /etc and /home
@@ -421,17 +429,17 @@ if [ $choice == "9" ]; then
   fi
 fi
 #Manages the host file
-if [ $choice == "10" ]; then
-  echo "Changing hosts file"
-  echo 127.0.0.1       localhost > /etc/hosts
-  echo 127.0.1.1 $(hostname -f) >> /etc/hosts
-  echo ::1     ip6-localhost ip6-loopback >> /etc/hosts
-  echo fe00::0 ip6-localnet >> /etc/hosts
-  echo ff00::0 ip6-mcastprefix >> /etc/hosts
-  echo ff02::1 ip6-allnodes >> /etc/hosts
-  echo ff02::2 ip6-allrouters >> /etc/hosts
-  echo "host file is done"
-fi
+#if [ $choice == "10" ]; then
+#  echo "Changing hosts file"
+#  echo 127.0.0.1       localhost > /etc/hosts
+#  echo 127.0.1.1 $(hostname -f) >> /etc/hosts
+#  echo ::1     ip6-localhost ip6-loopback >> /etc/hosts
+#  echo fe00::0 ip6-localnet >> /etc/hosts
+#  echo ff00::0 ip6-mcastprefix >> /etc/hosts
+#  echo ff02::1 ip6-allnodes >> /etc/hosts
+#  echo ff02::2 ip6-allrouters >> /etc/hosts
+#  echo "host file is done"
+#fi
 #Disables IPV6
 if [ $choice == "11" ]; then
   echo "Going to disable IPV6 "
@@ -563,7 +571,9 @@ if [ $choice == "17" ]; then
   touch /files/phpbackdoors
   find / -iname "*.php" -print -exec grep "exec" -i {} + > /files/phpbackdoors
   find / -iname "*.php" -print -exec grep "CMD" -i {} + >> /files/phpbackdoors
-  find / -iname "*.php" -print -exec grep "shell" -i {} + >>/files/phpbackdoors
+  find / -iname "*.php" -print -exec grep "shell" -i {} + >> /files/phpbackdoors
+  find / -iname "*.php" -print -exec grep "system" -i {} + >> /files/phpbackdoors
+  find / -iname "*.php" -print -exec grep "passthru" -i {} + >> /files/phpbackdoors
 fi
 #Manage apache
 if [ $choice == "18" ]; then
