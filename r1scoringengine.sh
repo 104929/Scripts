@@ -156,7 +156,7 @@ fi
 
 #Linux kernel has been updated - 7 pts
 uname -a | grep 3.13 > /dev/null
-if [ $? -ne 0 ]; then
+if [ $? -eq 0 ]; then
 	let "score += 7"
 	echo "Linux kernel has been updated - 7 pts"
 else
@@ -165,7 +165,7 @@ fi
 
 #Sudo has been updated - 7 pts
 dpkg -l | grep sudo | grep 1.8.3 > /dev/null
-if [ $? -ne 0 ]; then
+if [ $? -eq 0 ]; then
 	let "score += 7"
 	echo "Sudo has been updated - 7 pts"
 else
