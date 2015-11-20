@@ -65,7 +65,7 @@ fi
 tail /etc/shadow | grep hunsonabadeer | grep "!" > /devnull
 if [ $? -eq 0 ]; then
 	let "score += 4"
-	echo "Removed unauthorized user hunsonabadeer - 4"
+	echo "Removed unauthorized user hunsonabadeer - 4pts"
 else
 	echo "you missed locking out hunsonabadeer from logging in (kind of)" >> /misseditems
 	tail /etc/shadow | grep hunsonabadeer >> /misseditems
@@ -193,8 +193,8 @@ fi
 #Firewall has been enabled - 5 pts
 ufw status | grep inactive > /dev/null
 if [ $? -ne 0 ]; then
-    let "score += 5"
-		echo "Firewall has been enabled - 5 pts"
+	let "score += 5"
+	echo "Firewall has been enabled - 5 pts"
 else
   echo "you missed ufw being off" >> /misseditems
   ufw status >> /misseditems
@@ -209,8 +209,8 @@ else
 	echo "you missed locking out root from logging in" >> /misseditems
 fi
 
-if [ "$score" -gt 100 ]; then
-	let "score -= 4 "
+#if [ "$score" -gt 100 ]; then
+#	let "score -= 4 "
 fi
 #End of score report
 echo " "
