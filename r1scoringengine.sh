@@ -190,10 +190,10 @@ else
 	echo "You missed the DNS service " >> /misseditems
 fi
 
-#Firewall has been enabled - 5 pts
+#Firewall has been enabled - 7 pts
 ufw status | grep inactive > /dev/null
 if [ $? -ne 0 ]; then
-	let "score += 5"
+	let "score += 7"
 	echo "Firewall has been enabled - 5 pts"
 else
   echo "you missed ufw being off" >> /misseditems
