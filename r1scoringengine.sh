@@ -194,7 +194,7 @@ fi
 ufw status | grep inactive > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 7"
-	echo "Firewall has been enabled - 5 pts"
+	echo "Firewall has been enabled - 7 pts"
 else
   echo "you missed ufw being off" >> /misseditems
   ufw status >> /misseditems
