@@ -211,7 +211,7 @@ fi
 
 #if [ "$score" -gt 100 ]; then
 #	let "score -= 4 "
-fi
+#fi
 #End of score report
 echo " "
 echo -n "Your current total score is: "
