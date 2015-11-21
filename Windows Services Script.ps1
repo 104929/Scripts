@@ -1,4 +1,4 @@
-#This Script uses the .StartMode method, this method grabs the startuptype of the certain WMI object, so make sure before adding any services to the list
+﻿#This Script uses the .StartMode method, this method grabs the startuptype of the certain WMI object, so make sure before adding any services to the list
 #you know how to use this method properly in order to correctly script this for everyone to use during the competition.
 #Also, some servives im not really sure whether they should be running or not, so make sure that the services
 
