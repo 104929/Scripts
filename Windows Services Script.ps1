@@ -1,20 +1,20 @@
-﻿#This Script uses the .StartMode method, this method grabs the startuptype of the certain WMI object, so make sure before adding any services to the list
-#you know how to use this method properly in order to correctly script this for everyone to use during the competition.
-#Also, some servives im not really sure whether they should be running or not, so make sure that the services
+﻿#This Script uses the .StartMode method, this method grabs the startuptype of the certain WMI object,
+#so make sure before adding any services to the list
+#make sure you know how to use this method properly in order to correctly script this for everyone to use during the competition.
+#Also, some servives im not really sure whether they should be running or not, so make sure that the services are correct as well.
 
 #Variables that will be used.
 #Variables for service names
-$RAACM = Get-Service -Name RasAuto #needs to be added
+$RAACM = Get-Service -Name RasAuto
 $RACM = Get-Service -Name RasMan #needs to be added
 $RDC = Get-Service -Name SessionEnv #needs to be added
 $RDS = Get-Service -Name TermService #needs to be added
 $RDSUPRD = Get-Service -Name UmRdpService #needs to be added
-$RPC = Get-Service -Name RpcSs #needs to be added
+$RPC = Get-Service -Name RpcSs
 $RPCL = Get-Service -Name RpcLocator #needs to be added
 $RR = Get-Service -Name RemoteRegistry #needs to be added
 $RAR = Get-Service -Name RemoteAccess #needs to be added
 $SL = Get-Service -Name seclogon #needs to be added
-#Work by sean
 $WF = Get-Service -Name MpsSvc
 $WU = Get-Service -Name wuauserv
 $T = Get-Service -Name TapiSrv
@@ -29,18 +29,16 @@ $HGP = Get-Service -Name HomeGroupProvider
 $HGL = Get-Service -Name HomeGroupListener
 
 #Variables for Status type
-#Work by sean
-$RAACM = (Get-WmiObject Win32_service -Filter 'name = "RasAuto"').StartMode #needs to be added; Needs To Be off 
+$RAACM = (Get-WmiObject Win32_service -Filter 'name = "RasAuto"').StartMode
 $RACM = (Get-WmiObject Win32_service -Filter 'name = "RasMan"').StartMode #needs to be added; Needs To Be off
 $RDC = (Get-WmiObject Win32_service -Filter 'name = "SessionEnv"').StartMode #needs to be added; Needs To Be off
 $RDS = (Get-WmiObject Win32_service -Filter 'name = "TermService"').StartMode #needs to be added; only disabled if readme says to
 $RDSUPRD = (Get-WmiObject Win32_service -Filter 'name = "UmRdpService"').StartMode #needs to be added; Needs To Be off
-$RPC = (Get-WmiObject Win32_service -Filter 'name = "RpcSs"').StartMode #needs to be added; Needs To Be on
+$RPC = (Get-WmiObject Win32_service -Filter 'name = "RpcSs"').StartMode
 $RPCL = (Get-WmiObject Win32_service -Filter 'name = "RpcLocator"').StartMode #needs to be added; Needs To Be off
 $RR = (Get-WmiObject Win32_service -Filter 'name = "RemoteRegistry"').StartMode #needs to be added; Needs To Be off
 $RAR = (Get-WmiObject Win32_service -Filter 'name = "RemoteAccess"').StartMode #needs to be added; only disabled if readme says to
 $SL = (Get-WmiObject Win32_service -Filter 'name = "seclogon"').StartMode #needs to be added; Needs To Be off
-
 $WFST = (Get-WmiObject Win32_service -Filter 'name = "MpsSvc"').StartMode
 $WUST = (Get-WmiObject Win32_Service -Filter 'name = "wuauserv"').StartMode
 $TST = (Get-WmiObject Win32_Service -Filter 'name = "TapiSrv"').StartMode
@@ -149,7 +147,7 @@ if($WUST -eq 'Disabled'){
 
         }else{if($WUST -eq 'Manual'){
             Write-Host 'Windows Update service should not be set to Manual, script will set it to automatic instead'
-            Set-Service -Name $WF -StartupType Automatic}else{Write-Host 'Windows Update startup type is correct'}
+            Set-Service -Name wuauserv -StartupType Automatic}else{Write-Host 'Windows Update startup type is correct'}
         }
 if($WU.Status -ne 'Running'){
     Write-Host 'Windows Update service is not running, script will now turn it on'
@@ -163,11 +161,25 @@ if($WDST -eq 'Disabled'){
 
         }else{if($WDST -eq 'Manual'){
             Write-Host 'Windows Defender service should not be set to Manual, script will set it to automatic instead'
-            Set-Service -Name $WD -StartupType Automatic}else{Write-Host 'Windows Defender startup type is correct'}
+            Set-Service -Name WinDefend -StartupType Automatic}else{Write-Host 'Windows Defender startup type is correct'}
         }
 if($WD.Status -ne 'Running'){
     Write-Host 'Windows Defender service is not running, script will now turn it on'
     Start-Service $WD}else{Write-Host 'Windows Defender service is up and running'}
+
+#Remote Procedure Call
+
+if($RPCST -eq 'Disabled'){
+    Write-Host 'Remote Procedure Call Service is not correctly configured, script will configure it'
+    Set-Service -Name RpcSs -StartupType Automatic
+
+        }else{if($RPCST -eq 'Manual'){
+            Write-Host 'Remote Procedure Call service should not be set to Manual, script will set it to automatic instead'
+            Set-Service -Name RpcSs -StartupType Automatic}else{Write-Host 'Remote Procedure Call startup type is correct'}
+        }
+if($RPC.Status -ne 'Running'){
+    Write-Host 'Remote Procedure Call service is not running, script will now turn it on'
+    Start-Service $RPC}else{Write-Host 'Remote Procedure Call service is up and running'}
 
 #Services that need to be Stopped
 
@@ -229,6 +241,21 @@ if($HGLST -eq 'Automatic'){
     }else{if($HGLST -eq 'Manual'){
         Write-Host 'Home Group Listener service is on manual, thats not good. Script will disable it.'
         Set-Service -Name HomeGroupListener -StartupType Disabled}else{Write-Host 'Home Group Listener service is off, thats good.'}
+    }
+
+#Remote Access Auto Connection Manager
+
+if($RAACM.Status -eq 'Running'){
+    Write-Host 'Remote Access Auto Connection Manager is running, script will now turn it off.'
+    Stop-Service $HGL}else{Write-Host 'Remote Access Auto Connection Manager service is off,thats good.'}
+
+if($RAACMST -eq 'Automatic'){
+  Write-Host 'Remote Access Auto Connection Manager service is on automatic, thats not good. Script will disable it.'
+  Set-Service -Name HomeGroupListener -StartupType Disabled
+
+    }else{if($RAACMST -eq 'Manual'){
+        Write-Host 'Remote Access Auto Connection Manager service is on manual, thats not good. Script will disable it.'
+        Set-Service -Name HomeGroupListener -StartupType Disabled}else{Write-Host 'Remote Access Auto Connection Manager service is off, thats good.'}
     }
 
 pause
