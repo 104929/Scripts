@@ -14,8 +14,8 @@ If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 #Variables that will be used.
 #Variables for service names
 $RAACM = Get-Service -Name RasAuto
-$RACM = Get-Service -Name RasMan #needs to be added
-$RDC = Get-Service -Name SessionEnv #needs to be added
+$RACM = Get-Service -Name RasMan
+$RDC = Get-Service -Name SessionEnv
 $RDS = Get-Service -Name TermService #needs to be added
 $RDSUPRD = Get-Service -Name UmRdpService #needs to be added
 $RPC = Get-Service -Name RpcSs
@@ -37,16 +37,16 @@ $HGP = Get-Service -Name HomeGroupProvider
 $HGL = Get-Service -Name HomeGroupListener
 
 #Variables for Status type
-$RAACM = (Get-WmiObject Win32_service -Filter 'name = "RasAuto"').StartMode
-$RACM = (Get-WmiObject Win32_service -Filter 'name = "RasMan"').StartMode #needs to be added; Needs To Be off
-$RDC = (Get-WmiObject Win32_service -Filter 'name = "SessionEnv"').StartMode #needs to be added; Needs To Be off
-$RDS = (Get-WmiObject Win32_service -Filter 'name = "TermService"').StartMode #needs to be added; only disabled if readme says to
-$RDSUPRD = (Get-WmiObject Win32_service -Filter 'name = "UmRdpService"').StartMode #needs to be added; Needs To Be off
-$RPC = (Get-WmiObject Win32_service -Filter 'name = "RpcSs"').StartMode
-$RPCL = (Get-WmiObject Win32_service -Filter 'name = "RpcLocator"').StartMode #needs to be added; Needs To Be off
-$RR = (Get-WmiObject Win32_service -Filter 'name = "RemoteRegistry"').StartMode #needs to be added; Needs To Be off
-$RAR = (Get-WmiObject Win32_service -Filter 'name = "RemoteAccess"').StartMode #needs to be added; only disabled if readme says to
-$SL = (Get-WmiObject Win32_service -Filter 'name = "seclogon"').StartMode #needs to be added; Needs To Be off
+$RAACMST = (Get-WmiObject Win32_service -Filter 'name = "RasAuto"').StartMode
+$RACMST = (Get-WmiObject Win32_service -Filter 'name = "RasMan"').StartMode
+$RDCST = (Get-WmiObject Win32_service -Filter 'name = "SessionEnv"').StartMode
+$RDSST = (Get-WmiObject Win32_service -Filter 'name = "TermService"').StartMode #needs to be added; only disabled if readme says to
+$RDSUPRDST = (Get-WmiObject Win32_service -Filter 'name = "UmRdpService"').StartMode #needs to be added; Needs To Be off
+$RPCST = (Get-WmiObject Win32_service -Filter 'name = "RpcSs"').StartMode
+$RPCLST = (Get-WmiObject Win32_service -Filter 'name = "RpcLocator"').StartMode #needs to be added; Needs To Be off
+$RRST = (Get-WmiObject Win32_service -Filter 'name = "RemoteRegistry"').StartMode #needs to be added; Needs To Be off
+$RARST = (Get-WmiObject Win32_service -Filter 'name = "RemoteAccess"').StartMode #needs to be added; only disabled if readme says to
+$SLST = (Get-WmiObject Win32_service -Filter 'name = "seclogon"').StartMode #needs to be added; Needs To Be off
 $WFST = (Get-WmiObject Win32_service -Filter 'name = "MpsSvc"').StartMode
 $WUST = (Get-WmiObject Win32_Service -Filter 'name = "wuauserv"').StartMode
 $TST = (Get-WmiObject Win32_Service -Filter 'name = "TapiSrv"').StartMode
@@ -255,15 +255,45 @@ if($HGLST -eq 'Automatic'){
 
 if($RAACM.Status -eq 'Running'){
     Write-Host -ForegroundColor Red 'Remote Access Auto Connection Manager is running, script will now turn it off.'
-    Stop-Service $HGL}else{Write-Host -ForegroundColor Green 'Remote Access Auto Connection Manager service is off,thats good.'}
+    Stop-Service $RAACM}else{Write-Host -ForegroundColor Green 'Remote Access Auto Connection Manager service is off,thats good.'}
 
 if($RAACMST -eq 'Automatic'){
   Write-Host -ForegroundColor Red 'Remote Access Auto Connection Manager service is on automatic, thats not good. Script will disable it.'
-  Set-Service -Name HomeGroupListener -StartupType Disabled
+  Set-Service -Name RasAuto -StartupType Disabled
 
     }else{if($RAACMST -eq 'Manual'){
         Write-Host -ForegroundColor Yellow 'Remote Access Auto Connection Manager service is on manual, thats not good. Script will disable it.'
-        Set-Service -Name HomeGroupListener -StartupType Disabled}else{Write-Host -ForegroundColor Green 'Remote Access Auto Connection Manager service is disabled, thats good.'}
+        Set-Service -Name RasAuto -StartupType Disabled}else{Write-Host -ForegroundColor Green 'Remote Access Auto Connection Manager service is disabled, thats good.'}
+    }
+
+#Remote Access Connection Manager
+
+if($RACM.Status -eq 'Running'){
+    Write-Host -ForegroundColor Red 'Remote Access Connection Manager is running, script will now turn it off.'
+    Stop-Service $RACM}else{Write-Host -ForegroundColor Green 'Remote Access Connection Manager service is off,thats good.'}
+
+if($RACMST -eq 'Automatic'){
+  Write-Host -ForegroundColor Red 'Remote Access Connection Manager service is on automatic, thats not good. Script will disable it.'
+  Set-Service -Name RasMan -StartupType Disabled
+
+    }else{if($RACMST -eq 'Manual'){
+        Write-Host -ForegroundColor Yellow 'Remote Access Connection Manager service is on manual, thats not good. Script will disable it.'
+        Set-Service -Name RasMan -StartupType Disabled}else{Write-Host -ForegroundColor Green 'Remote Access Connection Manager service is disabled, thats good.'}
+    }
+
+#Remote Desktop Configuration
+
+if($RDC.Status -eq 'Running'){
+    Write-Host -ForegroundColor Red 'Remote Desktop Configuration is running, script will now turn it off.'
+    Stop-Service $RACM}else{Write-Host -ForegroundColor Green 'Remote Desktop Configuration service is off,thats good.'}
+
+if($RDCST -eq 'Automatic'){
+  Write-Host -ForegroundColor Red 'Remote Desktop Configuration service is on automatic, thats not good. Script will disable it.'
+  Set-Service -Name SessionEnv -StartupType Disabled
+
+    }else{if($RDCST -eq 'Manual'){
+        Write-Host -ForegroundColor Yellow 'Remote Desktop Configuration service is on manual, thats not good. Script will disable it.'
+        Set-Service -Name SessionEnv -StartupType Disabled}else{Write-Host -ForegroundColor Green 'Remote Desktop Configuration service is disabled, thats good.'}
     }
 
 pause
