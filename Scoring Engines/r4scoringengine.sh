@@ -221,8 +221,8 @@ else
 fi
 
 #A defualt maximum password age is set - 5 pts
-cat /etc/login.defs/ | grep PASS | grep MAX | grep 99999 > /dev/null
-if [ $? -ne 0 ]; then
+cat /etc/login.defs/ | grep PASS | grep MAX | grep 60 > /dev/null
+if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "A defualt maximum password age is set - 5 pts"
 	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
