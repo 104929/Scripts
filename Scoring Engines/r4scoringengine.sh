@@ -191,7 +191,7 @@ else
 fi
 
 #Insecure password changed for user joseph - 1 pts
-cat /etc/shadow | grep joseph | grep !
+cat /etc/shadow | grep joseph | grep ! > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 1"
 	echo "Insecure password changed for user joseph - 1 pts"
@@ -276,7 +276,7 @@ else
 fi
 
 #Sudo requires authentification - 5 pts
-ls /etc/sudoers.d/ | grep bowandarrow
+ls /etc/sudoers.d/ | grep bowandarrow > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 5"
 	echo "Sudo requires authentification - 5 pts"
@@ -286,7 +286,7 @@ else
 fi
 
 #Prohibited MP3 files are removed - 3 pts
-ls /home/jospeh/cassetetapes | grep .mp3
+ls /home/jospeh/cassetetapes | grep .mp3 > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 3"
 	echo "Prohibited MP3 files are removed - 3 pts"
@@ -296,7 +296,7 @@ else
 fi
 
 #Prohibited software kismet removed - 4 pts
-dpkg -l | grep kismet
+dpkg -l | grep kismet > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 4"
 	echo "Prohibited software kismet removed - 4 pts"
@@ -306,7 +306,7 @@ else
 fi
 
 #Prohibited software medusa removed - 4 pts
-dpkg -l | grep medusa
+dpkg -l | grep medusa > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 4"
 	echo "Prohibited software medusa removed - 4 pts"
@@ -316,7 +316,7 @@ else
 fi
 
 #Empty SSH Passwords are not permitted - 4 pts
-cat /etc/ssh/sshd_config | grep PermitEmptyPasswords | grep no
+cat /etc/ssh/sshd_config | grep PermitEmptyPasswords | grep no > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 4"
 	echo "Empty SSH Passwords are not permitted - 4 pts"
@@ -326,7 +326,7 @@ else
 fi
 
 #Samba root share removed - 5 pts
-cat /etc/samba/smb.conf | grep 'path = / ' | grep #
+cat /etc/samba/smb.conf | grep 'path = / ' | grep # > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "Samba root share removed - 5 pts"
@@ -335,7 +335,7 @@ else
 	echo "Samba root share removed - 5 pts" >> /misseditems
 fi
 
-cat /etc/samba/smb.conf | grep [Root]
+cat /etc/samba/smb.conf | grep [Root] > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 5"
 	echo "Samba root share removed - 5 pts"
