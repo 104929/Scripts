@@ -286,7 +286,7 @@ else
 fi
 
 #Prohibited MP3 files are removed - 3 pts
-ls /home/jospeh/cassetetapes/ | grep .mp3 > /dev/null
+ls /home/joseph/cassetetapes/ | grep .mp3 > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 3"
 	echo "Prohibited MP3 files are removed - 3 pts"
