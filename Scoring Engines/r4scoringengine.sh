@@ -344,6 +344,7 @@ else
 	echo "Samba root share removed - 5 pts" >> /misseditems
 fi
 
+
 #End of score report
 echo " "
 echo -n "Your current total score is: "

@@ -145,6 +145,7 @@ else
 	echo "You missed a default minimum password age is set" >> /misseditems
 fi
 
+
 #Install updates from important security updates - 7 pts
 less /etc/apt/sources.list | grep precise-security > /dev/null
 if [ $? -eq 0 ]; then

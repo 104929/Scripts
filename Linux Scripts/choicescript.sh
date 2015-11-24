@@ -18,6 +18,7 @@ echo "7 for making a safety account "
 echo "8 for managing cron "
 echo "9 for locking out root account"
 #echo "10 for changing the host file"
+
 echo "11 to disable IPv6"
 echo "12 to uninstall john"
 echo "13 to look for a netcat backdoor"
@@ -659,4 +660,3 @@ if [ $choice == "25" ]; then
   apt-get install auditd
   auditctl –e 1
 fi
-
