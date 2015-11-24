@@ -10,7 +10,7 @@ fi
 score=0
 
 #Forensics Question 1 correct - 5 pts
-less /home/jotaro/Desktop/ForensicsQuestion1 | grep theanswer > /dev/null
+less /home/jotaro/Desktop/ForensicsQuestion1 | grep hacked > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "Forensics Question 1 correct - 5 pts"
@@ -20,7 +20,7 @@ else
 fi
 
 #Forensics Question 2 correct - 5 pts
-less /home/jotaro/Desktop/ForensicsQuestion2 | grep theanswer > /dev/null
+less /home/jotaro/Desktop/ForensicsQuestion2 | grep ThisIsThePoint -i > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "Forensics Question 2 correct - 5 pts"
@@ -28,6 +28,7 @@ if [ $? -eq 0 ]; then
 else
 	echo "you missed ForensicsQuestion2" >> /misseditems
 fi
+
 
 #UFW configured to drop or reject incoming connections by default - 2 pts
 ufw status verbose | grep deny | grep incoming > /dev/null
