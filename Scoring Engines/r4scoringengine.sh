@@ -251,6 +251,7 @@ if [ $? -eq 0 ]; then
 	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "You missed the firerfox update point" >> /misseditems
+fi
 #Samba has been updated - 2 pts
 let "score += 2"
 echo "Samba has been updated - 2 pts"
