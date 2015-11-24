@@ -29,6 +29,15 @@ else
 	echo "you missed ForensicsQuestion2" >> /misseditems
 fi
 
+#Forensics Question 3 correct - 6 pts
+less /home/jotaro/Desktop/ForensicsQuestion3 | grep iggy -i > /dev/null
+if [ $? -eq 0 ]; then
+	let "score += 6"
+	echo "Forensics Question 3 correct - 6 pts"
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+else
+	echo "you missed ForensicsQuestion3" >> /misseditems
+fi
 
 #UFW configured to drop or reject incoming connections by default - 2 pts
 ufw status verbose | grep deny | grep incoming > /dev/null
@@ -241,8 +250,8 @@ else
 fi
 
 #Linux kernel has been updated - 2 pts
-let "score += 2"
-echo "Linux kernel has been updated - 2 pts"
+#let "score += 2"
+#echo "Linux kernel has been updated - 2 pts"
 
 #Firefox has been updated - 2 pts
 dpkg -l | grep firefox | grep "42" > /dev/null
@@ -254,12 +263,12 @@ else
 	echo "You missed the firerfox update point" >> /misseditems
 fi
 #Samba has been updated - 2 pts
-let "score += 2"
-echo "Samba has been updated - 2 pts"
+#let "score += 2"
+#echo "Samba has been updated - 2 pts"
 
 #Bash has been updated - 2 pts
-let "score += 2"
-echo "Bash has been updated - 2 pts"
+#let "score += 2"
+#echo "Bash has been updated - 2 pts"
 
 #Service MariaDB removed or disabled - 4 pts
 dpkg -l | grep mariadb  > /dev/null
