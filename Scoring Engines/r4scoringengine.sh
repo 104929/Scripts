@@ -244,9 +244,13 @@ let "score += 2"
 echo "Linux kernel has been updated - 2 pts"
 
 #Firefox has been updated - 2 pts
-let "score += 2"
-echo "Firefox has been updated - 2 pts"
-
+dpkg -l | grep firefox | grep "42" > /dev/null
+if [ $? -eq 0 ]; then
+	let "score += 2"
+	echo "Firefox has been updated - 2 pts"
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+else
+	echo "You missed the firerfox update point" >> /misseditems
 #Samba has been updated - 2 pts
 let "score += 2"
 echo "Samba has been updated - 2 pts"
