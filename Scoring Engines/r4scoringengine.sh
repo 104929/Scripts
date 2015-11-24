@@ -211,7 +211,7 @@ else
 fi
 
 #An account lockout policy is configured - 5 pts
-cat /etc/pam.d/common-auth/ | grep onerr | grep fail > /dev/null
+cat /etc/pam.d/common-auth | grep onerr | grep fail > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "An account lockout policy is configured - 5 pts"
@@ -221,7 +221,7 @@ else
 fi
 
 #A defualt maximum password age is set - 5 pts
-cat /etc/login.defs/ | grep PASS | grep MAX | grep 60 > /dev/null
+cat /etc/login.defs | grep PASS | grep MAX | grep 60 > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "A defualt maximum password age is set - 5 pts"
@@ -286,7 +286,7 @@ else
 fi
 
 #Prohibited MP3 files are removed - 3 pts
-ls /home/jospeh/cassetetapes | grep .mp3 > /dev/null
+ls /home/jospeh/cassetetapes/ | grep .mp3 > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 3"
 	echo "Prohibited MP3 files are removed - 3 pts"
