@@ -14,7 +14,7 @@ less /home/jotaro/Desktop/ForensicsQuestion1 | grep theanswer > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "Forensics Question 1 correct - 5 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed ForensicsQuestion1" >> /misseditems
 fi
@@ -24,7 +24,7 @@ less /home/jotaro/Desktop/ForensicsQuestion2 | grep theanswer > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "Forensics Question 2 correct - 5 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed ForensicsQuestion2" >> /misseditems
 fi
@@ -34,7 +34,7 @@ ufw status verbose | grep deny | grep incoming > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 2"
 	echo "UFW configured to drop or reject incoming connections by default - 2 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
   echo "you missed UFW configured to drop or reject incoming connections by default" >> /misseditems
   ufw status >> /misseditems
@@ -45,7 +45,7 @@ ufw status verbose | grep 22 | grep ALLOW > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 2"
 	echo "UFW rule added to allow incoming SSH connections - 2 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
   echo "you missed UFW rule added to allow incoming SSH connections - 2 pts" >> /misseditems
   ufw status >> /misseditems
@@ -56,7 +56,7 @@ ufw status verbose | grep Samba | grep ALLOW > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 2"
 	echo "UFW rule added to allow incoming SMB connections - 2 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
   echo "you missed UFW rule added to allow incoming SMB connections - 2 pts" >> /misseditems
   ufw status >> /misseditems
@@ -67,7 +67,7 @@ cat /etc/shadow | grep darby | grep "!" > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 2"
 	echo "Removed unauthorized user darby - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed locking out darby from logging in" >> /misseditems
 fi
@@ -77,7 +77,7 @@ cat /etc/shadow | grep darby > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 2"
 	echo "Removed unauthorized user darby - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed locking out darby from logging in (kind of)" >> /misseditems
 fi
@@ -87,7 +87,7 @@ cat /etc/shadow | grep vanillaice | grep "!" > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 2"
 	echo "Removed unauthorized user vanillaice - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed locking out vanillaice from logging in" >> /misseditems
 fi
@@ -97,7 +97,7 @@ cat /etc/shadow | grep vanillaice > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 2"
 	echo "Removed unauthorized user vanillaice - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed locking out vanillaice from logging in (kind of)" >> /misseditems
 fi
@@ -107,7 +107,7 @@ cat /etc/shadow | grep petshop | grep "!" > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 2"
 	echo "Removed unauthorized user petshop - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed locking out petshop from logging in" >> /misseditems
 fi
@@ -117,7 +117,7 @@ cat /etc/shadow | grep petshop > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 2"
 	echo "Removed unauthorized user petshop - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed locking out petshop from logging in (kind of)" >> /misseditems
 fi
@@ -127,7 +127,7 @@ cat /etc/shadow | grep dio | grep "!" > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 2"
 	echo "Removed unauthorized user dio - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed locking out dio from logging in" >> /misseditems
 fi
@@ -137,7 +137,7 @@ cat /etc/shadow | grep dio > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 2"
 	echo "Removed unauthorized user dio - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed locking out dio from logging in (kind of)" >> /misseditems
 fi
@@ -157,7 +157,7 @@ fi
 if [ "$hhcounter" ==  2 ]; then
 	let "score += 2"
 	echo "User holhorse is not an administrator - 2 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 fi
 
 #User boingo is not an administrator - 2 pts
@@ -175,7 +175,7 @@ fi
 if [ "$boingocounter" ==  2 ]; then
 	let "score += 2"
 	echo "User boingo is not an administrator - 2 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed boingo as an adm" >> /misseditems
 fi
@@ -185,7 +185,7 @@ less /etc/shadow | grep root | grep "!" > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 4"
 	echo "Changed insecure root password - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed locking out root from logging in" >> /misseditems
 fi
@@ -195,7 +195,7 @@ cat /etc/shadow | grep joseph | grep ! > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 1"
 	echo "Insecure password changed for user joseph - 1 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "you missed insecure password changed for user joseph - 1 pts" >> /misseditems
 fi
@@ -205,7 +205,7 @@ cat /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf | grep guest | grep false >
 if [ $? -eq 0 ]; then
 	let "score += 4"
 	echo "Guest account is disabled - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "Guest account is disabled - 4 pts" >> /misseditems
 fi
@@ -215,7 +215,7 @@ cat /etc/pam.d/common-auth/ | grep onerr | grep fail > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "An account lockout policy is configured - 5 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "An account lockout policy is configured - 5 pts" >> /misseditems
 fi
@@ -225,7 +225,7 @@ cat /etc/login.defs/ | grep PASS | grep MAX | grep 60 > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "A defualt maximum password age is set - 5 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "A defualt maximum password age is set - 5 pts" >> /misseditems
 fi
@@ -260,7 +260,7 @@ dpkg -l | grep mariadb  > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 4"
 	echo "Service MariaDB removed or disabled - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "Service MariaDB removed or disabled - 4 pts" >> /misseditems
 fi
@@ -270,7 +270,7 @@ dpkg -l | grep vsftpd  > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 4"
 	echo "FTP service is removed or disabled - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "FTP service is removed or disabled - 4 pts" >> /misseditems
 fi
@@ -280,7 +280,7 @@ ls /etc/sudoers.d/ | grep bowandarrow > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 5"
 	echo "Sudo requires authentification - 5 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "Sudo requires authentification - 5 pts" >> /misseditems
 fi
@@ -290,7 +290,7 @@ ls /home/jospeh/cassetetapes | grep .mp3 > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 3"
 	echo "Prohibited MP3 files are removed - 3 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "Prohibited MP3 files are removed - 3 pts" >> /misseditems
 fi
@@ -300,7 +300,7 @@ dpkg -l | grep kismet > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 4"
 	echo "Prohibited software kismet removed - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "Prohibited software kismet removed - 4 pts" >> /misseditems
 fi
@@ -310,7 +310,7 @@ dpkg -l | grep medusa > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 4"
 	echo "Prohibited software medusa removed - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "Prohibited software medusa removed - 4 pts" >> /misseditems
 fi
@@ -320,17 +320,17 @@ cat /etc/ssh/sshd_config | grep PermitEmptyPasswords | grep no > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 4"
 	echo "Empty SSH Passwords are not permitted - 4 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "Empty SSH Passwords are not permitted - 4 pts" >> /misseditems
 fi
 
 #Samba root share removed - 5 pts
-cat /etc/samba/smb.conf | grep 'path = / ' | grep # > /dev/null
+cat /etc/samba/smb.conf | grep 'path = / ' | grep '#' > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "Samba root share removed - 5 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "Samba root share removed - 5 pts" >> /misseditems
 fi
@@ -339,7 +339,7 @@ cat /etc/samba/smb.conf | grep [Root] > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 5"
 	echo "Samba root share removed - 5 pts"
-	mpv --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
+	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
 else
 	echo "Samba root share removed - 5 pts" >> /misseditems
 fi
