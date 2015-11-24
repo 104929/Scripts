@@ -192,7 +192,7 @@ fi
 
 #Insecure password changed for user joseph - 1 pts
 cat /etc/shadow | grep joseph | grep ! > /dev/null
-if [ $? -ne 0 ]; then
+if [ $? -eq 0 ]; then
 	let "score += 1"
 	echo "Insecure password changed for user joseph - 1 pts"
 	mpv --quiet --no-video --start=+12 --end=14 https://www.youtube.com/watch?v=thSElRaIBxc > /dev/null
