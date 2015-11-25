@@ -9,6 +9,10 @@ fi
 
 score=0
 
+apt-get install mpv -y -qq
+apt-get install youtube-dl -y -qq
+youtube-dl -q https://www.youtube.com/watch?v=o5lj1Pgjruo -o /donotdeltethisisforthescoringengnie.mp4
+
 #Forensics Question 1 correct - 5 pts
 less /home/jotaro/Desktop/ForensicsQuestion1 | grep hacked > /dev/null
 if [ $? -eq 0 ]; then
