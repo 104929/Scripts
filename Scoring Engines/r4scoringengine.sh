@@ -254,8 +254,8 @@ else
 fi
 
 #Linux kernel has been updated - 2 pts
-#let "score += 2"
-#echo "Linux kernel has been updated - 2 pts"
+let "score += 2"
+echo "Linux kernel has been updated - 2 pts"
 
 #Firefox has been updated - 2 pts
 dpkg -l | grep firefox | grep "42" > /dev/null
@@ -266,13 +266,14 @@ if [ $? -eq 0 ]; then
 else
 	echo "You missed the firerfox update point" >> /misseditems
 fi
+
 #Samba has been updated - 2 pts
-#let "score += 2"
-#echo "Samba has been updated - 2 pts"
+let "score += 2"
+echo "Samba has been updated - 2 pts"
 
 #Bash has been updated - 2 pts
-#let "score += 2"
-#echo "Bash has been updated - 2 pts"
+let "score += 2"
+echo "Bash has been updated - 2 pts"
 
 #Service MariaDB removed or disabled - 4 pts
 dpkg -l | grep mariadb  > /dev/null
