@@ -17,8 +17,7 @@ echo "6 for updates"
 echo "7 for making a safety account "
 echo "8 for managing cron "
 echo "9 for locking out root account"
-#echo "10 for changing the host file"
-
+echo "10 for managing ftp"
 echo "11 to disable IPv6"
 echo "12 to uninstall john"
 echo "13 to look for a netcat backdoor"
@@ -429,18 +428,45 @@ if [ $choice == "9" ]; then
   	echo "root is logged in..why?"
   fi
 fi
-#Manages the host file
-#if [ $choice == "10" ]; then
-#  echo "Changing hosts file"
-#  echo 127.0.0.1       localhost > /etc/hosts
-#  echo 127.0.1.1 $(hostname -f) >> /etc/hosts
-#  echo ::1     ip6-localhost ip6-loopback >> /etc/hosts
-#  echo fe00::0 ip6-localnet >> /etc/hosts
-#  echo ff00::0 ip6-mcastprefix >> /etc/hosts
-#  echo ff02::1 ip6-allnodes >> /etc/hosts
-#  echo ff02::2 ip6-allrouters >> /etc/hosts
-#  echo "host file is done"
-#fi
+#Manages FTP
+if [ $choice == "10" ]; then
+	if [ -e /etc/vsftpd.conf ]; then
+		echo "You are probably an ftp server"
+		echo -n "Do you want to be an ftp server [y/n]"
+		read ftpserver
+		if [ $ftpserver == "y" ]; then
+			apt-get install vsftpd
+			if [ -e /etc/vsftpd.conf ]; then
+				less /etc/vsftpd.conf | grep "anonymous_enable" | grep NO >> /dev/null
+				if [ $? -ne 0 ]; then
+					echo "Anonymous users are allowed in /etc/vsftpd.conf. Fix this by changing anonymous_enable to =NO "
+				fi
+				less /etc/vsftpd.conf | grep "anon_upload_enable=YES" | grep "#"
+				if [ $? -ne 0 ]; then
+					echo "Anonymous file upload is allowed in /etc/vsftpd.conf. Fix this by commenting out anon_upload_enable=YES "
+				fi
+				less /etc/vsftpd.conf | grep "anon_mkdir_write_enable=YES" | grep "#"
+				if [ $? -ne 0 ]; then
+					echo "Anonymous users are allowed to create directories in /etc/vsftpd.conf. Fix this by commenting out anon_mkdir_write_enable=YES "
+				fi
+			fi
+			ufw allow ftp
+		fi
+		if [ $ftpserver = "n" ]; then
+			apt-get purge vsftpd --auto-remove
+			service vsftpd stop
+			update-rc.d vsftpd remove
+			ufw deny ftp
+		fi
+	else
+		dpkg -l | grep vsftpd
+			if [ $? -eq 0 ]; then
+				echo "vsftpd is installed but /etc/vsftpd.conf does not exist "
+			else
+				echo "vsftpd does not appear to be installed"
+			fi
+	fi
+fi
 #Disables IPV6
 if [ $choice == "11" ]; then
   echo "Going to disable IPV6 "
