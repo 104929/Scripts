@@ -22,11 +22,14 @@ mpv --really-quiet --no-video --start 1:02 --end 1:03 /donotdeltethisisforthesco
 else
 	echo "you missed ForensicsQuestion1" >> /misseditems
 fi
-echo This is a Rot13 Encoded message. Decode the message. > /home/jotaro/Desktop/ForensicsQuestion2
-echo Encoded Message: GuvfVfGurCbvag >> /home/jotaro/Desktop/ForensicsQuestion2
-echo Decoded Message: >> /home/jotaro/Desktop/ForensicsQuestion2
+less /home/jotaro/Desktop/ForensicsQuestion2 | grep Coming -i >> /dev/null
+if [ $? -eq 0 ]; then
+	echo This is a Rot13 Encoded message. Decode the message. >> /home/jotaro/Desktop/ForensicsQuestion2
+	echo Encoded Message: GuvfVfGurCbvag >> /home/jotaro/Desktop/ForensicsQuestion2
+	echo Decoded Message: >> /home/jotaro/Desktop/ForensicsQuestion2
+fi
 #Forensics Question 2 correct - 5 pts
-less /home/jotaro/Desktop/ForensicsQuestion2 | grep -i ThisIsThePoint > /dev/null
+less /home/jotaro/Desktop/ForensicsQuestion2 | grep ThisIsThePoint -i > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "Forensics Question 2 correct - 5 pts"
@@ -36,9 +39,12 @@ else
 fi
 
 #Forensics Question 3 correct - 6 pts
-echo There are several users that are allowed to access a Root samba share. List these users > /home/jotaro/Desktop/ForensicsQuestion3
-echo Users: >> /home/jotaro/Desktop/ForensicsQuestion3
-less /home/jotaro/Desktop/ForensicsQuestion3 | grep -i iggy > /dev/null
+less /home/jotaro/Desktop/ForensicsQuestion3 | grep Coming -i >> /dev/null
+if [ $? -eq 0 ]; then
+	echo There are several users that are allowed to access a Root samba share. List these users >> /home/jotaro/Desktop/ForensicsQuestion3
+	echo Users: >> /home/jotaro/Desktop/ForensicsQuestion3
+fi
+less /home/jotaro/Desktop/ForensicsQuestion3 | grep iggy -i > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 6"
 	echo "Forensics Question 3 correct - 6 pts"
@@ -354,7 +360,7 @@ else
 fi
 
 #Samba root share removed - 5 pts
-cat /etc/samba/smb.conf | grep '#path = / ' > /dev/null
+cat /etc/samba/smb.conf | grep 'path = / ' | grep '#' > /dev/null
 if [ $? -eq 0 ]; then
 	let "score += 5"
 	echo "Samba root share removed - 5 pts"
