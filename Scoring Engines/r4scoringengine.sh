@@ -22,12 +22,15 @@ mpv --really-quiet --no-video --start 1:02 --end 1:03 /donotdeltethisisforthesco
 else
 	echo "you missed ForensicsQuestion1" >> /misseditems
 fi
+
+#checking if Forensics Question 2 exists, if it doesn't, we create it
 less /home/jotaro/Desktop/ForensicsQuestion2 | grep Coming -i >> /dev/null
 if [ $? -eq 0 ]; then
 	echo This is a Rot13 Encoded message. Decode the message. >> /home/jotaro/Desktop/ForensicsQuestion2
 	echo Encoded Message: GuvfVfGurCbvag >> /home/jotaro/Desktop/ForensicsQuestion2
 	echo Decoded Message: >> /home/jotaro/Desktop/ForensicsQuestion2
 fi
+
 #Forensics Question 2 correct - 5 pts
 less /home/jotaro/Desktop/ForensicsQuestion2 | grep ThisIsThePoint -i > /dev/null
 if [ $? -eq 0 ]; then
