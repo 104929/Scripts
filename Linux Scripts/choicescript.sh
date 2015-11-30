@@ -6,6 +6,9 @@ else
   echo "you are not root"
 	exit 1
 fi
+if [ ! -d /files ]; then
+  mkdir /files
+fi
 echo "What would you like to do?"
 echo "Enter a number 1-25 to select a choice:"
 echo "1 for checking commands"
@@ -37,6 +40,7 @@ echo -n "Choice: "
 read choice
 #Checks Commands
 if [ $choice == "1" ]; then
+  alias | grep -v "alias egrep='egrep --color=auto'" | grep -v "alias fgrep='fgrep --color=auto'" | grep -v "alias grep='grep --color=auto'" | grep -v "alias l='ls -CF'" | grep -v "alias la='ls -A'" | grep -v "alias ll='ls -alF'" | grep -v "alias ls='ls --color=auto'"
   alias | grep john -i
   if [ $? -eq 0 ]; then
     echo "john is an alias. stop script and find out why"
