@@ -374,7 +374,8 @@ if [ $choice == "7" ]; then
 fi
 #Does cron
 if [ $choice == "8" ]; then
-  if [ $(ls /etc/cron.daily | grep -v apt | grep -v cracklib-runtime | grep -v logrotate | grep -v mlocate | grep -v popularity-contest | grep -v update-notifier-common | grep -v "0anacron" | grep -v apport | grep -v bsdmainutils | grep -v dpkg | grep -v man-db | grep -v passwd | grep -v standard) == "" ]; then
+  ls /etc/cron.daily | grep -v apt | grep -v cracklib-runtime | grep -v logrotate | grep -v mlocate | grep -v popularity-contest | grep -v update-notifier-common | grep -v "0anacron" | grep -v apport | grep -v bsdmainutils | grep -v dpkg | grep -v man-db | grep -v passwd | grep -v standard
+  if [ $? -ne 0 ]; then
   	echo "cron.daily is okay"
   else
   	echo "There is something extra in cron.daily"
