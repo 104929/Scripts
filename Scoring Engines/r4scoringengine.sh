@@ -372,7 +372,7 @@ else
 	echo "Samba root share removed - 5 pts" >> /misseditems
 fi
 
-cat /etc/samba/smb.conf | grep [Root] > /dev/null
+cat /etc/samba/smb.conf | grep "[Root]" > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 5"
 	echo "Samba root share removed - 5 pts"
@@ -383,9 +383,9 @@ fi
 
 
 #End of score report
-echo " "
-echo -n "Your current total score is: "
-echo -n "$score"
+echo
+echo "Your current total score is: "
+echo "$score"
 echo " pts"
 if [ "$score" == 100 ]; then
 	apt-get -qq install mpv -y
