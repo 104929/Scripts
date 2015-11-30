@@ -26,7 +26,7 @@ fi
 #checking if Forensics Question 2 exists, if it doesn't, we create it
 less /home/jotaro/Desktop/ForensicsQuestion2 | grep Coming -i >> /dev/null
 if [ $? -eq 0 ]; then
-	echo This is a Rot13 Encoded message. Decode the message. >> /home/jotaro/Desktop/ForensicsQuestion2
+	echo This is a Rot13 Encoded message. Decode the message. > /home/jotaro/Desktop/ForensicsQuestion2
 	echo Encoded Message: GuvfVfGurCbvag >> /home/jotaro/Desktop/ForensicsQuestion2
 	echo Decoded Message: >> /home/jotaro/Desktop/ForensicsQuestion2
 fi
@@ -44,7 +44,7 @@ fi
 #Forensics Question 3 correct - 6 pts
 less /home/jotaro/Desktop/ForensicsQuestion3 | grep Coming -i >> /dev/null
 if [ $? -eq 0 ]; then
-	echo There are several users that are allowed to access a Root samba share. List these users >> /home/jotaro/Desktop/ForensicsQuestion3
+	echo There are several users that are allowed to access a Root samba share. List these users > /home/jotaro/Desktop/ForensicsQuestion3
 	echo Users: >> /home/jotaro/Desktop/ForensicsQuestion3
 fi
 less /home/jotaro/Desktop/ForensicsQuestion3 | grep iggy -i > /dev/null
