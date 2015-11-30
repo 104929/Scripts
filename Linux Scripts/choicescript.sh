@@ -375,7 +375,7 @@ fi
 #Does cron
 if [ $choice == "8" ]; then
   ls /etc/cron.daily | grep -v apt | grep -v cracklib-runtime | grep -v logrotate | grep -v mlocate | grep -v popularity-contest | grep -v update-notifier-common | grep -v "0anacron" | grep -v apport | grep -v bsdmainutils | grep -v dpkg | grep -v man-db | grep -v passwd | grep -v standard
-  if [ $? -ne 0 ]; then
+  if [ $? -eq 0 ]; then
   	echo "cron.daily is okay"
   else
   	echo "There is something extra in cron.daily"
@@ -385,7 +385,7 @@ if [ $choice == "8" ]; then
   echo
   echo
   ls /etc/cron.hourly
-  if [ $? -ne 0 ] ; then
+  if [ $? -eq 0 ] ; then
   	echo "cron.hourly is okay"
   else
   	echo "There is something extra in cron.hourly"
@@ -394,7 +394,7 @@ if [ $choice == "8" ]; then
   echo
   echo "cron.hourly is done. checking cron.weekly"
   ls /etc/cron.weekly | grep -v 0anacron | grep -v apt | grep -v xapian-index | grep -v man-db
-  if [ $? -ne 0 ] ; then
+  if [ $? -eq 0 ] ; then
   	echo "cron.weekly is okay"
   else
   	echo "something extra is in cron.weekly"
@@ -403,7 +403,7 @@ if [ $choice == "8" ]; then
   echo "cron.weely done, checking cron.monthly now"
   echo
   ls /etc/cron.monthly | grep -v "0anacron"
-  if [ $? -ne 0 ] ; then
+  if [ $? -eq 0 ] ; then
   	echo "cron.monthly is okay"
   else
   	echo "something extra is in cron.monthly"
@@ -412,7 +412,7 @@ if [ $choice == "8" ]; then
   echo
   echo
   ls /etc/cron.d/ | grep -v anacron
-  if [ $? -ne 0 ] ; then
+  if [ $? -eq 0 ] ; then
   	echo "cron.d is okay"
   else
   	echo "something extra is in cron.d"
