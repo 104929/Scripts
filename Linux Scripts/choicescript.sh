@@ -374,7 +374,7 @@ if [ $choice == "7" ]; then
 fi
 #Does cron
 if [ $choice == "8" ]; then
-  ls /etc/cron.daily | grep -v apt | grep -v cracklib-runtime | grep -v logrotate | grep -v mlocate | grep -v popularity-contest | grep -v update-notifier-common | grep -v "0anacron" | grep -v apport | grep -v bsdmainutils | grep -v dpkg | grep -v man-db | grep -v passwd | grep -v standard
+  ls /etc/cron.daily | grep -v apt | grep -v spamassassin | grep -v upstart | grep -v cracklib-runtime | grep -v logrotate | grep -v mlocate | grep -v popularity-contest | grep -v update-notifier-common | grep -v "0anacron" | grep -v apport | grep -v bsdmainutils | grep -v dpkg | grep -v man-db | grep -v passwd | grep -v standard
   if [ $? -ne 0 ]; then
   	echo "cron.daily is okay"
   else
@@ -393,7 +393,7 @@ if [ $choice == "8" ]; then
   echo
   echo
   echo "cron.hourly is done. checking cron.weekly"
-  ls /etc/cron.weekly | grep -v 0anacron | grep -v apt | grep -v xapian-index | grep -v man-db
+  ls /etc/cron.weekly | grep -v fstrim | grep -v "update-notifier-common" | grep -v "0anacron" | grep -v apt | grep -v xapian-index | grep -v man-db
   if [ $? -ne 0 ] ; then
   	echo "cron.weekly is okay"
   else
