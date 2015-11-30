@@ -385,7 +385,7 @@ if [ $choice == "8" ]; then
   echo
   echo
   ls /etc/cron.hourly
-  if [ $? -ne 0 ] ; then
+  if [ $? -eq 0 ] ; then
   	echo "cron.hourly is okay"
   else
   	echo "There is something extra in cron.hourly"
