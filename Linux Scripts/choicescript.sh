@@ -385,7 +385,7 @@ if [ $choice == "8" ]; then
   echo
   echo
   ls /etc/cron.hourly
-  if [ $? -eq 0 ] ; then
+  if [ $? -ne 0 ] ; then
   	echo "cron.hourly is okay"
   else
   	echo "There is something extra in cron.hourly"
@@ -394,7 +394,7 @@ if [ $choice == "8" ]; then
   echo
   echo "cron.hourly is done. checking cron.weekly"
   ls /etc/cron.weekly | grep -v 0anacron | grep -v apt | grep -v xapian-index | grep -v man-db
-  if [ $? -eq 0 ] ; then
+  if [ $? -ne 0 ] ; then
   	echo "cron.weekly is okay"
   else
   	echo "something extra is in cron.weekly"
@@ -403,7 +403,7 @@ if [ $choice == "8" ]; then
   echo "cron.weely done, checking cron.monthly now"
   echo
   ls /etc/cron.monthly | grep -v "0anacron"
-  if [ $? -eq 0 ] ; then
+  if [ $? -ne 0 ] ; then
   	echo "cron.monthly is okay"
   else
   	echo "something extra is in cron.monthly"
@@ -412,7 +412,7 @@ if [ $choice == "8" ]; then
   echo
   echo
   ls /etc/cron.d/ | grep -v anacron
-  if [ $? -eq 0 ] ; then
+  if [ $? -ne 0 ] ; then
   	echo "cron.d is okay"
   else
   	echo "something extra is in cron.d"
