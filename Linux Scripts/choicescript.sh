@@ -43,6 +43,7 @@ if [ $choice == "1" ]; then
   alias | grep -v "alias egrep='egrep --color=auto'" | grep -v "alias fgrep='fgrep --color=auto'" | grep -v "alias grep='grep --color=auto'" | grep -v "alias l='ls -CF'" | grep -v "alias la='ls -A'" | grep -v "alias ll='ls -alF'" | grep -v "alias ls='ls --color=auto'"
   if [ $? -eq 0 ]; then
   	echo "alias is good"
+  	echo
   fi
   alias | grep john -i
   if [ $? -eq 0 ]; then
