@@ -141,6 +141,8 @@ if [ $choice == "2" ]; then
   find / -iname "*.mkv" -print | grep -v /usr/share | grep -v lib | grep -v quarantine >> /files/mediafiles
   touch /files/malware
   echo "Remember the alias of uninstall to remove any of these packages"
+  netstat -anp | grep -i "rat" >> /files/malware
+  netstat -tulnp | grep -i "rat" >> /files/malware
   dpkg -l | grep john -i > /files/malware #Looks for. john installed
   ps aux | grep john -i | grep -v grep >> /files/malware #looks for john running
   lsof | grep /etc/passwd >> /files/malware
@@ -260,12 +262,21 @@ if [ $choice == "2" ]; then
   dpkg -l | grep dovecot -i >> /files/services
   find / -iname "dovecot" -print >> /files/services
   ps aux | grep dovecot -i | grep -v grep >> /files/services
+  netstat -tulnp | grep dovecot -i >> /files/services
   echo "   " >> /files/services
-  #dpkg -l | grep cups -i >> /files/services
-  #ps aux | grep cups -i | grep -v grep >> /files/services
+  dpkg -l | grep cupsd -i >> /files/services
+  ps aux | grep cupsd -i | grep -v grep >> /files/services
+  find / -iname "cupsd" -print  | grep -v /usr/sbin/cupsd >> /files/services
+  netstat -tulnp | grep -i "cupsd" >> /files/services
   echo "   " >> /files/services
-  #dpkg -l | grep bind -i | grep -vi Binding >> /files/services
-  #ps aux | grep bind -i | grep -v grep >> /files/services
+  dpkg -l | grep bind9 -i | grep -vi Binding >> /files/services
+  ps aux | grep bind9 -i | grep -v grep >> /files/services
+  find / -iname "bind9" -print | grep -v "/usr/lib/" >> /files/services
+  netstat -tulnp | grep -i "bind" >> /files/services 
+  echo "   " >> /files/services
+  dpkg -l | grep nginx -i >> /files/services
+  ps aux | grep nginx -i >> /files/services
+  find / -iname "nginx" -print >> /files/services
   echo "   " >> /files/services
   dpkg -l | grep mariadb -i >> /files/services
   ps aux | grep mariadb -i >> /files/services
@@ -371,7 +382,7 @@ fi
 #Does updates
 if [ $choice == "6" ]; then
   echo "doing updated now"
-  apt-get -qq update -y --allow-unauthenticated > /dev/null && apt-get -qq upgrade -y --allow-unauthenticated > /dev/null && apt-get install -qq --reinstall coreutils unattended-upgrades auditd ufw openssl bum clamav unhide libpam-cracklib -ym --allow-unauthenticated > /dev/null
+  apt-get -qq update -y --allow-unauthenticated > /dev/null && apt-get -qq upgrade -y --allow-unauthenticated > /dev/null && apt-get install -qq --reinstall coreutils unattended-upgrades auditd ufw openssl bum clamav unhide libpam-cracklib apparmor apparmor-profiles -ym --allow-unauthenticated > /dev/null
   dpkg-reconfigure -plow unattended-upgrades
 fi
 #Makes a safety account
