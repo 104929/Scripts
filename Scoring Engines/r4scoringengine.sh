@@ -11,7 +11,7 @@ score=0
 
 apt-get install mpv -y -qq > /dev/null
 apt-get install youtube-dl -y -qq > /dev/null
-youtube-dl -q https://www.youtube.com/watch?v=o5lj1Pgjruo -o /donotdeltethisisforthescoringengnie.mp4 /dev/null
+youtube-dl -q https://www.youtube.com/watch?v=o5lj1Pgjruo -o /donotdeltethisisforthescoringengnie.mp4
 
 #Forensics Question 1 correct - 5 pts
 less /home/jotaro/Desktop/ForensicsQuestion1 | grep hacked > /dev/null
