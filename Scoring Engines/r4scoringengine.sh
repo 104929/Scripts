@@ -385,8 +385,8 @@ fi
 #End of score report
 echo
 echo "Your current total score is: "
-echo "$score"
-echo -n " pts"
+echo -n "$score"
+echo " pts"
 if [ "$score" == 100 ]; then
 	apt-get -qq install mpv -y
 	mpv --no-video https://www.youtube.com/watch?v=-Tdu4uKSZ3M > /dev/null
