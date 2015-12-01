@@ -9,9 +9,9 @@ fi
 
 score=0
 
-apt-get install mpv -y -qq
-apt-get install youtube-dl -y -qq
-youtube-dl -q https://www.youtube.com/watch?v=o5lj1Pgjruo -o /donotdeltethisisforthescoringengnie.mp4
+apt-get install mpv -y -qq > /dev/null
+apt-get install youtube-dl -y -qq > /dev/null
+youtube-dl -q https://www.youtube.com/watch?v=o5lj1Pgjruo -o /donotdeltethisisforthescoringengnie.mp4 /dev/null
 
 #Forensics Question 1 correct - 5 pts
 less /home/jotaro/Desktop/ForensicsQuestion1 | grep hacked > /dev/null
@@ -386,7 +386,7 @@ fi
 echo
 echo "Your current total score is: "
 echo "$score"
-echo " pts"
+echo -n " pts"
 if [ "$score" == 100 ]; then
 	apt-get -qq install mpv -y
 	mpv --no-video https://www.youtube.com/watch?v=-Tdu4uKSZ3M > /dev/null
