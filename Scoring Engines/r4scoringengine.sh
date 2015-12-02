@@ -372,7 +372,7 @@ else
 	echo "Samba root share removed - 5 pts" >> /misseditems
 fi
 
-cat /etc/samba/smb.conf | grep "[Root]" > /dev/null
+cat /etc/samba/smb.conf | grep Root > /dev/null
 if [ $? -ne 0 ]; then
 	let "score += 5"
 	echo "Samba root share removed - 5 pts"
