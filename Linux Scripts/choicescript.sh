@@ -643,6 +643,7 @@ if [ $choice == "17" ]; then
   echo "looking for php backdoors now"
   touch /files/phpbackdoors
   find / -iname "*.php" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + > /files/phpbackdoors
+  cat /files/phpbackdoors | grep -v "/var/cache/dictionaries-common/sqspell.php"
   #find / -iname "*.php" -print -exec grep "CMD" -i {} + >> /files/phpbackdoors
   #find / -iname "*.php" -print -exec grep "shell" -i {} + >> /files/phpbackdoors
   #find / -iname "*.php" -print -exec grep "system" -i {} + >> /files/phpbackdoors
