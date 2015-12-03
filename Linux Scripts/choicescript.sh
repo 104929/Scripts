@@ -39,7 +39,7 @@ echo "25 to enable auditing"
 echo -n "Choice: "
 read choice
 #Checks Commands
-if [ $choice == "" ]; then
+if [ -z $choice ]; then
 	exec bash "$0"
 fi
 if [ $choice == "1" ]; then
