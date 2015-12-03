@@ -9,6 +9,7 @@ fi
 if [ ! -d /files ]; then
   mkdir /files
 fi
+updatedb
 echo "What would you like to do?"
 echo "Enter a number 1-25 to select a choice:"
 echo "1 for checking commands"
@@ -279,15 +280,15 @@ if [ $choice == "2" ]; then
   netstat -tulnp | grep -i "bind" >> /files/services 
   echo "   " >> /files/services
   dpkg -l | grep nginx -i >> /files/services
-  ps aux | grep nginx -i >> /files/services
+  ps aux | grep nginx -i | grep -v "grep" >> /files/services
   find / -iname "nginx" -print >> /files/services
   echo "   " >> /files/services
   dpkg -l | grep mariadb -i >> /files/services
-  ps aux | grep mariadb -i >> /files/services
+  ps aux | grep mariadb -i | grep -v "grep" >> /files/services
   find / -iname "mariadb" -print >> /files/services
   echo "	" >> /files/services
   dpkg -l | grep sql -i | grep server -i >> /files/services
-  ps aux | grep sql >> /files/services
+  ps aux | grep sql | grep -v "grep" >> /files/services
   echo "	" >> /files/services
   echo "Make sure you check the files called mediafiles, malware, services, and phpbackdoors that are located in /files/ "
 fi
@@ -739,5 +740,7 @@ if [ $choice == "26" ]; then
 	ls /etc/sudoers.d | grep -v README >> /dev/null
 	if [ $? -eq 0 ]; then
 		echo "There is something extra in /etc/sudoers.d"
+	else
+		echo "sudoers.d is good"
 	fi
 fi
