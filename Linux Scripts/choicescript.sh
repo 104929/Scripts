@@ -14,7 +14,7 @@ echo "Enter a number 1-25 to select a choice:"
 echo "1 for checking commands"
 echo "2 for recon"
 echo "3 for making /etc/ and /home/ backups"
-#echo "4 for something"
+#echo "4 for managing login.defs"
 echo "5 for user managment"
 echo "6 for updates"
 echo "7 for making a safety account "
@@ -308,9 +308,33 @@ if [ $choice == "3" ]; then
   	echo "/home has been backed up"
   fi
 fi
-#if [ $choice == "4" ]; then
-#  
-#fi
+#Manages login.defs
+if [ $choice == "4" ]; then
+	cat /etc/login.defs | grep "PASS_MAX_DAYS" | grep "90"
+	if [ $? -ne 0 ]; then
+		echo "you need to set the Password Maximum days in /etc/login.defs"
+	fi
+	cat /etc/login.defs | grep "PASS_MIN_DAYS" | grep "10"
+	if [ $? -ne 0 ]; then
+		echo "you need to set the Password Minimum days in /etc/login.defs"
+	fi
+	cat /etc/login.defs | grep "PASS_WARN_AGE" | grep "7"
+	if [ $? -ne 0 ]; then
+		echo "You need to set the PASS_WARN_AGE back to 7"
+	fi
+	cat /etc/login.defs | grep "UID_MIN" | grep "1000"
+	if [ $? -ne 0 ]; then
+		echo "You need to change UID_MIN back to 1000"
+	fi
+	cat /etc/login.defs | grep "ENCRYPT_METHOD" | grep "SHA512"
+	if [ $? -ne 0 ]; then
+		echo "You need to change ENCRYPT_METHOD back to SHA512"
+	fi
+	cat /etc/login.defs | grep "LOGIN_TIMEOUT" | grep "60"
+	if [ $? -ne 0 ]; then
+		echo "you need to change LOGIN_TIMEOUT back to 60"
+	fi
+fi
 #Looks for the bad users on the system
 if [ $choice == "5" ]; then
   touch /files/defaultusers
