@@ -361,7 +361,7 @@ if [ $choice == "5" ]; then
     passwd -d $badusername1
     grep "$badusername1" /etc/gshadow
   fi
-  #echo "moving $badusername1's home directory"
+  echo "Remember to move $badusername1's home directory to quarantine"
   #mv /home/$badusername1 /quarantine -f
   echo -n "enter exact name of bad user: "
   read badusername2
@@ -371,7 +371,7 @@ if [ $choice == "5" ]; then
     passwd -d $badusername2
     grep "$badusername2" /etc/gshadow
   fi
-  #echo "moving $badusername2's home directory"
+  echo "Remember to move $badusername2's home directory to quarantine"
   #mv /home/$badusername2 /quarantine -f
 
   echo
@@ -383,7 +383,7 @@ if [ $choice == "5" ]; then
     passwd -d $badusername3
     grep "$badusername3" /etc/gshadow
   fi
-  #echo "moving $badusername1's home directory"
+  #echo "remember to move $badusername3's home directory to quarantine"
   #mv /home/$badusername3 /quarantine -f
   echo -n "Do you want to disable the games user [y/n]"
   if [ $gamesuser == "y" ]; then
