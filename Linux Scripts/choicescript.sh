@@ -14,8 +14,8 @@ echo "Enter a number 1-25 to select a choice:"
 echo "1 for checking commands"
 echo "2 for recon"
 echo "3 for making /etc/ and /home/ backups"
-echo "4 for user managment"
-echo "5 for finding users"
+#echo "4 for something"
+echo "5 for user managment"
 echo "6 for updates"
 echo "7 for making a safety account "
 echo "8 for managing cron "
@@ -308,8 +308,22 @@ if [ $choice == "3" ]; then
   	echo "/home has been backed up"
   fi
 fi
-#Disables bad user
-if [ $choice == "4" ]; then
+#if [ $choice == "4" ]; then
+#  
+#fi
+#Looks for the bad users on the system
+if [ $choice == "5" ]; then
+  touch /files/defaultusers
+  #echo news >> /files/defaultusers
+  echo "just made a list of default users"
+  touch /files/users
+  touch /files/differentusers
+  cut -d: -f1 /etc/passwd > /files/users
+  echo
+  echo "The users called games and news are default but you will want to remove them"
+  echo "Here are all the extra users on the system. should they be there?"
+  less /files/users | grep -v root | grep -v daemon | grep -v bin | grep -v clamav | grep -v rtkit | grep -v safety | grep -v utoipd | grep -v lord | grep -v pulse | grep -v hplip | grep -v colord | grep -v lightdm | grep -v avahi | grep -v speech-dispatcher | grep -v whoopsie | grep -v saned | grep -v kernoops | grep -v avahi-autoipd  | grep -v dnsmasq  | grep -v usbmux  | grep -v messagebus | grep -v syslog | grep -v libuuid | grep -v uuid | grep -v nobody | grep -v gnats | grep -v irc | grep -v list | grep -v backup | grep -v www-data | grep -v proxy | grep -v uucp | grep -v mail | grep -v lp | grep -v man | grep -v sync | grep -v sys | grep -v bin > /files/differentusers
+  cat /files/differentusers
   echo -n "enter exact name of bad user: "
   read badusername1
   echo
@@ -342,21 +356,6 @@ if [ $choice == "4" ]; then
   fi
   #echo "moving $badusername1's home directory"
   #mv /home/$badusername3 /quarantine -f
-fi
-#Looks for the bad users on the system
-if [ $choice == "5" ]; then
-  touch /files/defaultusers
-  #echo news >> /files/defaultusers
-  echo "just made a list of default users"
-  touch /files/users
-  touch /files/differentusers
-  cut -d: -f1 /etc/passwd > /files/users
-  echo
-  echo "The users called games and news are default but you will want to remove them"
-  echo "Here are all the extra users on the system. should they be there?"
-  less /files/users | grep -v root | grep -v daemon | grep -v bin | grep -v clamav | grep -v rtkit | grep -v safety | grep -v utoipd | grep -v lord | grep -v pulse | grep -v hplip | grep -v colord | grep -v lightdm | grep -v avahi | grep -v speech-dispatcher | grep -v whoopsie | grep -v saned | grep -v kernoops | grep -v avahi-autoipd  | grep -v dnsmasq  | grep -v usbmux  | grep -v messagebus | grep -v syslog | grep -v libuuid | grep -v uuid | grep -v nobody | grep -v gnats | grep -v irc | grep -v list | grep -v backup | grep -v www-data | grep -v proxy | grep -v uucp | grep -v mail | grep -v lp | grep -v man | grep -v sync | grep -v sys | grep -v bin > /files/differentusers
-  cat /files/differentusers
-  echo
   echo -n "Do you want to disable the games user [y/n]"
   if [ $gamesuser == "y" ]; then
   	passwd -d games
