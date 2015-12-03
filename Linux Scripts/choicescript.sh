@@ -36,6 +36,7 @@ echo "22 to set alias's"
 echo "23 to set default permissions for /etc/ & /etc/shadow & /etc/host"
 echo "24 to start apparmor and system logging"
 echo "25 to enable auditing"
+echo "26 to check sudoers.d"
 echo -n "Choice: "
 read choice
 #Checks Commands
@@ -733,4 +734,10 @@ fi
 if [ $choice == "25" ]; then
   apt-get install auditd
   auditctl –e 1
+fi
+if [ $choice == "26" ]; then
+	ls /etc/sudoers.d | grep -v README >> /dev/null
+	if [ $? -eq 0 ]; then
+		echo "There is something extra in /etc/sudoers.d"
+	fi
 fi
