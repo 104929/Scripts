@@ -310,27 +310,27 @@ if [ $choice == "3" ]; then
 fi
 #Manages login.defs
 if [ $choice == "4" ]; then
-	cat /etc/login.defs | grep "PASS_MAX_DAYS" | grep "90"
+	cat /etc/login.defs | grep "PASS_MAX_DAYS" | grep "90" >> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "you need to set the Password Maximum days in /etc/login.defs"
 	fi
-	cat /etc/login.defs | grep "PASS_MIN_DAYS" | grep "10"
+	cat /etc/login.defs | grep "PASS_MIN_DAYS" | grep "10" >> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "you need to set the Password Minimum days in /etc/login.defs"
 	fi
-	cat /etc/login.defs | grep "PASS_WARN_AGE" | grep "7"
+	cat /etc/login.defs | grep "PASS_WARN_AGE" | grep "7" >> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "You need to set the PASS_WARN_AGE back to 7"
 	fi
-	cat /etc/login.defs | grep "UID_MIN" | grep "1000"
+	cat /etc/login.defs | grep "UID_MIN" | grep "1000" >> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "You need to change UID_MIN back to 1000"
 	fi
-	cat /etc/login.defs | grep "ENCRYPT_METHOD" | grep "SHA512"
+	cat /etc/login.defs | grep "ENCRYPT_METHOD" | grep "SHA512" | grep -v "#" >> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "You need to change ENCRYPT_METHOD back to SHA512"
 	fi
-	cat /etc/login.defs | grep "LOGIN_TIMEOUT" | grep "60"
+	cat /etc/login.defs | grep "LOGIN_TIMEOUT" | grep "60" >> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "you need to change LOGIN_TIMEOUT back to 60"
 	fi
