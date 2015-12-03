@@ -642,11 +642,11 @@ if [ $choice == "17" ]; then
   #Looks for php backdoors
   echo "looking for php backdoors now"
   touch /files/phpbackdoors
-  find / -iname "*.php" -print -exec grep "exec" -i {} + > /files/phpbackdoors
-  find / -iname "*.php" -print -exec grep "CMD" -i {} + >> /files/phpbackdoors
-  find / -iname "*.php" -print -exec grep "shell" -i {} + >> /files/phpbackdoors
-  find / -iname "*.php" -print -exec grep "system" -i {} + >> /files/phpbackdoors
-  find / -iname "*.php" -print -exec grep "passthru" -i {} + >> /files/phpbackdoors
+  find / -iname "*.php" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + > /files/phpbackdoors
+  #find / -iname "*.php" -print -exec grep "CMD" -i {} + >> /files/phpbackdoors
+  #find / -iname "*.php" -print -exec grep "shell" -i {} + >> /files/phpbackdoors
+  #find / -iname "*.php" -print -exec grep "system" -i {} + >> /files/phpbackdoors
+  #find / -iname "*.php" -print -exec grep "passthru" -i {} + >> /files/phpbackdoors
 fi
 #Manage apache
 if [ $choice == "18" ]; then
