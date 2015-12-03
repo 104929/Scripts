@@ -312,11 +312,11 @@ fi
 if [ $choice == "4" ]; then
 	cat /etc/login.defs | grep "PASS_MAX_DAYS" | grep "90" >> /dev/null
 	if [ $? -ne 0 ]; then
-		echo "you need to set the Password Maximum days in /etc/login.defs"
+		echo "You need to set the Password Maximum days in /etc/login.defs"
 	fi
 	cat /etc/login.defs | grep "PASS_MIN_DAYS" | grep "10" >> /dev/null
 	if [ $? -ne 0 ]; then
-		echo "you need to set the Password Minimum days in /etc/login.defs"
+		echo "You need to set the Password Minimum days in /etc/login.defs"
 	fi
 	cat /etc/login.defs | grep "PASS_WARN_AGE" | grep "7" >> /dev/null
 	if [ $? -ne 0 ]; then
@@ -332,7 +332,7 @@ if [ $choice == "4" ]; then
 	fi
 	cat /etc/login.defs | grep "LOGIN_TIMEOUT" | grep "60" >> /dev/null
 	if [ $? -ne 0 ]; then
-		echo "you need to change LOGIN_TIMEOUT back to 60"
+		echo "You need to change LOGIN_TIMEOUT back to 60"
 	fi
 fi
 #Looks for the bad users on the system
