@@ -667,6 +667,7 @@ fi
 if [ $choice == "21" ]; then
   echo " managing ufw now"
   ufw enable
+  ufw logging on
   ufw logging high
   ufw reload
   ufw status verbose | grep Default | grep -v "Default: deny (incoming), allow (outgoing), disabled (routed)"
