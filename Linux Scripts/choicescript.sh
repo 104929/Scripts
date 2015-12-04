@@ -234,6 +234,11 @@ if [ $choice == "2" ]; then
   echo "searched for darkcomet, now searching for files with the name password"
   echo "searched for darkcomet, now searching for files with the name password" >> /files/malware
   find / -iname "password" -print >> /files/malware
+  echo "searched for files with the name password, now searching for kismet"
+  echo "searched for files with the name password, now searching for kismet" >> /files/malware
+  dpkg -l | grep kismet -i >> /files/malware
+  ps aux | grep kismet -i | grep -v grep >> /files/malware
+  find / -iname "kismet" -print >> /files/malware
   touch /files/services
   dpkg -l | grep apache -i > /files/services
   find / -iname "apache" -print >> /files/services
