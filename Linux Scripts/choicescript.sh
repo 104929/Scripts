@@ -417,6 +417,9 @@ if [ $choice == "5" ]; then
   grep "sudo" /etc/gshadow
   echo "this is the users in the adm group"
   grep "adm:" /etc/gshadow
+  if [ ! -e /etc/security/opasswd ]; then
+  	touch /etc/security/opasswd
+  fi
 fi
 #Does updates
 if [ $choice == "6" ]; then
