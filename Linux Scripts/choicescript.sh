@@ -28,7 +28,7 @@ echo "13 to look for a netcat backdoor"
 echo "14 to secure lightdm on 12.04"
 echo "15 to manage ssh"
 echo "16 to manage samba"
-echo "17 to look for a php backdoor"
+echo "17 to look for backdoors"
 echo "18 to manage apache"
 echo "19 to make a quarantine folder"
 echo "20 to search for malware"
@@ -301,7 +301,7 @@ if [ $choice == "2" ]; then
   dpkg -l | grep sql -i | grep server -i >> /files/services
   ps aux | grep sql | grep -v "grep" >> /files/services
   echo "	" >> /files/services
-  echo "Make sure you check the files called mediafiles, malware, services, and phpbackdoors that are located in /files/ "
+  echo "Make sure you check the files called mediafiles, malware, services, and backdoors that are located in /files/ "
 fi
 #Back up /etc and /home
 if [ $choice == "3" ]; then
@@ -650,13 +650,14 @@ if [ $choice == "16" ]; then
     fi
   fi
 fi
-#Look for a php backdoor
+#Look for a backdoor
 if [ $choice == "17" ]; then
-  #Looks for php backdoors
-  echo "looking for php backdoors now"
-  touch /files/phpbackdoors
-  find / -iname "*.php" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + > /files/phpbackdoors
-  cat /files/phpbackdoors | grep -v "/var/cache/dictionaries-common/sqspell.php"
+  #Looks for backdoors
+  echo "looking for backdoors now"
+  touch /files/backdoors
+  find / -iname "*.php" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + > /files/backdoors
+  find / -iname "*.pl" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + > /files/backdoors
+  cat /files/backdoors | grep -v "/var/cache/dictionaries-common/sqspell.php"
   #find / -iname "*.php" -print -exec grep "CMD" -i {} + >> /files/phpbackdoors
   #find / -iname "*.php" -print -exec grep "shell" -i {} + >> /files/phpbackdoors
   #find / -iname "*.php" -print -exec grep "system" -i {} + >> /files/phpbackdoors
