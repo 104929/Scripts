@@ -239,6 +239,12 @@ if [ $choice == "2" ]; then
   dpkg -l | grep kismet -i >> /files/malware
   ps aux | grep kismet -i | grep -v grep >> /files/malware
   find / -iname "kismet" -print >> /files/malware
+  echo "searched for kismet, now searching for telnet"
+  echo "searched for kismet, now searching for telnet" >> /files/malware
+  dpkg -l | grep telnet -i >> /files/malware
+  ps aux | grep telnet -i >> /files/malware
+  find  / -iname "telnet" -print >> /files/malware
+  echo "Done searching for malware, now searching for services running on the computer" 
   touch /files/services
   dpkg -l | grep apache -i > /files/services
   find / -iname "apache" -print >> /files/services
