@@ -420,9 +420,8 @@ if [ $choice == "5" ]; then
 fi
 #Does updates
 if [ $choice == "6" ]; then
-  echo "doing updated now"
-  apt-get -qq update -y --allow-unauthenticated > /dev/null && apt-get -qq upgrade -y --allow-unauthenticated > /dev/null && apt-get install -qq --reinstall coreutils unattended-upgrades auditd ufw openssl bum clamav unhide libpam-cracklib apparmor apparmor-profiles -ym --allow-unauthenticated > /dev/null
-  dpkg-reconfigure -plow unattended-upgrades
+  echo "doing updates now"
+  apt-get -qq update -y --allow-unauthenticated > /dev/null && apt-get -qq upgrade -y --allow-unauthenticated > /dev/null && apt-get install -qq --reinstall coreutils auditd ufw openssl bum clamav unhide libpam-cracklib apparmor apparmor-profiles -ym --allow-unauthenticated > /dev/null
 fi
 #Makes a safety account
 if [ $choice == "7" ]; then
