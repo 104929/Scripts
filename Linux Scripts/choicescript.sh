@@ -94,14 +94,14 @@ if [ $choice == "1" ]; then
   	echo "grep is bad"
   	alias grep='/bin/grep'
   fi
-  echo "       "
+  echo
   if [ $(which sudo) == "/usr/bin/sudo" ]; then
   	echo "sudo is good"
   else
   	echo "sudo is bad"
   	alias sudo='/usr/bin/sudo'
   fi
-  echo "		"
+  echo
   if [ $(which cp) == "/bin/cp" ]; then
   	echo "cp is good"
   else
@@ -115,7 +115,7 @@ if [ $choice == "1" ]; then
   	echo "mv is bad"
   	alias mv='/bin/mv'
   fi
-  echo "commands have been checked"
+  echo "Commands have been checked"
 fi
 #Does Recon
 if [ $choice == "2" ]; then
@@ -242,7 +242,7 @@ if [ $choice == "2" ]; then
   echo "searched for kismet, now searching for telnet"
   echo "searched for kismet, now searching for telnet" >> /files/malware
   dpkg -l | grep telnet -i >> /files/malware
-  ps aux | grep telnet -i >> /files/malware
+  ps aux | grep telnet -i | grep -v "grep" >> /files/malware
   find  / -iname "telnet" -print >> /files/malware
   echo "Done searching for malware, now searching for services running on the computer" 
   touch /files/services
