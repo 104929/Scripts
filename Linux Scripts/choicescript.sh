@@ -274,12 +274,20 @@ if [ $choice == "2" ]; then
   #find / -iname "samba" -print >> /files/services
   ps aux | grep samba -i | grep -v grep >> /files/services
   echo "   " >> /files/services
+  dpkg -l | grep smtp -i >> /files/services
+  ps aux | grep smtp -i | grep -v grep >> /files/services
+  netstat -tulnp | grep smtp -i >> /files/services
+  echo "   " >> /files/services
   echo "searched for samba, now searching for dovecot"
   echo "searched for samba, now searching for dovecot" >> /files/services
   dpkg -l | grep dovecot -i >> /files/services
   find / -iname "dovecot" -print >> /files/services
   ps aux | grep dovecot -i | grep -v grep >> /files/services
   netstat -tulnp | grep dovecot -i >> /files/services
+  echo "   " >> /files/services
+  dpkg -l | grep snmp -i >> /files/services
+  ps aux | grep snmp -i | grep -v grep >> /files/services
+  netstat -tulnp | grep snmp -i >> /files/services
   echo "   " >> /files/services
   dpkg -l | grep cupsd -i >> /files/services
   ps aux | grep cupsd -i | grep -v grep >> /files/services
