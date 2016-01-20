@@ -38,6 +38,7 @@ echo "23 to set default permissions for /etc/ & /etc/shadow & /etc/host"
 echo "24 to start apparmor and system logging"
 echo "25 to enable auditing"
 echo "26 to check sudoers.d"
+echo "27 to check pam.d"
 echo -n "Choice: "
 read choice
 #Checks Commands
@@ -757,4 +758,22 @@ if [ $choice == "26" ]; then
 	else
 		echo "sudoers.d is good"
 	fi
+fi
+if [ $choice == "27" ]; then
+  cat /etc/pam.d/common-password | grep "sha512" >> /dev/null
+  if [ $? -ne 0 ]; then
+    echo "Change then encryption in /etc/pam.d/common-password to sha512"
+  fi
+  cat /etc/pam.d/common-password | grep "minlen=8" | grep "remember=5" >> /dev/null
+  if [ $? -ne 0 ]; then
+    echo "change minlen=? to minlen=8 and add remember=5"
+  fi
+  cat /etc/pam.d/common-password | grep "lcredit=-1" >> /dev/null
+  if [ $? -ne 0 ]; then
+    echo "Add lcredit=-1 ucredit=-1 dcredit=-1 ocredit=-1 line to /etc/pam.d/common-password"
+  fi
+  cat /etc/pam.d/common-auth | grep "auth required pam_tally2.so deny=5 onerr=fail unlock_time=900" >> /dev/null
+  if [ $? -ne 0 ]; then
+    echo "Add the  auth required pam_tally2.so deny=5 onerr=fail unlock_time=900  line to the end of /etc/pam.d/common-auth"
+  fi
 fi
