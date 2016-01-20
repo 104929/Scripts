@@ -766,7 +766,7 @@ if [ $choice == "27" ]; then
   fi
   cat /etc/pam.d/common-password | grep "minlen=8" | grep "remember=5" >> /dev/null
   if [ $? -ne 0 ]; then
-    echo "change minlen=? to minlen=8 and add remember=5"
+    echo "change minlen=? to minlen=8 and add remember=5 in /etc/pam.d/common-password"
   fi
   cat /etc/pam.d/common-password | grep "lcredit=-1" >> /dev/null
   if [ $? -ne 0 ]; then
