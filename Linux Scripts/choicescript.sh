@@ -433,7 +433,7 @@ fi
 #Does updates
 if [ $choice == "6" ]; then
   echo "doing updates now"
-  apt-get -qq update -y --allow-unauthenticated > /dev/null && apt-get -qq upgrade -y --allow-unauthenticated > /dev/null && apt-get install -qq --reinstall coreutils auditd ufw openssl bum clamav unhide libpam-cracklib apparmor apparmor-profiles -ym --allow-unauthenticated > /dev/null
+  apt-get -qq update -y --allow-unauthenticated > /dev/null && apt-get -qq upgrade -y --allow-unauthenticated > /dev/null && apt-get install -qq --reinstall coreutils auditd ufw gufw aptitude openssl bum clamav unhide bash openssl libssl-dev libpam-cracklib apparmor apparmor-profiles -ym --allow-unauthenticated > /dev/null
 fi
 #Makes a safety account
 if [ $choice == "7" ]; then
@@ -706,6 +706,7 @@ if [ $choice == "19" ]; then
   else
   	mkdir /quarantine
   fi
+  
 fi
 #Searches for malware
 if [ $choice == "20" ]; then
