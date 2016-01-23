@@ -39,6 +39,7 @@ echo "24 to start apparmor and system logging"
 echo "25 to enable auditing"
 echo "26 to check sudoers.d"
 echo "27 to check pam.d"
+echo "28 to manage an SQL Server"
 echo -n "Choice: "
 read choice
 #Checks Commands
@@ -134,12 +135,17 @@ if [ $choice == "2" ]; then
   find / -iname "*.rhost" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.wav" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.wmv" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+	find / -iname "*.wma" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+	find / -iname "*.flv" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.mov" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.avi" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.mpeg" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+	find / -iname "*.mpg" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.jpeg" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.jpg" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.png" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+	find / -iname "*.psd" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+	find / -iname "*.bmp" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.gif" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.tif" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.tiff" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
@@ -148,7 +154,8 @@ if [ $choice == "2" ]; then
   touch /files/malware
   echo "Remember the alias of uninstall to remove any of these packages"
   netstat -anp | grep -i "rat" >> /files/malware
-  netstat -tulnp | grep -i "rat" >> /files/malware
+  netstat -tulnp | grep -i "rat" >> /files/malware		os.system("apt-get install -ymqq --allow-unauthenticated bash openssl libssl-dev")
+
   dpkg -l | grep john -i > /files/malware #Looks for. john installed
   ps aux | grep john -i | grep -v grep >> /files/malware #looks for john running
   lsof | grep /etc/passwd >> /files/malware
@@ -684,10 +691,14 @@ if [ $choice == "18" ]; then
   	echo -n "enter y if you should be an apache server..enter n if  you should not be an apache server: [y/n] "
   	read apacheserver
   	if [ $apacheserver == "y" ] ; then
-      		apt-get install apache2 -y
-      		service apache2 start
+			apt-get install apache2 -y
+			apt-get install libapache2-modsecurity -y
+    	service apache2 start
   		update-rc.d apache2 enable
   		ufw allow apache2
+			chmod u+rwx /var/www/html/
+			chmod g+rx /var/www/html/ && chmod g-w /var/www/html/
+			chmod o+rx /var/www/html/ && chmod o-w /var/www/html/
   		echo "apache install and service configured"
   	fi
   	if [ $apacheserver == "n" ] ; then
@@ -785,4 +796,32 @@ if [ $choice == "27" ]; then
   if [ $? -ne 0 ]; then
     echo "Add the  auth required pam_tally2.so deny=5 onerr=fail unlock_time=900  line to the end of /etc/pam.d/common-auth"
   fi
+fi
+if [ $choice == "28" ]; then
+	dpkg -l | grep "(mysql-server|mariadb)" -i
+	if [ $? -ne 0 ] ; then
+		echo "you are not a mysql server"
+	else
+		echo "you are a mysql server"
+		echo -n "enter y if you should be a sql server..enter n if  you should not be a sql server: [y/n] "
+		read sqlserver
+		if [ $sqlserver == "y" ] ; then
+			apt-get install mysql-server --reinstall -y
+			apt-get install mariadb-server --reinstall -y
+			service mysql start
+			service mariadb start
+			update-rc.d mysql enable
+			update-rc.d mariadb enable
+			ufw allow mysql
+			ufw allow mariadb
+			/usr/bin/mysql_secure_installation
+		fi
+		if [ $sqlserver == "n" ] ; then
+			apt-get purge -ymqq --allow-unauthenticated mysql-server mariadb-server
+			update-rc.d mysql remove
+			find /etc/cron* -iname "SQL" -print
+			find /etc/cron* -iname "maria" -print
+			echo "sql server removed"
+		fi
+	fi
 fi
