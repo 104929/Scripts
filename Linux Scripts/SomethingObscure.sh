@@ -1,21 +1,25 @@
 #!/bin/bash
+echo "Make sure you are done with the Forensics Questions before running the script "
+if [ $(whoami) = "root" ]; then
+        echo "You are root"
+else
+  echo "You are not root"
+        exit 1
+fi
+if [ ! -d /files ]; then
+  mkdir /files
+fi
 echo " Making the quarantine media files folder"
-  if [ -d /quarantine/ ]; then
-  	echo "/quarantine/ folder is already made"
-  else
-  	mkdir /quarantine/
-  fi
-  if [ -d /quarantine/mediafiles ]; then
-  	echo "/quarantine/mediafiles folder is already made"
-  else
-  	mkdir /quarantine/mediafiles
-  fi
-echo " Making the files folder"
-  if [ -d /files/ ]; then
-  	echo "/files/ folder is already made"
-  else
-  	mkdir /files
-  fi
+if [ -d /quarantine/ ]; then
+  echo "/quarantine/ folder is already made"
+else
+  mkdir /quarantine/
+fi
+if [ -d /quarantine/mediafiles ]; then
+  echo "/quarantine/mediafiles folder is already made"
+else
+  mkdir /quarantine/mediafiles
+fi
 touch /files/mediafiles1
 chmod u+rwx /files/mediafiles1
 find /home -iname "*.mp3" -print  > /files/mediafiles1
