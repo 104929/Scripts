@@ -412,7 +412,8 @@ if [ $choice == "5" ]; then
   #echo "Remember to move $badusername3's home directory to quarantine"
   #mv /home/$badusername3 /quarantine -f
   echo -n "Do you want to disable the games user [y/n]"
-  if [ $gamesuser == "y" ]; then
+read gamesuser
+ if [ $gamesuser == "y" ]; then
   	passwd -d games
   	passwd -l games
   	echo "Games account has been disabled"
