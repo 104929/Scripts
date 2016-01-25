@@ -135,17 +135,17 @@ if [ $choice == "2" ]; then
   find / -iname "*.rhost" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.wav" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.wmv" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
-	find / -iname "*.wma" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
-	find / -iname "*.flv" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+  find / -iname "*.wma" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+  find / -iname "*.flv" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.mov" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.avi" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.mpeg" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
-	find / -iname "*.mpg" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+  find / -iname "*.mpg" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.jpeg" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.jpg" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.png" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
-	find / -iname "*.psd" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
-	find / -iname "*.bmp" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+  find / -iname "*.psd" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
+  find / -iname "*.bmp" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.gif" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.tif" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
   find / -iname "*.tiff" -print | grep -v /usr/share | grep -v lib | grep -v quarantine  >> /files/mediafiles
@@ -155,7 +155,7 @@ if [ $choice == "2" ]; then
   echo "Remember the alias of uninstall to remove any of these packages"
   netstat -anp | grep -i "rat" >> /files/malware
   netstat -tulnp | grep -i "rat" >> /files/malware
-	dpkg -l | grep john -i > /files/malware #Looks for. john installed
+  dpkg -l | grep john -i > /files/malware #Looks for. john installed
   ps aux | grep john -i | grep -v grep >> /files/malware #looks for john running
   lsof | grep /etc/passwd >> /files/malware
   lsof | grep shadow >> /files/malware
@@ -412,7 +412,7 @@ if [ $choice == "5" ]; then
   #echo "Remember to move $badusername3's home directory to quarantine"
   #mv /home/$badusername3 /quarantine -f
   echo -n "Do you want to disable the games user [y/n]"
-read gamesuser
+  read gamesuser
  if [ $gamesuser == "y" ]; then
   	passwd -d games
   	passwd -l games
