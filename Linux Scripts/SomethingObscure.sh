@@ -65,6 +65,8 @@ if [ -e /etc/apache2/apache2.conf ]; then
     echo -e ' \t AllowOverride None' >> /etc/apache2/apache2.conf
     echo -e ' \t Order Deny,Allow' >> /etc/apache2/apache2.conf
     echo -e ' \t Deny from all' >> /etc/apache2/apache2.conf
+    echo -e ' \t Options None' >> /etc/apache2/apache2.conf
+
     echo \<Directory \/\> >> /etc/apache2/apache2.conf
     echo UserDir disabled root >> /etc/apache2/apache2.conf
     echo ServerTokens Prod >> /etc/apache2/apache2.conf
