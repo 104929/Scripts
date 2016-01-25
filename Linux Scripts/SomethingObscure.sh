@@ -16,6 +16,7 @@ echo " Making the files folder"
   else
   	mkdir /files
   fi
+touch /files/mediafiles1
 chmod u+rwx /files/mediafiles1
 find /home -iname "*.mp3" -print  > /files/mediafiles1
 find /home -iname "*.mp4" -print  >> /files/mediafiles1
