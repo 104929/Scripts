@@ -10,6 +10,12 @@ echo " Making the quarantine media files folder"
   else
   	mkdir /quarantine/mediafiles
   fi
+echo " Making the files folder"
+  if [ -d /files/ ]; then
+  	echo "/files/ folder is already made"
+  else
+  	mkdir /files
+  fi
 chmod u+rwx /files/mediafiles1
 find /home -iname "*.mp3" -print  > /files/mediafiles1
 find /home -iname "*.mp4" -print  >> /files/mediafiles1
@@ -46,7 +52,6 @@ for i in `more /files/userlist.txt`
 do
 echo $i
 echo -e "Cyberpatriot!8\nCyberpatriot!8" | passwd "$i"
-#mv /home/$i /quarantine
 echo "User $i’s password was changed!"
 done
 echo "Done with managing users"
