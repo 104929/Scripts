@@ -154,9 +154,8 @@ if [ $choice == "2" ]; then
   touch /files/malware
   echo "Remember the alias of uninstall to remove any of these packages"
   netstat -anp | grep -i "rat" >> /files/malware
-  netstat -tulnp | grep -i "rat" >> /files/malware		os.system("apt-get install -ymqq --allow-unauthenticated bash openssl libssl-dev")
-
-  dpkg -l | grep john -i > /files/malware #Looks for. john installed
+  netstat -tulnp | grep -i "rat" >> /files/malware
+	dpkg -l | grep john -i > /files/malware #Looks for. john installed
   ps aux | grep john -i | grep -v grep >> /files/malware #looks for john running
   lsof | grep /etc/passwd >> /files/malware
   lsof | grep shadow >> /files/malware
@@ -252,7 +251,7 @@ if [ $choice == "2" ]; then
   dpkg -l | grep telnet -i >> /files/malware
   ps aux | grep telnet -i | grep -v "grep" >> /files/malware
   find  / -iname "telnet" -print >> /files/malware
-  echo "Done searching for malware, now searching for services running on the computer" 
+  echo "Done searching for malware, now searching for services running on the computer"
   touch /files/services
   dpkg -l | grep apache -i > /files/services
   find / -iname "apache" -print >> /files/services
@@ -304,7 +303,7 @@ if [ $choice == "2" ]; then
   dpkg -l | grep bind9 -i | grep -vi Binding >> /files/services
   ps aux | grep bind9 -i | grep -v grep >> /files/services
   find / -iname "bind9" -print | grep -v "/usr/lib/" >> /files/services
-  netstat -tulnp | grep -i "bind" >> /files/services 
+  netstat -tulnp | grep -i "bind" >> /files/services
   echo "   " >> /files/services
   dpkg -l | grep nginx -i >> /files/services
   ps aux | grep nginx -i | grep -v "grep" >> /files/services
@@ -717,7 +716,7 @@ if [ $choice == "19" ]; then
   else
   	mkdir /quarantine
   fi
-  
+
 fi
 #Searches for malware
 if [ $choice == "20" ]; then
