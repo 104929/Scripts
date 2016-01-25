@@ -117,7 +117,7 @@ sed -i 's/PASS_WARN_AGE   0/PASS_WARN_AGE   7/g' /etc/login.defs
 echo "Login.defs is now secure"
 echo
 echo "Securing Pam.d now"
-grep "auth 	required 			pam_tally.so deny=5 unlock_time=900 onerr=fail audit even_deny_root_account silent" /etc/pam.d/common-auth
+grep "auth 	required 			pam_tally.so deny=5 unlock_time=900 onerr=fail audit even_deny_root_account silent" /etc/pam.d/common-auth >> /dev/null
 if [ "$?" -eq "1" ]; then
   echo "auth 	required 			pam_tally.so deny=5 unlock_time=900 onerr=fail audit even_deny_root_account silent" >> /etc/pam.d/common-auth
 	echo "password 	requisite 			pam_cracklib.so retry=3 minlen=8 difok=3 reject_username minclass=3 maxrepeat=2 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1" >> /etc/pam.d/common-password
@@ -197,7 +197,7 @@ echo "Done with ufw"
 echo
 echo "Clearing host file now"
 echo 127.0.0.1	localhost > /etc/hosts
-echo 127.0.1.1	$(hostname -f)  >> /etc/hosts
+echo 127.0.1.1	$(hostname)  >> /etc/hosts
 echo ::1     ip6-localhost ip6-loopback >> /etc/hosts
 echo fe00::0 ip6-localnet >> /etc/hosts
 echo ff00::0 ip6-mcastprefix >> /etc/hosts
