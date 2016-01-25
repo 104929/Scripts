@@ -163,14 +163,14 @@ if [ $choice == "2" ]; then
   find / -iname "*.pot" -print | grep -v /usr/share | grep -v lib | grep -v quarantine >> /files/malware
   find / -iname "*.rec" -print | grep -v /usr/share | grep -v lib | grep -v quarantine >> /files/malware
   find / -iname "john" -print | grep -v /usr/share | grep -v lib | grep -v quarantine >> /files/malware
-  echo "searched for john, now searching for hydra"
-  echo "searched for john, now searching for hydra" >> /files/malware
+  echo "Searched for john, now searching for hydra"
+  echo "Searched for john, now searching for hydra" >> /files/malware
   echo "	" >> /files/malware #puts space in malware
   dpkg -l | grep hydra -i >> /files/malware #looks for hydra installed
   ps aux | grep hydra -i | grep -v grep >> /files/malware #looks for hydra running
   find / -iname "hydra" -print >> /files/malware
-  echo "searched for hydra, now searching for netcat" >> /files/malware
-  echo "searched for hydra, now searching for netcat"
+  echo "Searched for hydra, now searching for netcat" >> /files/malware
+  echo "Searched for hydra, now searching for netcat"
   echo "	" >> /files/malware #Puts space in malware
   #dpkg -l | grep nc -i >> /files/malware #looks for nc installed
   dpkg -l | grep cryptcat -i >> /files/malware
@@ -185,8 +185,8 @@ if [ $choice == "2" ]; then
   find / -iname "netcat" -print >> /files/malware
   find / -iname "cryptcat" -print >> /files/malware
   find / -iname "ncat" -print >> /files/malware
-  echo "searched for netcat, now searching for cain & abel"
-  echo "searched for netcat, now searching for cain & abel" >> /files/malware
+  echo "Searched for netcat, now searching for cain & abel"
+  echo "Searched for netcat, now searching for cain & abel" >> /files/malware
   #ps aux | grep nc -i | grep -v grep >> /files/malware #looks for nc running
   echo "	" >> /files/malware  #Puts space in malware
   dpkg -l | grep cain -i >> /files/malware #looks for cain installed
@@ -195,59 +195,59 @@ if [ $choice == "2" ]; then
   #find / -iname "abel" -print >> /files/malware
   ps aux | grep cain -i | grep -v grep >> /files/malware #look for cain running
   #ps aux | grep abel -i | grep -v grep >> /files/malware #looks for abel running
-  echo "searched for cain & abel, now searching for medusa"
-  echo "searched for cain & abel, now searching for medusa" >> /files/malware
+  echo "Searched for cain & abel, now searching for medusa"
+  echo "Searched for cain & abel, now searching for medusa" >> /files/malware
   echo "	" >> /files/malware  #Puts space in malware
   dpkg -l | grep medusa -i >> /files/malware #Looks for medusa installed
   find / -iname "medusa" -print >> /files/malware
   ps aux | grep medusa -i | grep -v grep >> /files/malware #Looks for medusa running
   echo "	" >> /files/malware  #Puts space in malware
-  echo "searched for medusa, now searching for aircrack"
-  echo "searched for medusa, now searching for aircrack" >> /files/malware
+  echo "Searched for medusa, now searching for aircrack"
+  echo "Searched for medusa, now searching for aircrack" >> /files/malware
   dpkg -l | grep aircrack -i >> /files/malware #Looks for aircrack installed
   find / -iname "aircrack" -print >> /files/malware
   ps aux | grep aircrack -i | grep -v grep >> /files/malware  #looks for aircrack running
   echo "	" >> /files/malware	  #Puts space in malware
-  echo "searched for aircrack, now searching for nmap"
-  echo "searched for aircrack, now searching for nmap" >> /files/malware
+  echo "Searched for aircrack, now searching for nmap"
+  echo "Searched for aircrack, now searching for nmap" >> /files/malware
   dpkg -l | grep nmap -i >> /files/malware #looks for nmap installed
   find / -iname "nmap" -print >> /files/malware
   ps aux | grep nmap -i | grep -v grep >> /files/malware  #looks for nmap running
   echo "	" >> /files/malware  #Puts space in malware
-  echo "searched for nmap, now searching for fern"
-  echo "searched for nmap, now searching for fern" >> /files/malware
+  echo "Searched for nmap, now searching for fern"
+  echo "Searched for nmap, now searching for fern" >> /files/malware
   dpkg -l | grep fern -i >> /files/malware #looks for fern installed
   find / -iname "fern" -print >> /files/malware
   ps aux | grep fern -i | grep -v grep >> /files/malware  #looks for fern running
   echo "	" >> /files/malware  #Puts space in malware
-  echo "searched for fern, now searching for metasploit"
-  echo "searched for fern, now searching for metasploit" >> /files/malware
+  echo "Searched for fern, now searching for metasploit"
+  echo "Searched for fern, now searching for metasploit" >> /files/malware
   dpkg -l | grep metasploit -i >> /files/malware
   find / -iname "metasploit" -print >> /files/malware
   echo "	" >> /files/malware  #Puts space in malware
-  echo "searched for metasploit, now searching for backtrack"
-  echo "searched for metasploit, now searching for backtrack" >> /files/malware
+  echo "Searched for metasploit, now searching for backtrack"
+  echo "Searched for metasploit, now searching for backtrack" >> /files/malware
   dpkg -l | grep backtrack -i >> /files/malware
   find / -iname "backtrack" -print >> /files/malware
   echo "	" >> /files/malware  #Puts space in malware
-  echo "searched for backtrack, now searching for games"
-  echo "searched for backtrack, now searching for games" >> /files/malware
+  echo "Searched for backtrack, now searching for games"
+  echo "Searched for backtrack, now searching for games" >> /files/malware
   dpkg -l | grep game -i >> /files/malware
   find / -iname "game" -print >> /files/malware
   echo " " >> /files/malware
-  echo "searched for games, now searching for darkcomet"
-  echo "searched for games, now searching for darkcomet" >> /files/malware
+  echo "Searched for games, now searching for darkcomet"
+  echo "Searched for games, now searching for darkcomet" >> /files/malware
   find / -iname "darkcomet" -print >> /files/malware
-  echo "searched for darkcomet, now searching for files with the name password"
-  echo "searched for darkcomet, now searching for files with the name password" >> /files/malware
+  echo "Searched for darkcomet, now searching for files with the name password"
+  echo "Searched for darkcomet, now searching for files with the name password" >> /files/malware
   find / -iname "password" -print >> /files/malware
-  echo "searched for files with the name password, now searching for kismet"
-  echo "searched for files with the name password, now searching for kismet" >> /files/malware
+  echo "Searched for files with the name password, now searching for kismet"
+  echo "Searched for files with the name password, now searching for kismet" >> /files/malware
   dpkg -l | grep kismet -i >> /files/malware
   ps aux | grep kismet -i | grep -v grep >> /files/malware
   find / -iname "kismet" -print >> /files/malware
-  echo "searched for kismet, now searching for telnet"
-  echo "searched for kismet, now searching for telnet" >> /files/malware
+  echo "Searched for kismet, now searching for telnet"
+  echo "Searched for kismet, now searching for telnet" >> /files/malware
   dpkg -l | grep telnet -i >> /files/malware
   ps aux | grep telnet -i | grep -v "grep" >> /files/malware
   find  / -iname "telnet" -print >> /files/malware
@@ -257,25 +257,25 @@ if [ $choice == "2" ]; then
   find / -iname "apache" -print >> /files/services
   ps aux | grep apache -i | grep -v grep >> /files/services
   echo "   " >> /files/services
-  echo "searched for apache, now searching for ssh"
-  echo "searched for apache, now searching for ssh" >> /files/services
+  echo "Searched for apache, now searching for ssh"
+  echo "Searched for apache, now searching for ssh" >> /files/services
   dpkg -l | grep ssh -i | grep server -i >> /files/services
   find / -iname "sshd" -print >> /files/services
   find / -iname "openssh-server" -print >> /files/services
   ps aux | grep ssh -i | grep -v grep >> /files/services
   echo "   " >> /files/services
-  echo "searched for ssh, now searching for ftp"
-  echo "searched for ssh, now searching for ftp" >> /files/services
+  echo "Searched for ssh, now searching for ftp"
+  echo "Searched for ssh, now searching for ftp" >> /files/services
   dpkg -l | grep ftp -i | grep server -i >> /files/services
   ps aux | grep ftp -i | grep -v grep >> /files/services
   echo "   " >> /files/services
-  echo "searched for ftp, now searching for dns"
-  echo "searched for ftp, now searching for dns" >> /files/services
+  echo "Searched for ftp, now searching for dns"
+  echo "Searched for ftp, now searching for dns" >> /files/services
   dpkg -l | grep dns -i | grep server -i| grep -v "dnsmasq-base" >> /files/services
   ps aux | grep dns -i | grep -v grep | grep -v "dnsmasq-base" >> /files/services
   echo "   " >> /files/services
-  echo "searched for dns, now searching for samba"
-  echo "searched for dns, now searching for samba" >> /files/services
+  echo "Searched for dns, now searching for samba"
+  echo "Searched for dns, now searching for samba" >> /files/services
   dpkg -l | grep samba -i | grep "SMB/CIFS file, print, and login server for Unix" >> /files/services
   #find / -iname "samba" -print >> /files/services
   ps aux | grep samba -i | grep -v grep >> /files/services
@@ -284,8 +284,8 @@ if [ $choice == "2" ]; then
   ps aux | grep smtp -i | grep -v grep >> /files/services
   netstat -tulnp | grep smtp -i >> /files/services
   echo "   " >> /files/services
-  echo "searched for samba, now searching for dovecot"
-  echo "searched for samba, now searching for dovecot" >> /files/services
+  echo "Searched for samba, now searching for dovecot"
+  echo "Searched for samba, now searching for dovecot" >> /files/services
   dpkg -l | grep dovecot -i >> /files/services
   find / -iname "dovecot" -print >> /files/services
   ps aux | grep dovecot -i | grep -v grep >> /files/services
@@ -370,7 +370,7 @@ fi
 if [ $choice == "5" ]; then
   touch /files/defaultusers
   #echo news >> /files/defaultusers
-  echo "just made a list of default users"
+  echo "Just made a list of default users"
   touch /files/users
   touch /files/differentusers
   cut -d: -f1 /etc/passwd > /files/users
@@ -379,7 +379,7 @@ if [ $choice == "5" ]; then
   echo "Here are all the extra users on the system. should they be there?"
   less /files/users | grep -v root | grep -v daemon | grep -v bin | grep -v clamav | grep -v rtkit | grep -v safety | grep -v utoipd | grep -v lord | grep -v pulse | grep -v hplip | grep -v colord | grep -v lightdm | grep -v avahi | grep -v speech-dispatcher | grep -v whoopsie | grep -v saned | grep -v kernoops | grep -v avahi-autoipd  | grep -v dnsmasq  | grep -v usbmux  | grep -v messagebus | grep -v syslog | grep -v libuuid | grep -v uuid | grep -v nobody | grep -v gnats | grep -v irc | grep -v list | grep -v backup | grep -v www-data | grep -v proxy | grep -v uucp | grep -v mail | grep -v lp | grep -v man | grep -v sync | grep -v sys | grep -v bin > /files/differentusers
   cat /files/differentusers
-  echo -n "enter exact name of bad user: "
+  echo -n "Enter exact name of bad user: "
   read badusername1
   echo
   if [ ! -z "$badusername1" ]; then
@@ -389,7 +389,7 @@ if [ $choice == "5" ]; then
   fi
   echo "Remember to move $badusername1's home directory to quarantine"
   #mv /home/$badusername1 /quarantine -f
-  echo -n "enter exact name of bad user: "
+  echo -n "Enter exact name of bad user: "
   read badusername2
   echo
   if [ ! -z "$badusername2" ]; then
@@ -401,7 +401,7 @@ if [ $choice == "5" ]; then
   #mv /home/$badusername2 /quarantine -f
 
   echo
-  echo -n "enter exact name of bad user: "
+  echo -n "Enter exact name of bad user: "
   read badusername3
   echo
   if [ ! -z "$badusername3" ]; then
@@ -409,13 +409,13 @@ if [ $choice == "5" ]; then
     passwd -d $badusername3
     grep "$badusername3" /etc/gshadow
   fi
-  #echo "remember to move $badusername3's home directory to quarantine"
+  #echo "Remember to move $badusername3's home directory to quarantine"
   #mv /home/$badusername3 /quarantine -f
   echo -n "Do you want to disable the games user [y/n]"
   if [ $gamesuser == "y" ]; then
   	passwd -d games
   	passwd -l games
-  	echo "games account has been disabled"
+  	echo "Games account has been disabled"
   else
   	echo "Games account has been left alone"
   fi
@@ -426,11 +426,11 @@ if [ $choice == "5" ]; then
     passwd -d news
     passwd -l news
   else
-    "news account was left alone"
+    "News account was left alone"
   fi
-  echo "this is the users in the sudo group"
+  echo "This is the users in the sudo group"
   grep "sudo" /etc/gshadow
-  echo "this is the users in the adm group"
+  echo "This is the users in the adm group"
   grep "adm:" /etc/gshadow
   if [ ! -e /etc/security/opasswd ]; then
   	touch /etc/security/opasswd
@@ -438,7 +438,7 @@ if [ $choice == "5" ]; then
 fi
 #Does updates
 if [ $choice == "6" ]; then
-  echo "doing updates now"
+  echo "Doing updates now"
   apt-get -qq update -y --allow-unauthenticated > /dev/null && apt-get -qq upgrade -y --allow-unauthenticated > /dev/null && apt-get install -qq --reinstall coreutils auditd ufw gufw aptitude openssl bum clamav unhide bash openssl libssl-dev libpam-cracklib apparmor apparmor-profiles -ym --allow-unauthenticated > /dev/null
 fi
 #Makes a safety account
@@ -472,7 +472,7 @@ if [ $choice == "8" ]; then
   if [ $? -ne 0 ] ; then
   	echo "cron.weekly is okay"
   else
-  	echo "something extra is in cron.weekly"
+  	echo "Something extra is in cron.weekly"
   fi
   echo
   echo "cron.weely done, checking cron.monthly now"
@@ -481,7 +481,7 @@ if [ $choice == "8" ]; then
   if [ $? -ne 0 ] ; then
   	echo "cron.monthly is okay"
   else
-  	echo "something extra is in cron.monthly"
+  	echo "Something extra is in cron.monthly"
   fi
   echo "cron.monthly done..moving on to cron.d"
   echo
@@ -490,18 +490,18 @@ if [ $choice == "8" ]; then
   if [ $? -ne 0 ] ; then
   	echo "cron.d is okay"
   else
-  	echo "something extra is in cron.d"
+  	echo "Something extra is in cron.d"
   fi
 fi
 #Locks out root login
 if [ $choice == "9" ]; then
-  echo "locking out root login now"
+  echo "Locking out root login now"
   who | grep root
   if [ $? -ne 0 ] ; then
-  	echo "root is not logged in"
+  	echo "Root is not logged in"
   	passwd -l root
   else
-  	echo "root is logged in..why?"
+  	echo "Root is logged in..why?"
   fi
 fi
 #Manages FTP
@@ -537,9 +537,9 @@ if [ $choice == "10" ]; then
 	else
 		dpkg -l | grep vsftpd
 			if [ $? -eq 0 ]; then
-				echo "vsftpd is installed but /etc/vsftpd.conf does not exist "
+				echo "Vsftpd is installed but /etc/vsftpd.conf does not exist "
 			else
-				echo "vsftpd does not appear to be installed"
+				echo "Vsftpd does not appear to be installed"
 			fi
 	fi
 fi
@@ -563,11 +563,11 @@ if [ $choice == "12" ]; then
   echo "Do you want john installed [y/n]"
   read johninstalled
   if [ $johninstalled == "y" ]; then
-  	echo "fine have your john"
+  	echo "Fine have your john"
   fi
   if [ $johninstalled == "n" ]; then
   	apt-get purge john --auto-remove -y
-  	echo "john uninstalled, remember to stop john from running"
+  	echo "John uninstalled, remember to stop john from running"
   	ps aux | grep john | grep -v grep
   	echo "If john is running, be sure to kill it"
     pwconv
@@ -584,21 +584,21 @@ if [ $choice == "13" ]; then
 fi
 #Secure Lightdm on 12.04
 if [ $choice == "14" ]; then
-  echo " moving on to securing light dm"
+  echo "Moving on to securing light dm"
   if [ -a /etc/lightdm/lightdm.conf ]; then
   	echo allow-guest=false >> /etc/lightdm/lightdm.conf
-  	echo "lightdm file existed"
+  	echo "Lightdm file existed"
   else
-  	echo " light dm file did not exist"
+  	echo "Light dm file did not exist"
   fi
 fi
 #Manage sshd
 if [ $choice == "15" ]; then
   dpkg -l | grep openssh-server
   if [ $? -ne 0 ]; then
-    echo "you are probably not a ssh server"
+    echo "You are probably not a ssh server"
   else
-    echo "you are an ssh server"
+    echo "You are an ssh server"
     echo -n "Do you want to be an ssh server [y/n] "
     read sshserver
     if [ $sshserver == "y" ]; then
@@ -606,16 +606,16 @@ if [ $choice == "15" ]; then
       service sshd start
       update-rc.d sshd enable
       ufw allow ssh
-      echo "ssh server updated"
-      echo "now checking how secure sshd_config is"
-      echo "securing ssh now if it is installed"
+      echo "SSH server updated"
+      echo "Now checking how secure sshd_config is"
+      echo "Securing ssh now if it is installed"
       if [ -a /etc/ssh/sshd_config ]; then
-      	echo "ssh is probably installed"
+      	echo "SSH is probably installed"
       	grep "permitrootlogin no" /etc/ssh/sshd_config -i
       	if [ $? -ne 0 ]; then
-      		echo "root login is allowed through ssh"
+      		echo "Root login is allowed through ssh"
       	else
-      		echo "root login is not allowed through ssh"
+      		echo "Root login is not allowed through ssh"
       	fi
       	less /etc/ssh/sshd_config | grep protocol -i | grep 1
       	if [ $? -ne 0 ]; then
@@ -625,9 +625,9 @@ if [ $choice == "15" ]; then
       	fi
       	grep PermitEmptyPasswords /etc/ssh/sshd_config | grep yes -i
       	if [ $? -ne 0 ]; then
-      		echo "empty passwords are not allowed"
+      		echo "Empty passwords are not allowed"
       	else
-      		echo "empty passwords are allowed"
+      		echo "Empty passwords are allowed"
       	fi
       fi
       echo "ssh is secure"
@@ -636,7 +636,7 @@ if [ $choice == "15" ]; then
       apt-get purge openssh-server --auto-remove -y
       update-rc.d sshd remove
       ufw deny ssh
-      echo "ssh server removed"
+      echo "SSH server removed"
       find /etc/cron* -iname "ssh" -print
     fi
   fi
@@ -645,9 +645,9 @@ fi
 if [ $choice == "16" ]; then
   dpkg -l | grep samba | grep "SMB/CIFS file, print, and login server for Unix"
   if [ $? -ne 0 ]; then
-    echo "you are probably not a samba server"
+    echo "You are probably not a samba server"
   else
-    echo "you are a samba server"
+    echo "You are a samba server"
     echo -n "Do you want to be a samba server [y/n]"
     read sambaserver
     if [ $sambaserver == "y" ]; then
@@ -655,14 +655,14 @@ if [ $choice == "16" ]; then
       service samba start
       update-rc.d samba enable
       ufw allow samba
-      echo "samba has been configured"
+      echo "Samba has been configured"
     fi
     if [ $sambaserver == "n" ]; then
       apt-get purge samba -y
       service samba stop
       update-rc.d samba remove
       ufw deny samba
-      echo "samba has been removed"
+      echo "Samba has been removed"
   #   find /etc/cron* -iname "samba" -print
     fi
   fi
@@ -670,7 +670,7 @@ fi
 #Look for a backdoor
 if [ $choice == "17" ]; then
   #Looks for backdoors
-  echo "looking for backdoors now"
+  echo "Looking for backdoors now"
   touch /files/backdoors
   find / -iname "*.php" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + > /files/backdoors
   find / -iname "*.pl" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + > /files/backdoors
@@ -684,10 +684,10 @@ fi
 if [ $choice == "18" ]; then
   dpkg -l | grep apache2 -i
   if [ $? -ne 0 ] ; then
-  	echo "you are not an apache server"
+  	echo "You are not an apache server"
   else
-  	echo "you are an apache server"
-  	echo -n "enter y if you should be an apache server..enter n if  you should not be an apache server: [y/n] "
+  	echo "You are an apache server"
+  	echo -n "Enter y if you should be an apache server..enter n if  you should not be an apache server: [y/n] "
   	read apacheserver
   	if [ $apacheserver == "y" ] ; then
 			apt-get install apache2 -y
@@ -698,13 +698,13 @@ if [ $choice == "18" ]; then
 			chmod u+rwx /var/www/html/
 			chmod g+rx /var/www/html/ && chmod g-w /var/www/html/
 			chmod o+rx /var/www/html/ && chmod o-w /var/www/html/
-  		echo "apache install and service configured"
+  		echo "Apache install and service configured"
   	fi
   	if [ $apacheserver == "n" ] ; then
   		apt-get purge apache2 --auto-remove -y
   		update-rc.d apache2 remove
       		find /etc/cron* -iname "apache" -print
-  		echo "apache removed"
+  		echo "Apache removed"
   	fi
   fi
 fi
@@ -720,7 +720,7 @@ if [ $choice == "19" ]; then
 fi
 #Searches for malware
 if [ $choice == "20" ]; then
-  echo -n "enter the name of malware to search for: "
+  echo -n "Enter the name of malware to search for: "
   read malware
   dpkg -l | grep $malware
   echo
@@ -728,7 +728,7 @@ if [ $choice == "20" ]; then
 fi
 #Sets up ufw
 if [ $choice == "21" ]; then
-  echo " managing ufw now"
+  echo "Managing ufw now"
   ufw enable
   ufw logging on
   ufw logging high
@@ -742,22 +742,22 @@ fi
 if [ $choice == "22" ]; then
   echo "Setting the uninstall alias now"
   alias uninstall='apt-get purge && apt-get autoremove'
-  echo "setting the update alias now"
+  echo "Setting the update alias now"
   alias update='apt-get update && apt-get upgrade'
 fi
 #Changing permisisons of /etc, /etc/shadow, and /etc/hosts
 if [ $choice == "23" ]; then
   chmod 644 /etc/passwd
-  echo "changing permissions of passwd"
+  echo "Changing permissions of passwd"
   chmod 640 /etc/shadow
-  echo "changes permissions of shadow"
+  echo "Changes permissions of shadow"
   chown root:root /etc/hosts #changes permissions of hosts
   chmod 644 /etc/hosts #Changes permissions of hosts
 fi
 #Starting apparmor, syslog, and rsyslog
 if [ $choice == "24" ]; then
   /etc/init.d/apparmor start #Start apparmor /files/services
-  echo "starting important services"
+  echo "Starting important services"
   update-rc.d apparmor enable #sets apparmor to start at startup
   update-rc.d syslog enable
   update-rc.d rsyslog enable
@@ -799,10 +799,10 @@ fi
 if [ $choice == "28" ]; then
 	dpkg -l | grep "(mysql-server|mariadb)" -i
 	if [ $? -ne 0 ] ; then
-		echo "you are not a mysql server"
+		echo "You are not a mysql server"
 	else
-		echo "you are a mysql server"
-		echo -n "enter y if you should be a sql server..enter n if  you should not be a sql server: [y/n] "
+		echo "You are a mysql server"
+		echo -n "Enter y if you should be a sql server..enter n if  you should not be a sql server: [y/n] "
 		read sqlserver
 		if [ $sqlserver == "y" ] ; then
 			apt-get install mysql-server --reinstall -y
@@ -820,7 +820,7 @@ if [ $choice == "28" ]; then
 			update-rc.d mysql remove
 			find /etc/cron* -iname "SQL" -print
 			find /etc/cron* -iname "maria" -print
-			echo "sql server removed"
+			echo "SQL server removed"
 		fi
 	fi
 fi
