@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "Make sure you are done with the Forensics Questions before running the script "
 if [ $(whoami) = "root" ]; then
-        echo "You are root"
+  echo "You are root"
 else
   echo "You are not root"
-        exit 1
+  exit 1
 fi
 if [ ! -d /files ]; then
   mkdir /files
@@ -62,30 +62,78 @@ done
 echo "Done with managing users"
 echo
 echo "Moving on to securing apache"
-if [ -e /etc/apache2/apache2.conf ]; then
-  cat /etc/apache2/apache2.conf | grep "LimitRequestBody 204800" >> /dev/null
-  if [ $? -ne 0 ]; then
-    echo \<Directory \> >> /etc/apache2/apache2.conf
-    echo -e ' \t AllowOverride None' >> /etc/apache2/apache2.conf
-    echo -e ' \t Order Deny,Allow' >> /etc/apache2/apache2.conf
-    echo -e ' \t Deny from all' >> /etc/apache2/apache2.conf
-    echo -e ' \t Options None' >> /etc/apache2/apache2.conf
+echo -n "Is this machine supposed to be an Apache server [y/n]"
+read apache
+if [ $apache == y ]; then
+  echo "Fixing Apache files"
+  apt-get install -ymqq --allow-unauthenticated apache2 libapache2-modsecurity
+  chown -R root:root /etc/apache2
+  chown -R root:root /etc/apache
+  update-rc.d apache2 defaults
+  update-rc.d apache2 enable
+  chmod u+rwx /var/www/html/
+  chmod g+rx /var/www/html/ && chmod g-w /var/www/html/
+  chmod o+rx /var/www/html/ && chmod o-w /var/www/html/
+  if [ -e /etc/apache2/apache2.conf ]; then
+    cat /etc/apache2/apache2.conf | grep "LimitRequestBody 204800" >> /dev/null
+    if [ $? -ne 0 ]; then
+      echo \<Directory \> >> /etc/apache2/apache2.conf
+      echo -e ' \t AllowOverride None' >> /etc/apache2/apache2.conf
+      echo -e ' \t Order Deny,Allow' >> /etc/apache2/apache2.conf
+      echo -e ' \t Deny from all' >> /etc/apache2/apache2.conf
+      echo -e ' \t Options None' >> /etc/apache2/apache2.conf
 
-    echo \<Directory \/\> >> /etc/apache2/apache2.conf
-    echo UserDir disabled root >> /etc/apache2/apache2.conf
-    echo ServerTokens Prod >> /etc/apache2/apache2.conf
-    echo ServerSignature Off >> /etc/apache2/apache2.conf
-    echo LimitRequestBody 204800 >> /etc/apache2/apache2.conf
+      echo \<Directory \/\> >> /etc/apache2/apache2.conf
+      echo UserDir disabled root >> /etc/apache2/apache2.conf
+      echo ServerTokens Prod >> /etc/apache2/apache2.conf
+      echo ServerSignature Off >> /etc/apache2/apache2.conf
+      echo LimitRequestBody 204800 >> /etc/apache2/apache2.conf
+    fi
+    a2dismod autoindex
+    a2dismod status
+    sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/g' /etc/apache2/mods-enabled/security2.conf
+    mv /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
+    mv /etc/apache2/mods-available/ssl.load /etc/apache2/mods-enabled/
+    service apache2 restart
   fi
-  a2dismod autoindex
-  a2dismod status
-  sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/g' /etc/apache2/mods-enabled/security2.conf
-  mv /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
-  mv /etc/apache2/mods-available/ssl.load /etc/apache2/mods-enabled/
+  ufw allow apache
+  ufw allow http
+  ufw allow https
+  ufw reload
   service apache2 restart
-  echo "Apache security done"
+  echo "Finished fixing Apache files"
 fi
-echo
+if [ $apache == n ]; then
+  echo "Removing Apache"
+  apt-get purge -ymqq --allow-unauthenticated apache2 libapache2-modsecurity
+  service apache2 stop
+  update-rc.d -f apache2 remove
+  ufw deny apache
+  ufw deny http
+  ufw deny https
+  ufw reload
+  echo "Finished removing Apache"
+fi
+echo "Apache security done"
+if [ -e /etc/vsftpd.conf ]; then
+  cat /etc/vsftpd.conf | grep anonymous_enable | grep yes
+  if [ $?==0 ]; then
+	  sed -i 's/anonymous_enable yes/anonymous_enable no/g' /etc/ssh/sshd_config
+	  msg=$(echo anonymous_enable rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
+  fi
+  cat /etc/vsftpd.conf | grep write_enable | grep yes
+  if [ $?==0 ]; then
+    sed -i 's/write_enable yes/write_enable no/g' /etc/ssh/sshd_config
+    msg=$(echo write_enable rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
+  fi
+  cat /etc/vsftpd.conf | grep anon_upload_enable | grep yes
+  if [ $?==0 ]; then
+    sed -i 's/anon_upload_enable yes/anon_upload_enable no/g' /etc/ssh/sshd_config
+    msg=$(echo anon_upload_enable rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
+  fi
+fi
+echo "FTP security done"
+
 echo "Moving on to SSH Configuration"
 if [ -a /etc/ssh/sshd_config ]; then
   sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
@@ -126,9 +174,9 @@ echo "Securing Pam.d now"
 grep "auth 	required 			pam_tally.so deny=5 unlock_time=900 onerr=fail audit even_deny_root_account silent" /etc/pam.d/common-auth >> /dev/null
 if [ "$?" -eq "1" ]; then
   echo "auth 	required 			pam_tally.so deny=5 unlock_time=900 onerr=fail audit even_deny_root_account silent" >> /etc/pam.d/common-auth
-	echo "password 	requisite 			pam_cracklib.so retry=3 minlen=8 difok=3 reject_username minclass=3 maxrepeat=2 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1" >> /etc/pam.d/common-password
-	echo "password 	[success=1 default=ignore] 	pam_unix.so obscure use_authtok try_first_pass sha512 minlen=8 remember=5" >> /etc/pam.d/common-password
-	echo "password 	requisite 			pam_pwhistory.so use_authtok remember=5 enforce_for_root" >>  /etc/pam.d/common-password
+  echo "password 	requisite 			pam_cracklib.so retry=3 minlen=8 difok=3 reject_username minclass=3 maxrepeat=2 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1" >> /etc/pam.d/common-password
+  echo "password 	[success=1 default=ignore] 	pam_unix.so obscure use_authtok try_first_pass sha512 minlen=8 remember=5" >> /etc/pam.d/common-password
+  echo "password 	requisite 			pam_pwhistory.so use_authtok remember=5 enforce_for_root" >>  /etc/pam.d/common-password
 fi
 echo
 echo "Editing Sysctl.conf now"
@@ -146,10 +194,9 @@ echo
 echo "Editing Sudoers file now"
 grep NOPASSWD /etc/sudoers
 if [ $?==0 ]; then
-               sudo1=$(grep NOPASSWD /etc/sudoers)
-		sed -i 's/$sudo1/ /g' /etc/sudoers
-     	        msg=$(echo SUDOERS NOPASSWD rule removed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g'  )
-     	        
+  sudo1=$(grep NOPASSWD /etc/sudoers)
+	sed -i 's/$sudo1/ /g' /etc/sudoers
+  msg=$(echo SUDOERS NOPASSWD rule removed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g')
 fi
 echo "Sudoers file is done"
 echo
@@ -188,10 +235,10 @@ rm -f /etc/cron.deny
 rm -f /etc/at.deny
 echo root > /etc/cron.allow
 echo root > /etc/at.allow
-chmod 400 /etc/cron.allow
-chmod 400 /etc/at.allow
-chown root:root /etc/cron.allow
-chown root:root /etc/at.allow
+chmod 400 cron.allow
+chmod 400 at.allow
+chown root:root cron.allow
+chown root:root at.allow
 
 #echo "Looking for all the files on the system with 777 permissions"
 #find / -type d -perm +2 -ls -exec grep -vi "dev|tmp" {} +
@@ -217,4 +264,3 @@ apt-get autoremove
 apt-get autoclean
 
 echo "You are done and should probably reboot"
-exec bash "$0"
