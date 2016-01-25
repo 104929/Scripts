@@ -825,3 +825,5 @@ if [ $choice == "28" ]; then
 		fi
 	fi
 fi
+echo "Press Control + Z to exit the script"
+exec bash "$0"

@@ -217,3 +217,4 @@ apt-get autoremove
 apt-get autoclean
 
 echo "You are done and should probably reboot"
+exec bash "$0"
