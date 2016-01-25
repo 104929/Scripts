@@ -1,5 +1,10 @@
 #!/bin/bash
 echo " Making the quarantine media files folder"
+  if [ -d /quarantine/ ]; then
+  	echo "/quarantine/ folder is already made"
+  else
+  	mkdir /quarantine/
+  fi
   if [ -d /quarantine/mediafiles ]; then
   	echo "/quarantine/mediafiles folder is already made"
   else
