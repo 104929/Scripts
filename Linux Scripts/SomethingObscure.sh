@@ -188,10 +188,10 @@ rm -f /etc/cron.deny
 rm -f /etc/at.deny
 echo root > /etc/cron.allow
 echo root > /etc/at.allow
-chmod 400 cron.allow
-chmod 400 at.allow
-chown root:root cron.allow
-chown root:root at.allow
+chmod 400 /etc/cron.allow
+chmod 400 /etc/at.allow
+chown root:root /etc/cron.allow
+chown root:root /etc/at.allow
 
 #echo "Looking for all the files on the system with 777 permissions"
 #find / -type d -perm +2 -ls -exec grep -vi "dev|tmp" {} +
