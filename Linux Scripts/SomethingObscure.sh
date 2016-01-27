@@ -79,7 +79,7 @@ if [ $ssh == y ]; then
     sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
     sed -i 's/Protocol 2,1/Protocol 2/g' /etc/ssh/sshd_config
     sed -i 's/Protocol 1,2/Protocol 2/g' /etc/ssh/sshd_config
-    sed -i 's/PermitRootLogin without-password/PermitRootLogin no/g' /etc/ssh/ssh
+    sed -i 's/PermitRootLogin without-password/PermitRootLogin no/g' /etc/ssh/sshd_config
     sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_configd_config
     sed -i 's/X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
     sed -i 's/UsePam no/UsePam yes/g' /etc/ssh/sshd_config
@@ -132,15 +132,13 @@ if [ $apache == y ]; then
   if [ -e /etc/apache2/apache2.conf ]; then
     cat /etc/apache2/apache2.conf | grep "LimitRequestBody 204800" >> /dev/null
     if [ $? -ne 0 ]; then
-      echo \<Directory \> >> /etc/apache2/apache2.conf
-      echo -e ' \t AllowOverride None' >> /etc/apache2/apache2.conf
-      echo -e ' \t Order Deny,Allow' >> /etc/apache2/apache2.conf
-      echo -e ' \t Deny from all' >> /etc/apache2/apache2.conf
-      echo -e ' \t Options None' >> /etc/apache2/apache2.conf
-      echo \<Directory \/\> >> /etc/apache2/apache2.conf
+#      echo \<Directory \> >> /etc/apache2/apache2.conf
+#      echo -e ' \t AllowOverride None' >> /etc/apache2/apache2.conf
+#      echo -e ' \t Order Deny,Allow' >> /etc/apache2/apache2.conf
+#      echo -e ' \t Deny from all' >> /etc/apache2/apache2.conf
+#      echo -e ' \t Options None' >> /etc/apache2/apache2.conf
+#      echo \<Directory \/\> >> /etc/apache2/apache2.conf
       echo UserDir disabled root >> /etc/apache2/apache2.conf
-      echo ServerTokens Prod >> /etc/apache2/apache2.conf
-      echo ServerSignature Off >> /etc/apache2/apache2.conf
       echo LimitRequestBody 204800 >> /etc/apache2/apache2.conf
     fi
     a2dismod autoindex
@@ -356,21 +354,21 @@ if [ $lightdm == 12 ]; then
 	echo "exit 0" > /etc/rc.local
 	msg=$(echo X11Forwarding rule changed to exclusively 1 | sed 's/\//%2F/g' | sed 's/\./%2E/g' )
 	grep "greeter-hide-users=true" /etc/lightdm/lightdm.conf
-	if [ "$?" -eq "1" ]; then    
+	if [ "$?" -eq "1" ]; then
 		echo "[SeatDefaults]\ngreeter-hide-users=true\n" >> /etc/lightdm/lightdm.conf
 	fi
 	grep "greeter-show-manual-login=true" /etc/lightdm/lightdm.conf
-	if [ "$?" -eq "1" ]; then 
+	if [ "$?" -eq "1" ]; then
 		echo "[SeatDefaults]\ngreeter-show-manual-login=true\n" >> /etc/lightdm/lightdm.conf
 	fi
 	echo "Finished fixing LightDM files for Ubuntu 12.04"
 fi
 if [ $lightdm == 14 ]; then
   echo "Fixing LightDM files for Ubuntu 14.04"
-  if [ ! -d /etc/lightdm/lightdm.conf.d ]; then 
+  if [ ! -d /etc/lightdm/lightdm.conf.d ]; then
     mkdir -p /etc/lightdm/lightdm.conf.d
   fi
-  if [ -d /etc/lightdm/lightdm.conf.d ]; then 
+  if [ -d /etc/lightdm/lightdm.conf.d ]; then
     if [ ! -f /etc/lightdm/lightdm.conf.d/50-guest-session.conf ]; then
 		echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-guest-session.conf
     echo "allow-guest=false" >> /etc/lightdm/lightdm.conf.d/50-guest-session.conf
