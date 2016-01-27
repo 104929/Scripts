@@ -68,8 +68,54 @@ echo "User $i’s password was changed!"
 done
 echo "Done with managing users"
 echo
-#Section 4.1 - Asks the user if they are supposed to be an Apache server, if yes, then updates apache and adds security modules
-echo "Moving on to securing apache"
+#Section 4.1 - Asks the user if they are supposed to be an SSH server
+echo "Moving on to securing SSH"
+echo -n "Is this machine supposed to be an SSH server [y/n]"
+read ssh
+if [ $ssh == y ]; then
+  echo "Fixing SSH files"
+  apt-get install -ymqq --allow-unauthenticated ssh openssh-client openssh-server
+  if [ -a /etc/ssh/sshd_config ]; then
+    sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+    sed -i 's/Protocol 2,1/Protocol 2/g' /etc/ssh/sshd_config
+    sed -i 's/Protocol 1,2/Protocol 2/g' /etc/ssh/sshd_config
+    sed -i 's/PermitRootLogin without-password/PermitRootLogin no/g' /etc/ssh/ssh
+    sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_configd_config
+    sed -i 's/X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
+    sed -i 's/UsePam no/UsePam yes/g' /etc/ssh/sshd_config
+    sed -i 's/RSAAuthentication no/RSAAuthentication yes/g' /etc/ssh/sshd_config
+    sed -i 's/PermitEmptyPasswords yes/PermitEmptyPasswords no/g' /etc/ssh/sshd_config
+    sed -i 's/LoginGraceTime 120/LoginGraceTime 60/g' /etc/ssh/sshd_config
+    sed -i 's/StrictModes no/StrictModes yes/g' /etc/ssh/sshd_config
+    sed -i 's/IgnoreRhosts no/IgnoreRhosts yes/g' /etc/ssh/sshd_config
+    sed -i 's/TCPKeepAlive yes/TCPKeepAlive no/g' /etc/ssh/sshd_config
+    sed -i 's/UsePrivilegeSeperation no/UsePrivilegeSeperation yes/g' /etc/ssh/sshd_config
+    sed -i 's/PubkeyAuthentication no/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
+    sed -i 's/PermitBlacklistedKeys yes/PermitBlacklistedKeys no/g' /etc/ssh/sshd_config
+    sed -i 's/HostbasedAuthentication yes/HostbasedAuthentication no/g' /etc/ssh/sshd_config
+    sed -i 's/PrintMotd yes/PrintMotd no/g' /etc/ssh/sshd_config
+  fi
+  update-rc.d ssh defaults
+  update-rc.d ssh enable
+  ufw allow ssh
+  ufw allow openssh
+  ufw reload
+  service ssh restart
+  service ssh reload
+  echo "Finished fixing SSH files"
+fi
+if [ $ssh == n ]; then
+  echo "Removing and blocking SSH"
+  apt-get purge -ymqq --allow-unauthenticated ssh openssh-client openssh-server
+  service ssh stop
+  update-rc.d -f ssh remove
+  ufw deny ssh
+  ufw deny openssh
+  ufw reload
+  echo "Finished removing and blocking SSH"
+fi
+#Section 4.2 - Asks the user if they are supposed to be an Apache server
+echo "Moving on to securing Apache"
 echo -n "Is this machine supposed to be an Apache server [y/n]"
 read apache
 if [ $apache == y ]; then
@@ -90,7 +136,6 @@ if [ $apache == y ]; then
       echo -e ' \t Order Deny,Allow' >> /etc/apache2/apache2.conf
       echo -e ' \t Deny from all' >> /etc/apache2/apache2.conf
       echo -e ' \t Options None' >> /etc/apache2/apache2.conf
-
       echo \<Directory \/\> >> /etc/apache2/apache2.conf
       echo UserDir disabled root >> /etc/apache2/apache2.conf
       echo ServerTokens Prod >> /etc/apache2/apache2.conf
@@ -123,47 +168,48 @@ if [ $apache == n ]; then
   echo "Finished removing Apache"
 fi
 echo "Apache security done"
-if [ -e /etc/vsftpd.conf ]; then
-  cat /etc/vsftpd.conf | grep anonymous_enable | grep yes
-  if [ $?==0 ]; then
-	  sed -i 's/anonymous_enable yes/anonymous_enable no/g' /etc/ssh/sshd_config
-	  msg=$(echo anonymous_enable rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
+#Section 4.3 - Asks the user if they are supposed to be an Samba server
+#Section 4.4 - Asks the user if they are supposed to be an FTP server
+echo "Moving on to securing FTP"
+echo -n "Is this machine supposed to be an FTP server [y/n]"
+read ftp
+if [ $ftp == y ]; then
+  echo "Fixing FTP files"
+  apt-get install -ymqq --allow-unauthenticated vsftpd
+  if [ -e /etc/vsftpd.conf ]; then
+    cat /etc/vsftpd.conf | grep anonymous_enable | grep yes
+    if [ $?==0 ]; then
+      sed -i 's/anonymous_enable yes/anonymous_enable no/g' /etc/ssh/sshd_config
+      msg=$(echo anonymous_enable rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
+    fi
+    cat /etc/vsftpd.conf | grep write_enable | grep yes
+    if [ $?==0 ]; then
+      sed -i 's/write_enable yes/write_enable no/g' /etc/ssh/sshd_config
+      msg=$(echo write_enable rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
+    fi
+    cat /etc/vsftpd.conf | grep anon_upload_enable | grep yes
+    if [ $?==0 ]; then
+      sed -i 's/anon_upload_enable yes/anon_upload_enable no/g' /etc/ssh/sshd_config
+      msg=$(echo anon_upload_enable rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
+    fi
   fi
-  cat /etc/vsftpd.conf | grep write_enable | grep yes
-  if [ $?==0 ]; then
-    sed -i 's/write_enable yes/write_enable no/g' /etc/ssh/sshd_config
-    msg=$(echo write_enable rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
-  fi
-  cat /etc/vsftpd.conf | grep anon_upload_enable | grep yes
-  if [ $?==0 ]; then
-    sed -i 's/anon_upload_enable yes/anon_upload_enable no/g' /etc/ssh/sshd_config
-    msg=$(echo anon_upload_enable rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
-  fi
+  ufw allow ftp
+  ufw reload
+  service vsftpd restart
+  echo "Finished fixing FTP files"
+fi
+if [ $ftp == n ]; then
+  echo "Removing and blocking FTP"
+  apt-get purge -ymqq --allow-unauthenticated vsftpd
+  service vsftpd stop
+  ufw deny ftp
+  ufw reload
+  echo "Finished removing and blocking FTP"
 fi
 echo "FTP security done"
-
-echo "Moving on to SSH Configuration"
-if [ -a /etc/ssh/sshd_config ]; then
-  sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-  sed -i 's/Protocol 2,1/Protocol 2/g' /etc/ssh/sshd_config
-  sed -i 's/Protocol 1,2/Protocol 2/g' /etc/ssh/sshd_config
-  sed -i 's/PermitRootLogin without-password/PermitRootLogin no/g' /etc/ssh/ssh
-  sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_configd_config
-  sed -i 's/X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
-  sed -i 's/UsePam no/UsePam yes/g' /etc/ssh/sshd_config
-  sed -i 's/RSAAuthentication no/RSAAuthentication yes/g' /etc/ssh/sshd_config
-  sed -i 's/PermitEmptyPasswords yes/PermitEmptyPasswords no/g' /etc/ssh/sshd_config
-  sed -i 's/LoginGraceTime 120/LoginGraceTime 60/g' /etc/ssh/sshd_config
-  sed -i 's/StrictModes no/StrictModes yes/g' /etc/ssh/sshd_config
-  sed -i 's/IgnoreRhosts no/IgnoreRhosts yes/g' /etc/ssh/sshd_config
-  sed -i 's/TCPKeepAlive yes/TCPKeepAlive no/g' /etc/ssh/sshd_config
-  sed -i 's/UsePrivilegeSeperation no/UsePrivilegeSeperation yes/g' /etc/ssh/sshd_config
-  sed -i 's/PubkeyAuthentication no/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
-  sed -i 's/PermitBlacklistedKeys yes/PermitBlacklistedKeys no/g' /etc/ssh/sshd_config
-  sed -i 's/HostbasedAuthentication yes/HostbasedAuthentication no/g' /etc/ssh/sshd_config
-  sed -i 's/PrintMotd yes/PrintMotd no/g' /etc/ssh/sshd_config
-  echo "ssh config done"
-fi
+#Section 4.5 - Asks the user if they are supposed to be an MySQL server
+#Section 4.6 - Asks the user if they are supposed to be an DNS server
+#Section 5.1 - Sets up Auditing
 echo "Doing Auditing Now"
 auditctl -e 1 > /dev/null
 sed -i 's/num_logs = 5/num_logs = 4/g' /etc/audit/auditd.conf
@@ -203,7 +249,7 @@ echo "Editing Sudoers file now"
 grep NOPASSWD /etc/sudoers
 if [ $?==0 ]; then
   sudo1=$(grep NOPASSWD /etc/sudoers)
-	sed -i 's/$sudo1/ /g' /etc/sudoers
+  sed -i 's/$sudo1/ /g' /etc/sudoers
   msg=$(echo SUDOERS NOPASSWD rule removed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g')
 fi
 echo "Sudoers file is done"
