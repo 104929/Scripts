@@ -302,6 +302,7 @@ sed -i 's/num_logs = 5/num_logs = 4/g' /etc/audit/auditd.conf
 sed -i 's/max_log_file = 6/max_log_file = 5/g' /etc/audit/auditd.conf
 echo "auditing done"
 echo
+#Section 5.2 - Sets up Login.defs
 echo "Securing Login.defs now"
 sed -i 's/LOG_OK_LOGINS           no/LOG_OK_LOGINS           yes/g' /etc/login.defs
 sed -i 's/PASS_MIN_DAYS   0/PASS_MIN_DAYS   10/g' /etc/login.defs
@@ -310,6 +311,7 @@ sed -i 's/LOGIN_RETRIES           5/LOGIN_RETRIES           3/g' /etc/login.defs
 sed -i 's/PASS_WARN_AGE   0/PASS_WARN_AGE   7/g' /etc/login.defs
 echo "Login.defs is now secure"
 echo
+#Section 5.3 - Sets up Pam
 echo "Securing Pam.d now"
 grep "auth 	required 			pam_tally.so deny=5 unlock_time=900 onerr=fail audit even_deny_root_account silent" /etc/pam.d/common-auth >> /dev/null
 if [ "$?" -eq "1" ]; then
@@ -331,6 +333,7 @@ sysctl -w net.ipv4.conf.default.accept_redirects=0
 sysctl -w net.ipv4.conf.all.secure_redirects=0
 sysctl -w net.ipv4.conf.default.secure_redirects=0
 echo
+#Section 5.4 - Removes any users from sudoers file that do not require a password
 echo "Editing Sudoers file now"
 grep NOPASSWD /etc/sudoers
 if [ $?==0 ]; then
@@ -340,9 +343,52 @@ if [ $?==0 ]; then
 fi
 echo "Sudoers file is done"
 echo
+#Section 5.5 - Sets up LightDM
+echo "Moving on to securing LightDM"
+echo -n "Is this machine running Ubuntu 12.04 or 14.04 [12/14]"
+read lightdm
+if [ $lightdm == 12 ]; then
+  echo "Fixing LightDM files for Ubuntu 12.04"
+  /usr/lib/lightdm/lightdm-set-defaults -l false
+  if [ $?==0 ]; then
+    msg=$(echo Set allow guest to false | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
+  fi
+	echo "exit 0" > /etc/rc.local
+	msg=$(echo X11Forwarding rule changed to exclusively 1 | sed 's/\//%2F/g' | sed 's/\./%2E/g' )
+	grep "greeter-hide-users=true" /etc/lightdm/lightdm.conf
+	if [ "$?" -eq "1" ]; then    
+		echo "[SeatDefaults]\ngreeter-hide-users=true\n" >> /etc/lightdm/lightdm.conf
+	fi
+	grep "greeter-show-manual-login=true" /etc/lightdm/lightdm.conf
+	if [ "$?" -eq "1" ]; then 
+		echo "[SeatDefaults]\ngreeter-show-manual-login=true\n" >> /etc/lightdm/lightdm.conf
+	fi
+	echo "Finished fixing LightDM files for Ubuntu 12.04"
+fi
+if [ $lightdm == 14 ]; then
+  echo "Fixing LightDM files for Ubuntu 14.04"
+  if [ ! -d /etc/lightdm/lightdm.conf.d ]; then 
+    mkdir -p /etc/lightdm/lightdm.conf.d
+  fi
+  if [ -d /etc/lightdm/lightdm.conf.d ]; then 
+    if [ ! -f /etc/lightdm/lightdm.conf.d/50-guest-session.conf ]; then
+		echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-guest-session.conf
+    echo "allow-guest=false" >> /etc/lightdm/lightdm.conf.d/50-guest-session.conf
+		echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-show-users.conf
+    echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf.d/50-show-users.conf
+		echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-manual-login.conf
+    echo "greeter-show-manual-login=true" >> /etc/lightdm/lightdm.conf.d/50-manual-login.conf
+	  fi
+  fi
+	echo "Finished fixing LightDM files for Ubuntu 14.04"
+fi
+echo "Remember to restart LightDM (or the system) when the script is done"
+echo "LightDM security done"
+#Section 6.1 - Removes any common hacking tools
 echo "Uninstalling packages now"
 apt-get purge --auto-remove john hydra aircrack kismet medusa nmap vlc fingerd finger netcat dhcpdump snort p0f aircrack-ng nc hydra-gtk bind9 wireshark
 echo
+#Section 6.2 - Sets up file permissions
 echo "Changing file permissions now"
 chmod 0700 /etc/rc*
 chmod 0700 /etc/init.d*
@@ -383,11 +429,13 @@ chown root:root at.allow
 #echo "Looking for all the files on the system with 777 permissions"
 #find / -type d -perm +2 -ls -exec grep -vi "dev|tmp" {} +
 
+#Section 7.1 - Sets up basic ufw rules
 echo "Doing Ufw now"
 ufw default deny incoming
 ufw reload
 echo "Done with ufw"
 echo
+#Section 7.2 - Clears hosts file
 echo "Clearing host file now"
 echo 127.0.0.1	localhost > /etc/hosts
 echo 127.0.1.1	$(hostname)  >> /etc/hosts
