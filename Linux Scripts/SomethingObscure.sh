@@ -169,6 +169,43 @@ if [ $apache == n ]; then
 fi
 echo "Apache security done"
 #Section 4.3 - Asks the user if they are supposed to be an Samba server
+echo "Moving on to securing Samba"
+echo -n "Is this machine supposed to be an Samba server [y/n]"
+read samba
+if [ $samba == y ]; then
+  echo "Fixing Samba files"
+	apt-get install -ymqq --allow-unauthenticated samba smbclient libsmbclient system-config-samba
+	cat /etc/samba/smb.conf | grep usershare allow guests | grep yes
+  if [ $?==0 ]; then
+    sed -i 's/usershare allow guests yes/usershare allow guests no/g' /etc/ssh/sshd_config
+    msg=$(echo usershare allow guests rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
+  fi
+	update-rc.d samba defaults
+	update-rc.d samba enable
+	update-rc.d smbd defaults
+	update-rc.d smbd enable
+	update-rc.d nmbd defaults
+	update-rc.d nmbd enable
+	ufw allow samba
+	ufw reload
+	service samba restart
+	service smbd restart
+	service nmbd restart
+	echo "Finished fixing Samba files"
+fi
+if [ $samba == n ]; then
+  echo "Removing and blocking Samba"
+	apt-get purge -ymqq --allow-unauthenticated samba smbclient libsmbclient
+	service samba stop
+	service smbd stop
+	service nmbd stop
+	update-rc.d -f samba remove
+	update-rc.d -f smbd remove
+	update-rc.d -f nmbd remove
+	ufw deny samba
+	ufw reload
+	echo "Finished removing and blocking Samba"
+fi
 #Section 4.4 - Asks the user if they are supposed to be an FTP server
 echo "Moving on to securing FTP"
 echo -n "Is this machine supposed to be an FTP server [y/n]"
