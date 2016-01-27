@@ -155,6 +155,7 @@ if [ $apache == y ]; then
   ufw allow https
   ufw reload
   service apache2 restart
+  ll etc/apache2/sites-enabled
   echo "Finished fixing Apache files"
 fi
 if [ $apache == n ]; then
@@ -340,7 +341,7 @@ fi
 echo "Sudoers file is done"
 echo
 echo "Uninstalling packages now"
-apt-get purge --auto-remove john hydra aircrack kismet medusa nmap fingerd finger netcat dhcpdump snort p0f aircrack-ng nc hydra-gtk bind9 wireshark
+apt-get purge --auto-remove john hydra aircrack kismet medusa nmap vlc fingerd finger netcat dhcpdump snort p0f aircrack-ng nc hydra-gtk bind9 wireshark
 echo
 echo "Changing file permissions now"
 chmod 0700 /etc/rc*
