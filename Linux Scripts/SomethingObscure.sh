@@ -1,11 +1,13 @@
 #!/bin/bash
 echo "Make sure you are done with the Forensics Questions before running the script "
+#Section 1.1 - Checks for root
 if [ $(whoami) = "root" ]; then
   echo "You are root"
 else
   echo "You are not root"
   exit 1
 fi
+#Section 1.2 - Checks for folders
 if [ ! -d /files ]; then
   mkdir /files
 fi
@@ -20,8 +22,10 @@ if [ -d /quarantine/mediafiles ]; then
 else
   mkdir /quarantine/mediafiles
 fi
+#Section 2.1 - Creates a text file called "mediafiles1" and gives it the neccasary permissions
 touch /files/mediafiles1
 chmod u+rwx /files/mediafiles1
+#Section 2.2 - Finds any files within any home folders then sends their names to the mediafiles1 text file, each file on a new line
 find /home -iname "*.mp3" -print  > /files/mediafiles1
 find /home -iname "*.mp4" -print  >> /files/mediafiles1
 find /home -iname "*.pot" -print  >> /files/mediafiles1
@@ -44,6 +48,7 @@ find /home -iname "*.tif" -print  >> /files/mediafiles1
 find /home -iname "*.tiff" -print  >> /files/mediafiles1
 find /home -iname "*.rec" -print  >> /files/mediafiles1
 find /home -iname "*.mkv" -print >> /files/mediafiles1
+#Section 2.3 - Loops through each line in mediasfiles1, then moves each file to a quarantine folder
 for i in `cat /files/mediafiles1`
 do
 mv "$i" /quarantine/mediafiles
@@ -51,8 +56,10 @@ echo "Media file $i has been moved!"
 done
 echo "Done with media files"
 echo
+#Section 3.1 - Opens a nano prompt where the user types in the names of every actual user on the system, seperated by a new line for every username
 echo "Moving on to managing users"
 nano /files/userlist.txt
+#Section 3.2 - Loops through each line in userlist.txt , then for each username it changes the password to Cyberpatriot!8
 for i in `more /files/userlist.txt`
 do
 echo $i
@@ -61,6 +68,7 @@ echo "User $i’s password was changed!"
 done
 echo "Done with managing users"
 echo
+#Section 4.1 - Asks the user if they are supposed to be an Apache server, if yes, then updates apache and adds security modules
 echo "Moving on to securing apache"
 echo -n "Is this machine supposed to be an Apache server [y/n]"
 read apache
