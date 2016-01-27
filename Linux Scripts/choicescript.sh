@@ -315,6 +315,8 @@ if [ $choice == "2" ]; then
   echo "	" >> /files/services
   dpkg -l | grep sql -i | grep server -i >> /files/services
   ps aux | grep sql | grep -v "grep" >> /files/services
+  dpkg -l | grep vnc -i >> /files/services
+  ps aux | grep vnc -i | grep -v grep
   echo "	" >> /files/services
   echo "Make sure you check the files called mediafiles, malware, services, and backdoors that are located in /files/ "
 fi
