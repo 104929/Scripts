@@ -114,6 +114,7 @@ if [ $ssh == n ]; then
   ufw reload
   echo "Finished removing and blocking SSH"
 fi
+echo "SSH security done"
 #Section 4.2 - Asks the user if they are supposed to be an Apache server
 echo "Moving on to securing Apache"
 echo -n "Is this machine supposed to be an Apache server [y/n]"
@@ -174,38 +175,39 @@ echo -n "Is this machine supposed to be an Samba server [y/n]"
 read samba
 if [ $samba == y ]; then
   echo "Fixing Samba files"
-	apt-get install -ymqq --allow-unauthenticated samba smbclient libsmbclient system-config-samba
-	cat /etc/samba/smb.conf | grep usershare allow guests | grep yes
+  apt-get install -ymqq --allow-unauthenticated samba smbclient libsmbclient system-config-samba
+  cat /etc/samba/smb.conf | grep usershare allow guests | grep yes
   if [ $?==0 ]; then
     sed -i 's/usershare allow guests yes/usershare allow guests no/g' /etc/ssh/sshd_config
     msg=$(echo usershare allow guests rule changed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
   fi
-	update-rc.d samba defaults
-	update-rc.d samba enable
-	update-rc.d smbd defaults
-	update-rc.d smbd enable
-	update-rc.d nmbd defaults
-	update-rc.d nmbd enable
-	ufw allow samba
-	ufw reload
-	service samba restart
-	service smbd restart
-	service nmbd restart
-	echo "Finished fixing Samba files"
+  update-rc.d samba defaults
+  update-rc.d samba enable
+  update-rc.d smbd defaults
+  update-rc.d smbd enable
+  update-rc.d nmbd defaults
+  update-rc.d nmbd enable
+  ufw allow samba
+  ufw reload
+  service samba restart
+  service smbd restart
+  service nmbd restart
+  echo "Finished fixing Samba files"
 fi
 if [ $samba == n ]; then
   echo "Removing and blocking Samba"
-	apt-get purge -ymqq --allow-unauthenticated samba smbclient libsmbclient
-	service samba stop
-	service smbd stop
-	service nmbd stop
-	update-rc.d -f samba remove
-	update-rc.d -f smbd remove
-	update-rc.d -f nmbd remove
-	ufw deny samba
-	ufw reload
-	echo "Finished removing and blocking Samba"
+  apt-get purge -ymqq --allow-unauthenticated samba smbclient libsmbclient
+  service samba stop
+  service smbd stop
+  service nmbd stop
+  update-rc.d -f samba remove
+  update-rc.d -f smbd remove
+  update-rc.d -f nmbd remove
+  ufw deny samba
+  ufw reload
+  echo "Finished removing and blocking Samba"
 fi
+echo "Samba security done"
 #Section 4.4 - Asks the user if they are supposed to be an FTP server
 echo "Moving on to securing FTP"
 echo -n "Is this machine supposed to be an FTP server [y/n]"
@@ -245,7 +247,53 @@ if [ $ftp == n ]; then
 fi
 echo "FTP security done"
 #Section 4.5 - Asks the user if they are supposed to be an MySQL server
+echo "Moving on to securing MySQL"
+echo -n "Is this machine supposed to be an MySQL server (Type nothing if you have or need a third party MySQL server program ex. MariaDB) [y/n]"
+read mysql
+if [ $mysql == y ]; then
+  echo "Fixing FTP files"
+  apt-get install -ymqq --allow-unauthenticated mysql-client mysql-server
+  update-rc.d mysql defaults
+  update-rc.d mysql enable
+  ufw allow mysql
+  ufw reload
+  service mysql restart
+  echo "Finished fixing MySQL files"
+fi
+if [ $mysql == n ]; then
+  echo "Removing and blocking MySQL"
+  apt-get purge -ymqq --allow-unauthenticated mysql-client mysql-server mariadb-client mariadb-server
+  service mysql stop
+  update-rc.d -f mysql remove
+  ufw deny mysql
+  ufw reload
+  echo "Finished removing and blocking MySQL"
+fi
+echo "MySQL security done"
 #Section 4.6 - Asks the user if they are supposed to be an DNS server
+echo "Moving on to securing DNS"
+echo -n "Is this machine supposed to be an DNS server [y/n]"
+read dns
+if [ $dns == y ]; then
+  echo "Fixing FTP files"
+  apt-get install -ymqq --allow-unauthenticated dnsutils bind9
+  update-rc.d bind9 defaults
+  update-rc.d bind9 enable
+  ufw allow bind9
+  ufw reload
+  service bind9 restart
+  echo "Finished fixing DNS files"
+fi
+if [ $dns == n ]; then
+  echo "Removing and blocking DNS"
+  apt-get purge -ymqq --allow-unauthenticated bind9
+  service bind9 stop
+  update-rc.d -f bind9 remove
+  ufw deny bind9
+  ufw reload
+  echo "Finished removing and blocking DNS"
+fi
+echo "DNS security done"
 #Section 5.1 - Sets up Auditing
 echo "Doing Auditing Now"
 auditctl -e 1 > /dev/null
