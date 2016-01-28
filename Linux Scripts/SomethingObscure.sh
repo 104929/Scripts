@@ -377,13 +377,13 @@ if [ $lightdm == 14 ]; then
   fi
   if [ -d /etc/lightdm/lightdm.conf.d ]; then
     if [ ! -f /etc/lightdm/lightdm.conf.d/50-guest-session.conf ]; then
-		echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-guest-session.conf
+    echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-guest-session.conf
     echo "allow-guest=false" >> /etc/lightdm/lightdm.conf.d/50-guest-session.conf
-		echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-show-users.conf
+    echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-show-users.conf
     echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf.d/50-show-users.conf
-		echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-manual-login.conf
+    echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/50-manual-login.conf
     echo "greeter-show-manual-login=true" >> /etc/lightdm/lightdm.conf.d/50-manual-login.conf
-	  fi
+    fi
   fi
 	echo "Finished fixing LightDM files for Ubuntu 14.04"
 fi
@@ -411,7 +411,6 @@ chmod 644 /etc/fstab
 chmod 644 /etc/passwd
 chmod 400 /etc/shadow
 chmod 644 /etc/group
-chmod 644 /etc/sudoers
 
 chmod 02750 /bin/su
 chmod 02750 /bin/sudo
