@@ -449,8 +449,13 @@ echo ff02::2 ip6-allrouters >> /etc/hosts
 echo
 echo "The host file is cleared"
 
-
 apt-get autoremove
 apt-get autoclean
 
-echo "You are done and should probably reboot"
+echo -n "Do you want to restart the machine now [y/n]"
+read shut
+if [ $shut == y ]; then
+  echo "Restarting now!"
+  shutdown -r 00
+if [ $shut == n ]; then
+  echo "Goodbye!"
