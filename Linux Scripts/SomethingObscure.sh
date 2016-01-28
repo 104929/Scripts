@@ -74,7 +74,7 @@ echo -n "Is this machine supposed to be an SSH server [y/n]"
 read ssh
 if [ $ssh == y ]; then
   echo "Fixing SSH files"
-  apt-get install -ymqq --allow-unauthenticated ssh openssh-client openssh-server
+  apt-get install -y ssh openssh-client openssh-server
   if [ -a /etc/ssh/sshd_config ]; then
     sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
     sed -i 's/Protocol 2,1/Protocol 2/g' /etc/ssh/sshd_config
