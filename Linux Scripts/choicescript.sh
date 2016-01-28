@@ -773,7 +773,7 @@ if [ $choice == "24" ]; then
 fi
 #Enable auditing
 if [ $choice == "25" ]; then
-  apt-get install auditd
+  apt-get install -ymqq --allow-unauthenticated auditd
   auditctl –e 1
 fi
 if [ $choice == "26" ]; then
