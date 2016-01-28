@@ -358,17 +358,21 @@ if [ $lightdm == 12 ]; then
   if [ $?==0 ]; then
     msg=$(echo Set allow guest to false | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g' )
   fi
-	echo "exit 0" > /etc/rc.local
-	msg=$(echo X11Forwarding rule changed to exclusively 1 | sed 's/\//%2F/g' | sed 's/\./%2E/g' )
-	grep "greeter-hide-users=true" /etc/lightdm/lightdm.conf
-	if [ "$?" -eq "1" ]; then
-		echo "[SeatDefaults]\ngreeter-hide-users=true\n" >> /etc/lightdm/lightdm.conf
-	fi
-	grep "greeter-show-manual-login=true" /etc/lightdm/lightdm.conf
-	if [ "$?" -eq "1" ]; then
-		echo "[SeatDefaults]\ngreeter-show-manual-login=true\n" >> /etc/lightdm/lightdm.conf
-	fi
-	echo "Finished fixing LightDM files for Ubuntu 12.04"
+  echo "exit 0" > /etc/rc.local
+  msg=$(echo X11Forwarding rule changed to exclusively 1 | sed 's/\//%2F/g' | sed 's/\./%2E/g' )
+  grep "[SeatDefaults]" /etc/lightdm/lightdm.conf
+  if [ "$?" -eq "1" ]; then
+    echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf
+  fi  
+  grep "greeter-hide-users=true" /etc/lightdm/lightdm.conf
+  if [ "$?" -eq "1" ]; then
+    echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf
+  fi
+  grep "greeter-show-manual-login=true" /etc/lightdm/lightdm.conf
+  if [ "$?" -eq "1" ]; then
+    echo "greeter-show-manual-login=true" >> /etc/lightdm/lightdm.conf
+  fi
+  echo "Finished fixing LightDM files for Ubuntu 12.04"
 fi
 if [ $lightdm == 14 ]; then
   echo "Fixing LightDM files for Ubuntu 14.04"
