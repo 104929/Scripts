@@ -357,9 +357,6 @@ apt-get purge --auto-remove john hydra aircrack kismet medusa nmap vlc fingerd f
 echo
 #Section 6.2 - Sets up file permissions
 echo "Changing file permissions now"
-#chmod 0700 /etc/rc*
-#chmod 0700 /etc/init.d*
-#chmod 0700 /etc/profile
 chmod 0700 /etc/hosts.allow
 chmod 0700 /etc/mtab
 chmod 0700 /etc/utmp
@@ -370,9 +367,6 @@ chmod 0700 /var/run/syslog.pid
 chmod 0700 /etc/sysctl.conf
 chmod 0700 /etc/inittab
 chmod 644 /etc/fstab
-#chmod 644 /etc/passwd
-#chmod 400 /etc/shadow
-#chmod 644 /etc/group
 
 chmod 02750 /bin/su
 chmod 02750 /bin/sudo
