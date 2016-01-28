@@ -339,14 +339,14 @@ sysctl -w net.ipv4.conf.all.secure_redirects=0
 sysctl -w net.ipv4.conf.default.secure_redirects=0
 echo
 #Section 5.4 - Removes any users from sudoers file that do not require a password
-echo "Editing Sudoers file now"
-grep NOPASSWD /etc/sudoers
-if [ $?==0 ]; then
-  sudo1=$(grep NOPASSWD /etc/sudoers)
-  sed -i 's/$sudo1/ /g' /etc/sudoers
-  msg=$(echo SUDOERS NOPASSWD rule removed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g')
-fi
-echo "Sudoers file is done"
+#echo "Editing Sudoers file now"
+#grep NOPASSWD /etc/sudoers
+#if [ $?==0 ]; then
+#  sudo1=$(grep NOPASSWD /etc/sudoers)
+#  sed -i 's/$sudo1/ /g' /etc/sudoers
+#  msg=$(echo SUDOERS NOPASSWD rule removed | sed 's/\//%2F/g' | sed 's/\./%2E/g' | sed 's/\ /%20/g')
+#fi
+#echo "Sudoers file is done"
 echo
 #Section 5.5 - Sets up LightDM
 echo "Moving on to securing LightDM"
