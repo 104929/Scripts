@@ -129,31 +129,38 @@ if [ $apache == y ]; then
   chmod u+rwx /var/www/html/
   chmod g+rx /var/www/html/ && chmod g-w /var/www/html/
   chmod o+rx /var/www/html/ && chmod o-w /var/www/html/
-  if [ -e /etc/apache2/apache2.conf ]; then
-    cat /etc/apache2/apache2.conf | grep "LimitRequestBody 204800" >> /dev/null
-    if [ $? -ne 0 ]; then
+  sed -i 's/Timeout 300/Timeout 45/g' /etc/apache2/apache2.conf
+  sed -i 's/KeepAlive On/KeepAlive Off/g' /etc/apache2/apache2.conf
+  sed -i 's/MaxKeepAliveRequests 100/MaxKeepAliveRequests 50/g' /etc/apache2/apache2.conf
+  sed -i 's/KeepAliveTimeout 5/KeepAliveTimeout 1/g' /etc/apache2/apache2.conf
+  sed -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/conf.d/security
+  cat /etc/apache2/conf.d/security | grep TraceEnable On | grep "#" >> /dev/null
+  if [ $? -ne 0 ]; then
+  	echo "TraceEnable needs to be switched to off"
+  fi
+  cat /etc/apache2/apache2.conf | grep "LimitRequestBody 204800" >> /dev/null
+  if [ $? -ne 0 ]; then
 #      echo \<Directory \> >> /etc/apache2/apache2.conf
 #      echo -e ' \t AllowOverride None' >> /etc/apache2/apache2.conf
 #      echo -e ' \t Order Deny,Allow' >> /etc/apache2/apache2.conf
 #      echo -e ' \t Deny from all' >> /etc/apache2/apache2.conf
 #      echo -e ' \t Options None' >> /etc/apache2/apache2.conf
 #      echo \<Directory \/\> >> /etc/apache2/apache2.conf
-      echo UserDir disabled root >> /etc/apache2/apache2.conf
-      echo LimitRequestBody 204800 >> /etc/apache2/apache2.conf
-    fi
-    a2dismod autoindex
-    a2dismod status
-    sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/g' /etc/apache2/mods-enabled/security2.conf
-    mv /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
-    mv /etc/apache2/mods-available/ssl.load /etc/apache2/mods-enabled/
-    service apache2 restart
+    echo UserDir disabled root >> /etc/apache2/apache2.conf
+    echo LimitRequestBody 204800 >> /etc/apache2/apache2.conf
   fi
+  a2dismod autoindex
+  a2dismod status
+  sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/g' /etc/apache2/mods-enabled/security2.conf
+  mv /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
+  mv /etc/apache2/mods-available/ssl.load /etc/apache2/mods-enabled/
+  service apache2 restart
   ufw allow apache
   ufw allow http
   ufw allow https
   ufw reload
   service apache2 restart
-  ll etc/apache2/sites-enabled
+  ls -la etc/apache2/sites-enabled
   echo "Finished fixing Apache files"
 fi
 if [ $apache == n ]; then
