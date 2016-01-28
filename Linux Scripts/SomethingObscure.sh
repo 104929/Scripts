@@ -457,5 +457,7 @@ read shut
 if [ $shut == y ]; then
   echo "Restarting now!"
   shutdown -r 00
+fi
 if [ $shut == n ]; then
   echo "Goodbye!"
+fi
