@@ -761,8 +761,11 @@ fi
 if [ $choice == "24" ]; then
   /etc/init.d/apparmor start #Start apparmor /files/services
   echo "Starting important services"
+  update-rc.d apparmor defaults
   update-rc.d apparmor enable #sets apparmor to start at startup
+  update-rc.d syslog defaults
   update-rc.d syslog enable
+  update-rc.d rsyslog defaults
   update-rc.d rsyslog enable
   service apparmor start
   service syslog start
