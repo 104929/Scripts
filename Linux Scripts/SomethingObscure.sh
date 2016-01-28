@@ -106,7 +106,7 @@ if [ $ssh == y ]; then
 fi
 if [ $ssh == n ]; then
   echo "Removing and blocking SSH"
-  apt-get purge -ymqq --allow-unauthenticated ssh openssh-client openssh-server
+  apt-get purge -ymqq ssh openssh-client openssh-server
   service ssh stop
   update-rc.d -f ssh remove
   ufw deny ssh
@@ -126,9 +126,9 @@ if [ $apache == y ]; then
   chown -R root:root /etc/apache
   update-rc.d apache2 defaults
   update-rc.d apache2 enable
-  chmod u+rwx /var/www/html/
-  chmod g+rx /var/www/html/ && chmod g-w /var/www/html/
-  chmod o+rx /var/www/html/ && chmod o-w /var/www/html/
+  #chmod u+rwx /var/www/html/
+  #chmod g+rx /var/www/html/ && chmod g-w /var/www/html/
+  #chmod o+rx /var/www/html/ && chmod o-w /var/www/html/
   sed -i 's/Timeout 300/Timeout 45/g' /etc/apache2/apache2.conf
   sed -i 's/KeepAlive On/KeepAlive Off/g' /etc/apache2/apache2.conf
   sed -i 's/MaxKeepAliveRequests 100/MaxKeepAliveRequests 50/g' /etc/apache2/apache2.conf
@@ -146,7 +146,7 @@ if [ $apache == y ]; then
 #      echo -e ' \t Deny from all' >> /etc/apache2/apache2.conf
 #      echo -e ' \t Options None' >> /etc/apache2/apache2.conf
 #      echo \<Directory \/\> >> /etc/apache2/apache2.conf
-    echo UserDir disabled root >> /etc/apache2/apache2.conf
+#	echo UserDir disabled root >> /etc/apache2/apache2.conf
     echo LimitRequestBody 204800 >> /etc/apache2/apache2.conf
   fi
   a2dismod autoindex
@@ -426,10 +426,10 @@ rm -f /etc/cron.deny
 rm -f /etc/at.deny
 echo root > /etc/cron.allow
 echo root > /etc/at.allow
-chmod 400 cron.allow
-chmod 400 at.allow
-chown root:root cron.allow
-chown root:root at.allow
+chmod 400 /etc/cron.allow
+chmod 400 /etc/at.allow
+chown root:root /etc/cron.allow
+chown root:root /etc/at.allow
 
 #echo "Looking for all the files on the system with 777 permissions"
 #find / -type d -perm +2 -ls -exec grep -vi "dev|tmp" {} +
