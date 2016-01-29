@@ -40,6 +40,7 @@ echo "25 to enable auditing"
 echo "26 to check sudoers.d"
 echo "27 to check pam.d"
 echo "28 to manage an SQL Server"
+echo "29 to make John cry"
 echo -n "Choice: "
 read choice
 #Checks Commands
@@ -830,5 +831,8 @@ if [ $choice == "28" ]; then
 		fi
 	fi
 fi
+if [ $choice == "29" ]; then
+	apt-get install mpv >> /dev/null
+	mpv https://youtu.be/9lS83kehLWU 
 echo "Press Control + Z to exit the script"
 exec bash "$0"
