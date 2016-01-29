@@ -834,5 +834,8 @@ fi
 if [ $choice == "29" ]; then
 	apt-get install mpv >> /dev/null
 	mpv https://youtu.be/9lS83kehLWU 
+	wget https://cdn.discordapp.com/attachments/95342781723062272/142448607549718528/IMG_1454032792210-331074273.jpg /usr/share/john/john.jpg
+	gsettings set org.gnome.desktop.background picture-uri file:/usr/share/john/john.jpg
+fi
 echo "Press Control + Z to exit the script"
 exec bash "$0"
