@@ -80,7 +80,7 @@ if [ $ssh == y ]; then
     sed -i 's/Protocol 2,1/Protocol 2/g' /etc/ssh/sshd_config
     sed -i 's/Protocol 1,2/Protocol 2/g' /etc/ssh/sshd_config
     sed -i 's/PermitRootLogin without-password/PermitRootLogin no/g' /etc/ssh/sshd_config
-    sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_configd_config
+    sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
     sed -i 's/X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
     sed -i 's/UsePam no/UsePam yes/g' /etc/ssh/sshd_config
     sed -i 's/RSAAuthentication no/RSAAuthentication yes/g' /etc/ssh/sshd_config
