@@ -676,8 +676,8 @@ if [ $choice == "17" ]; then
   #Looks for backdoors
   echo "Looking for backdoors now"
   touch /files/backdoors
-  find / -iname "*.php" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + > /files/backdoors
-  find / -iname "*.pl" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + > /files/backdoors
+  find / -iname "*.php" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + >> /files/backdoors
+  find / -iname "*.pl" -print -exec grep "(exec|CMD|shell|system|passthru)" -i {} + >> /files/backdoors
   cat /files/backdoors | grep -v "/var/cache/dictionaries-common/sqspell.php"
   #find / -iname "*.php" -print -exec grep "CMD" -i {} + >> /files/phpbackdoors
   #find / -iname "*.php" -print -exec grep "shell" -i {} + >> /files/phpbackdoors
