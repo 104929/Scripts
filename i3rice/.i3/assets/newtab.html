@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700,900' rel='stylesheet' type='text/css'>
+<meta charset="utf-8">
+<title>New Tab</title>
+<style type="text/css">
+    body{
+        font-family: 'System San Fransico Display', sans-serif;
+        font-size: 14px;
+        background-color:#101218;
+        text-align: center;
+        /*background-image: url("Wizard.png");*/
+    }
+    img.resize{
+        height:400px; /* you can use % */
+        width: auto;
+    }
+    #container {
+        /*text-align: center;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        margin-right: -50%;*/
+        transform: translate(0%, 50%)
+    }
+    ul{
+        padding: 0;
+        list-style: none;
+    }
+
+    ul li{
+        width: 175px;
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        line-height: 105px;
+        font-size: 16px;
+        font-weight: bolder;
+        //padding: 5px
+
+    }
+    ul li a{
+        display: block;
+        padding: 5px 10px;
+        color: #f3f4f5;
+        text-decoration: none;
+        /*background: #2f343f;*/
+        padding: 20px;
+
+    }
+    ul li a:hover{
+        color: #101218;
+        background: #455b65;
+        /*display: table-column-group;*/
+    }
+
+    ul li ul{
+        display: none;
+        position: absolute;
+        z-index: 999;
+        left: 0;
+        line-height: 15px;
+        margin: 0px;
+
+    }
+    ul li:hover ul{
+        display: block; /* display the dropdown */
+        line-height: 15px;
+        margin: 0px;
+    }
+    #lh {
+        line-height:10px;
+    }
+    ul li ul li {
+        line-height:10px;
+        font-size: 14px;
+        font-weight: lighter;
+    }
+    h1 {
+        color: #f3f4f5;
+        font-size: 32pt;
+    }
+    #hidden {
+        //display: none;
+        size:5%;
+    }
+    #hidden:hover {
+        display: block;
+    }
+    #wiz1{
+        background-image: url("miniwizard.png");
+        background-position: center;
+    }
+</style>
+</head>
+<body>
+    <div id="container">
+    <h1>Wizard Tab</h1>
+    <ul>
+        <li>
+            <a href="#" id="wiz1">Checklists &#9662;</a>
+            <ul>
+                <li><a href="http://schedule.wshscyberpatriot.com/gnulinux-checklist/">GNU/Linux Checklist</a></li>
+                <li><a href="http://schedule.wshscyberpatriot.com/windows/">Windows Checklist</a></li>
+                <li><a href="https://docs.google.com/document/d/1VFJrt_ohxGVMdKccGuMI7Vfy_JFjbJVaDBczfPkH1Pg/edit">Cisco Handbook</a></li>
+                <li><a href="https://docs.google.com/document/d/1M2ev4ERDRMGcty1ysf1gBuRorXclbID84diGuZwfK1A/edit">Subnetting Handbook</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="https://wshs-cyberpatriots.hipchat.com/chat">Hipchat</a>
+        </li>
+        <li>
+            <a href="#">Resources &#9662;</a>
+            <ul>
+                <li><a href="http://magi.jump.software/">Magi Scoreboard</a></li>
+                <li><a href="https://github.com/martin104921/scripts">Github</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="https://proxmox.wshscyberpatriot.com">Proxmox</a>
+        </li>
+    </ul>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</body>
+</html>
