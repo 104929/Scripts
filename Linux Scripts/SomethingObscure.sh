@@ -310,20 +310,23 @@ echo
 #Section 5.2 - Sets up Login.defs
 echo "Securing Login.defs now"
 sed -i 's/LOG_OK_LOGINS           no/LOG_OK_LOGINS           yes/g' /etc/login.defs
-sed -i 's/PASS_MIN_DAYS   0/PASS_MIN_DAYS   10/g' /etc/login.defs
-sed -i 's/PASS_MAX_DAYS   9999/PASS_MAX_DAYS 90/g' /etc/login.defs
-sed -i 's/LOGIN_RETRIES           5/LOGIN_RETRIES           3/g' /etc/login.defs
-sed -i 's/PASS_WARN_AGE   0/PASS_WARN_AGE   7/g' /etc/login.defs
+sed -i 's/PASS_MIN_DAYS.*/PASS_MIN_DAYS   10/g' /etc/login.defs
+sed -i 's/PASS_MAX_DAYS.*/PASS_MAX_DAYS 90/g' /etc/login.defs
+sed -i 's/LOGIN_RETRIES.*/LOGIN_RETRIES           3/g' /etc/login.defs
+sed -i 's/PASS_WARN_AGE.*/PASS_WARN_AGE   7/g' /etc/login.defs
 echo "Login.defs is now secure"
 echo
 #Section 5.3 - Sets up Pam
 echo "Securing Pam.d now"
-grep "auth 	required 			pam_tally.so deny=5 unlock_time=900 onerr=fail audit even_deny_root_account silent" /etc/pam.d/common-auth >> /dev/null
+apt-get install -ymqq --allow-unauthenticated libpam-cracklib
+grep "auth 	required 			pam_tally.so deny=5 onerr=fail unlock_time=1800 audit even_deny_root_account silent" /etc/pam.d/common-auth >> /dev/null
 if [ "$?" -eq "1" ]; then
-  echo "auth 	required 			pam_tally.so deny=5 unlock_time=900 onerr=fail audit even_deny_root_account silent" >> /etc/pam.d/common-auth
-  echo "password 	requisite 			pam_cracklib.so retry=3 minlen=8 difok=3 reject_username minclass=3 maxrepeat=2 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1" >> /etc/pam.d/common-password
-  echo "password 	[success=1 default=ignore] 	pam_unix.so obscure use_authtok try_first_pass sha512 minlen=8 remember=5" >> /etc/pam.d/common-password
-  echo "password 	requisite 			pam_pwhistory.so use_authtok remember=5 enforce_for_root" >>  /etc/pam.d/common-password
+  echo "auth 	required 			pam_tally.so deny=5 onerr=fail unlock_time=1800 audit even_deny_root_account silent" >> /etc/pam.d/common-auth
+fi
+grep "password 	requisite 			pam_cracklib.so" /etc/pam.d/common-password >> /dev/null
+if [ "$?" -eq "1" ]; then
+  sed -i 's/password 	requisite 			pam_cracklib.so.*/password 	requisite 			pam_cracklib.so retry=3 minlen=8 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1/g' /etc/pam.d/common-password
+  sed -i 's/password 	[success=1 default=ignore] 	pam_unix.so obscure use_authtok try_first_pass sha512.*/password 	[success=1 default=ignore] 	pam_unix.so obscure use_authtok try_first_pass sha512 minlen=8 remember=5/g' /etc/pam.d/common-password
 fi
 echo
 echo "Editing Sysctl.conf now"
