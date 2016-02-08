@@ -12,20 +12,31 @@ if [ $choice == "y" ]; then
   # Installs arc theme repo and installs all packages needed
   sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_15.10/ /' >> /etc/apt/sources.list.d/arc-theme.list"
   sudo apt-get update
-  sudo apt-get upgrade
-  sudo apt-get install -y i3 i3blocks i3lock lxappearance arandr lxrandr atom feh rxvt-unicode compton arc-theme firefox
+# sudo apt-get upgrade
+  sudo apt-get install i3 -y
+  sudo apt-get install i3lock -y
+  sudo apt-get install lxappearance -y
+  sudo apt-get install arandr -y
+  sudo apt-get install lxrandr -y
+  sudo apt-get install atom -y
+  sudo apt-get install feh -y
+  sudo apt-get install rxvt-unicode -y
+  sudo apt-get install compton -y
+  sudo apt-get install arc-theme -y
+  sudo apt-get install firefox -y
 
   # Moves dirs into home directory
-  mv ./.i3/ ~/
-  mv ./.fonts/ ~/
-  mv ./.Xresources ~/
-  mv ./.gtkrc-2.0 ~/
-  mv ./.config ~/
+  sudo cp ./.i3/ ~/
+  sudo cp ./.fonts/ ~/
+  sudo cp ./.Xresources ~/
+  sudo cp ./.gtkrc-2.0 ~/
+  sudo cp ./.config/* ~/
 
 	# sets up urxvt
 	xrdb ~/.Xresources
 
 	# asks user to reboot
+	echo "Would you like to reboot?"
 	read reboot
 	if [ $reboot == "y" ]; then
 		sudo reboot
