@@ -9,6 +9,7 @@ fi
 if [ ! -d /files ]; then
   mkdir /files
 fi
+touch /files/log.log
 updatedb
 echo "What would you like to do?"
 echo "Enter a number 1-25 to select a choice:"
