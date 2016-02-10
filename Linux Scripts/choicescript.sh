@@ -504,7 +504,7 @@ if [ $choice == "9" ]; then
   who | grep root
   if [ $? -ne 0 ] ; then
   	echo "Root is not logged in"
-  	passwd -l root
+  	passwd -dl root
   else
   	echo "Root is logged in..why?"
   fi
