@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Make sure you are done with the Forensics Questions before running the script "
 #Section 1.1 - Checks for root
-if [ $(whoami) = "root" ]; then
+if [ $(whoami) = "root" ]; thent
   echo "You are root"
 else
   echo "You are not root"
@@ -330,8 +330,8 @@ if [ "$?" -eq "1" ]; then
 fi
 echo
 echo "Editing Sysctl.conf now"
-sed -i 's/net.ipv4.ip_forward=1/net.ipv4.ip_forward=0/g' /etc/sysctl.conf
-sed -i 's/net.ipv4.tcp_syncookies=1/net.ipv4.tcp_syncookies=1/g' /etc/sysctl.conf
+sed -i 's/net.ipv4.ip_forward.*/net.ipv4.ip_forward=0/g' /etc/sysctl.conf
+sed -i 's/net.ipv4.tcp_syncookies.*/net.ipv4.tcp_syncookies=1/g' /etc/sysctl.conf
 sysctl -w net.ipv4.tcp_syncookies=1
 sysctl -w net.ipv4.ip_forward=0
 sysctl -w net.ipv4.conf.all.send_redirects=0
