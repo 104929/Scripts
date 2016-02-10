@@ -2,7 +2,7 @@
 echo "Make sure you are done with the Forensics Questions before running the script "
 if [ $(whoami) = "root" ]; then
 	echo "You are root"
-else
+elsepam.d
   echo "you are not root"
 	exit 1
 fi
@@ -799,9 +799,9 @@ if [ $choice == "27" ]; then
   if [ $? -ne 0 ]; then
     echo "Add lcredit=-1 ucredit=-1 dcredit=-1 ocredit=-1 line to /etc/pam.d/common-password"
   fi
-  cat /etc/pam.d/common-auth | grep "auth required pam_tally2.so deny=5 onerr=fail unlock_time=900" >> /dev/null
+  cat /etc/pam.d/common-auth | grep "auth required pam_tally2.so deny=5 onerr=fail unlock_time=1800" >> /dev/null
   if [ $? -ne 0 ]; then
-    echo "Add the  auth required pam_tally2.so deny=5 onerr=fail unlock_time=900  line to the end of /etc/pam.d/common-auth"
+    echo "Add the  auth required pam_tally2.so deny=5 onerr=fail unlock_time=1800  line to the end of /etc/pam.d/common-auth"
   fi
 fi
 if [ $choice == "28" ]; then
