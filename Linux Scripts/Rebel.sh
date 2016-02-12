@@ -26,7 +26,7 @@ fi
 if [ -e /etc/vsftpd.conf ]; then
   cat /etc/vsftpd.conf | grep -i "anonymous_enable" | grep NO >> /dev/null
   if [ $? -ne 0 ]; then
-  echo "anonymous_enable needs to be set /etc/vsftpd.conf" >> /files/log.log
+	echo "anonymous_enable needs to be set /etc/vsftpd.conf" >> /files/log.log
   fi
 fi
 ll /etc/sudoers.d | grep -v README >> /dev/null
@@ -35,5 +35,15 @@ if [ $? -eq 0 ]; then
 fi
 grep -i "NOPASSWD" /etc/sudoers
 if [ $? -eq 0 ]; then
-  echo "Remember to visudo" >> /files/log.log
+	echo "Remember to visudo" >> /files/log.log
 fi
+grep LoginGraceTime /etc/ssh/sshd_config | grep 10
+if [ $? -ne 0 ]; then
+	echo "You need to secure login grace time in /etc/ssh/sshd_config" >> /files/log.log
+fi
+if [ $(cat /proc/sys/net/ipv6/conf/all/disable_ipv6) = 1 ]; then
+	echo >> /dev/null
+else
+	echo "You need to disable IPv6" >> /files/log.log
+fi
+dpkg -l | grep bind9 -i | grep -vi Binding >> /files/log.log
