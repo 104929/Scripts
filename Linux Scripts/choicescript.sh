@@ -634,6 +634,10 @@ if [ $choice == "15" ]; then
       	else
       		echo "Empty passwords are allowed"
       	fi
+      	grep LoginGraceTime /etc/ssh/sshd_config | grep 10
+      	if [ $? -ne 0 ]; then
+			echo "You need to secure login grace time in /etc/ssh/sshd_config"
+		fi
       fi
       echo "ssh is secure"
     fi
