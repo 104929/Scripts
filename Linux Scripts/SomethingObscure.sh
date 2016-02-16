@@ -340,6 +340,7 @@ sysctl -w net.ipv4.conf.all.accept_redirects=0
 sysctl -w net.ipv4.conf.default.accept_redirects=0
 sysctl -w net.ipv4.conf.all.secure_redirects=0
 sysctl -w net.ipv4.conf.default.secure_redirects=0
+sysctl -p
 echo
 #Section 5.4 - Removes any users from sudoers file that do not require a password
 #echo "Editing Sudoers file now"
