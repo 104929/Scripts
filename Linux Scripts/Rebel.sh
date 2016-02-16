@@ -47,3 +47,7 @@ else
 	echo "You need to disable IPv6" >> /files/log.log
 fi
 dpkg -l | grep bind9 -i | grep -vi Binding >> /files/log.log
+cat /etc/mysql/my.cnf | grep "bind-address" | grep "#"
+if [ $? -eq 0 ]; then
+	echo "you need to bind mysql by uncommenting bind-address" >> /files/log.log
+fi
