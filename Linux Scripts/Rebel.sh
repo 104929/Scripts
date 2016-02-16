@@ -1,5 +1,5 @@
 #!/bin/bash
-grep "permitrootlogin no" /etc/ssh/sshd_config -i
+grep "permitrootlogin no" /etc/ssh/sshd_config -i >> /dev/null
 if [ $? -eq 0 ]; then
   echo "Root login is correctly set"
 fi
@@ -33,11 +33,11 @@ ll /etc/sudoers.d | grep -v README >> /dev/null
 if [ $? -eq 0 ]; then
   echo "There is something extra in /etc/sudoers.d" >> /files/log.log
 fi
-grep -i "NOPASSWD" /etc/sudoers
+grep -i "NOPASSWD" /etc/sudoers >> /dev/null
 if [ $? -eq 0 ]; then
 	echo "Remember to visudo" >> /files/log.log
 fi
-grep LoginGraceTime /etc/ssh/sshd_config | grep 10
+grep LoginGraceTime /etc/ssh/sshd_config | grep 10 >> /dev/null
 if [ $? -ne 0 ]; then
 	echo "You need to secure login grace time in /etc/ssh/sshd_config" >> /files/log.log
 fi
