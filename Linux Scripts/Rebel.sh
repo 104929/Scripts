@@ -1,4 +1,6 @@
 #!/bin/bash
+mkdir /files
+touch /files/log.log
 grep "permitrootlogin no" /etc/ssh/sshd_config -i >> /dev/null
 if [ $? -eq 0 ]; then
   echo "Root login is correctly set"
@@ -6,7 +8,7 @@ fi
 grep "sudo" /etc/gshadow
 grep "adm:" /etc/gshadow
 
-grep "PASS_MAX_DAYS" /etc/login.defs | grep 90
+grep "PASS_MAX_DAYS" /etc/login.defs | grep 90 >> /dev/null
 if [ $? -eq 0 ]; then
   echo "PASS_MAX_DAYS is correctly set"
 else
@@ -18,8 +20,9 @@ if [ $? -eq 0 ]; then
 else
   echo "PASS_MIN_DAYS is not correctly set in /etc/login.defs" >> /files/log.log
 fi
+ufw enable
 ufw show listening
-ufw status | grep -i active
+ufw status | grep -i " active"
 if [ $? -ne 0 ]; then
   echo "Ufw is not enabled" >> /files/log.log
 fi
@@ -29,7 +32,7 @@ if [ -e /etc/vsftpd.conf ]; then
 	echo "anonymous_enable needs to be set /etc/vsftpd.conf" >> /files/log.log
   fi
 fi
-ll /etc/sudoers.d | grep -v README >> /dev/null
+ls -la /etc/sudoers.d | grep -v README >> /dev/null
 if [ $? -eq 0 ]; then
   echo "There is something extra in /etc/sudoers.d" >> /files/log.log
 fi
@@ -47,7 +50,7 @@ else
 	echo "You need to disable IPv6" >> /files/log.log
 fi
 dpkg -l | grep bind9 -i | grep -vi Binding >> /files/log.log
-cat /etc/mysql/my.cnf | grep "bind-address" | grep "#"
+cat /etc/mysql/my.cnf | grep "bind-address" | grep "#" >> /dev/null
 if [ $? -eq 0 ]; then
 	echo "you need to bind mysql by uncommenting bind-address" >> /files/log.log
 fi
