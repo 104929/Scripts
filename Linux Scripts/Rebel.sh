@@ -7,7 +7,7 @@ if [ $? -eq 0 ]; then
 fi
 grep "sudo" /etc/gshadow
 grep "adm:" /etc/gshadow
-
+grep "#" /etc/passwd
 grep "PASS_MAX_DAYS" /etc/login.defs | grep 90 >> /dev/null
 if [ $? -eq 0 ]; then
   echo "PASS_MAX_DAYS is correctly set"
