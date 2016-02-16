@@ -559,7 +559,9 @@ if [ $choice == "11" ]; then
   echo	net.ipv6.conf.lo.disable_ipv6 = 1 >> /etc/sysctl.conf
   	sysctl -p
   	if [ $(cat /proc/sys/net/ipv6/conf/all/disable_ipv6) = 1 ]; then
-  	echo "IPV6 is disabled"
+  		echo "IPV6 is disabled"
+  	else
+  		exec bash "$0"
   	fi
   fi
 fi
