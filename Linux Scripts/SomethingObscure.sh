@@ -325,8 +325,8 @@ if [ "$?" -eq "1" ]; then
 fi
 grep "pam_cracklib.so retry=3 minlen=8 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1" /etc/pam.d/common-password >> /dev/null
 if [ "$?" -eq "1" ]; then
-  sed -i 's/password 	requisite 			pam_cracklib.so.*/password 	requisite 			pam_cracklib.so retry=3 minlen=8 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1/g' /etc/pam.d/common-password
-  sed -i 's/password 	[success=1 default=ignore] 	pam_unix.so.*/password 	[success=1 default=ignore] 	pam_unix.so obscure use_authtok try_first_pass sha512 minlen=8 remember=5/g' /etc/pam.d/common-password
+  sed -i 's/password	requisite			pam_cracklib.so.*/password	requisite			pam_cracklib.so retry=3 minlen=8 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1/g' /etc/pam.d/common-password
+  sed -i 's/password	[success=1 default=ignore]	pam_unix.so.*/password	[success=1 default=ignore]	pam_unix.so obscure use_authtok try_first_pass sha512 minlen=8 remember=5/g' /etc/pam.d/common-password
 fi
 echo
 echo "Editing Sysctl.conf now"
