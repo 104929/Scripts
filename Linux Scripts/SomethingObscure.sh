@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Make sure you are done with the Forensics Questions before running the script "
 #Section 1.1 - Checks for root
-if [ $(whoami) = "root" ]; thent
+if [ $(whoami) = "root" ]; then
   echo "You are root"
 else
   echo "You are not root"
