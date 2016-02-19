@@ -2,7 +2,7 @@
 echo "Make sure you are done with the Forensics Questions before running the script "
 if [ $(whoami) = "root" ]; then
 	echo "You are root"
-elsepam.d
+else
   echo "you are not root"
 	exit 1
 fi
