@@ -593,8 +593,11 @@ fi
 if [ $choice == "14" ]; then
   echo "Moving on to securing light dm"
   if [ -a /etc/lightdm/lightdm.conf ]; then
-  	echo allow-guest=false >> /etc/lightdm/lightdm.conf
-  	echo "Lightdm file existed"
+  	grep "allow-guest=false" /etc/lightdm/lightdm.conf
+  	if [ $? -ne 0 ]; then
+  		echo allow-guest=false >> /etc/lightdm/lightdm.conf
+  	fi
+  echo "Lightdm file existed"
   else
   	echo "Light dm file did not exist"
   fi
