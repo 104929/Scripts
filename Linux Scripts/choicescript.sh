@@ -253,6 +253,10 @@ if [ $choice == "2" ]; then
   dpkg -l | grep telnet -i >> /files/malware
   ps aux | grep telnet -i | grep -v "grep" >> /files/malware
   find  / -iname "telnet" -print >> /files/malware
+  echo "Searched for Telnet, now searching for fingerd"
+  echo "Searched for Telnet, now searching for fingerd" >> /files/malware
+  dpkg -l | grep fingerd -i >> /files/malware
+  ps aux | grep fingerd -i | grep -v "grep" >> /files/malware
   echo "Done searching for malware, now searching for services running on the computer"
   touch /files/services
   dpkg -l | grep apache -i > /files/services
