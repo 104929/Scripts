@@ -41,7 +41,6 @@ echo "25 to enable auditing"
 echo "26 to check sudoers.d"
 echo "27 to check pam.d"
 echo "28 to manage an SQL Server"
-echo "29 to make John cry"
 echo -n "Choice: "
 read choice
 #Checks Commands
@@ -51,8 +50,7 @@ fi
 if [ $choice == "1" ]; then
   alias | grep -v "alias egrep='egrep --color=auto'" | grep -v "alias fgrep='fgrep --color=auto'" | grep -v "alias grep='grep --color=auto'" | grep -v "alias l='ls -CF'" | grep -v "alias la='ls -A'" | grep -v "alias ll='ls -alF'" | grep -v "alias ls='ls --color=auto'"
   if [ $? -eq 0 ]; then
-  	echo "alias is good"
-  	echo
+  	echo "alias command is good"
   fi
   alias | grep john -i
   if [ $? -eq 0 ]; then
@@ -330,7 +328,6 @@ fi
 if [ $choice == "3" ]; then
   echo "Backing up etc now"
   if [ -d /backupetc ]; then
-#  	cp /etc /backupetc -r
   	echo "/backupetc already exist..etc has been backed up"
   else
   	mkdir /backupetc
@@ -339,7 +336,6 @@ if [ $choice == "3" ]; then
   fi
   echo "Moving on to backing up /home/"
   if [ -d /backuphome ]; then
-#  	cp /home/ /backuphome -r
   	echo "/backuphome already exist..home/ has been backed up"
   else
   	mkdir /backuphome
@@ -845,11 +841,6 @@ if [ $choice == "28" ]; then
 		fi
 	fi
 fi
-#if [ $choice == "29" ]; then
-#	apt-get install mpv >> /dev/null
-#	mpv https://youtu.be/9lS83kehLWU 
-#	wget https://cdn.discordapp.com/attachments/95342781723062272/142448607549718528/IMG_1454032792210-331074273.jpg -O /usr/share/john.jpg
-#	gsettings set org.gnome.desktop.background picture-uri file:///usr/share/john.jpg
-#fi
+
 echo "Press Control + Z to exit the script"
 exec bash "$0"
