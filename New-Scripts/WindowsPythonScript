@@ -2,7 +2,7 @@
 import socket
 import select
 import subprocess
-ports = [Unused Port #1, Unused Port #2, Unused Port #3]  #Change to port numbers
+ports = [Unused Port #1, Unused Port #2, Unused Port #3] 
 
 def make_socket(number):
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -22,7 +22,7 @@ while True:
 		c, addr = s.accept()
 		print addr, ":", c.getsockname()
        client = str(addr[0])
-       if client in ("scoring engine", "127.0.0.1"):  #change to scoring engine ip
+       if client in ("scoring engine", "127.0.0.1"):
              c.shutdown(socket.SHUT_RDWR)
 		c.close()      
 	subprocess.call(["netsh", "advfirewall", "firewall", "add", "rule", 		                              "name=block-{}".format(client), "dir=in", "remoteip={}".format(client), "protocol=any", "action=block"])
