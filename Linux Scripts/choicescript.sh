@@ -758,6 +758,8 @@ if [ $choice == "22" ]; then
   alias uninstall='apt-get purge && apt-get autoremove'
   echo "Setting the update alias now"
   alias update='apt-get update && apt-get upgrade'
+  echo "Setting an alias to block IP'S faster"
+  alias block='ufw insert 1 deny in from'
 fi
 #Changing permisisons of /etc, /etc/shadow, and /etc/hosts
 if [ $choice == "23" ]; then
