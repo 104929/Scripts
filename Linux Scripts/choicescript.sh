@@ -22,7 +22,7 @@ echo "6 for updates"
 echo "7 for making a safety account "
 echo "8 for managing cron "
 echo "9 for locking out root account"
-echo "10 for managing ftp"
+echo "10 for managing vsftpd"
 echo "11 to disable IPv6"
 echo "12 to uninstall john"
 echo "13 to look for a netcat backdoor"
@@ -47,6 +47,8 @@ read choice
 if [ -z $choice ]; then
 	exec bash "$0"
 fi
+if [ $choice == "exit" ]; then
+	exit]
 if [ $choice == "1" ]; then
   alias | grep -v "alias egrep='egrep --color=auto'" | grep -v "alias fgrep='fgrep --color=auto'" | grep -v "alias grep='grep --color=auto'" | grep -v "alias l='ls -CF'" | grep -v "alias la='ls -A'" | grep -v "alias ll='ls -alF'" | grep -v "alias ls='ls --color=auto'"
   if [ $? -eq 0 ]; then
@@ -509,27 +511,25 @@ if [ $choice == "9" ]; then
   	echo "Root is logged in..why?"
   fi
 fi
-#Manages FTP
+#Manages VSFTPD
 if [ $choice == "10" ]; then
-	if [ -e /etc/vsftpd.conf ]; then
-		echo "You are probably an ftp server"
-		echo -n "Do you want to be an ftp server [y/n]"
-		read ftpserver
+	echo -n "Do you want to be a vsftpd server [y/n] "
+	read ftpserver
 		if [ $ftpserver == "y" ]; then
 			apt-get install vsftpd
 			if [ -e /etc/vsftpd.conf ]; then
-				less /etc/vsftpd.conf | grep "anonymous_enable" | grep NO >> /dev/null
-				if [ $? -ne 0 ]; then
-					echo "Anonymous users are allowed in /etc/vsftpd.conf. Fix this by changing anonymous_enable to =NO "
-				fi
-				less /etc/vsftpd.conf | grep "anon_upload_enable=YES" | grep "#"
-				if [ $? -ne 0 ]; then
-					echo "Anonymous file upload is allowed in /etc/vsftpd.conf. Fix this by commenting out anon_upload_enable=YES "
-				fi
-				less /etc/vsftpd.conf | grep "anon_mkdir_write_enable=YES" | grep "#"
-				if [ $? -ne 0 ]; then
-					echo "Anonymous users are allowed to create directories in /etc/vsftpd.conf. Fix this by commenting out anon_mkdir_write_enable=YES "
-				fi
+			less /etc/vsftpd.conf | grep "anonymous_enable" | grep NO >> /dev/null
+			if [ $? -ne 0 ]; then
+				echo "Anonymous users are allowed in /etc/vsftpd.conf. Fix this by changing anonymous_enable to =NO "
+			fi
+			less /etc/vsftpd.conf | grep "anon_upload_enable=YES" | grep "#"
+			if [ $? -ne 0 ]; then
+				echo "Anonymous file upload is allowed in /etc/vsftpd.conf. Fix this by commenting out anon_upload_enable=YES "
+			fi
+			less /etc/vsftpd.conf | grep "anon_mkdir_write_enable=YES" | grep "#"
+			if [ $? -ne 0 ]; then
+				echo "Anonymous users are allowed to create directories in /etc/vsftpd.conf. Fix this by commenting out anon_mkdir_write_enable=YES "
+			fi
 			fi
 			ufw allow ftp
 		fi
@@ -538,15 +538,13 @@ if [ $choice == "10" ]; then
 			service vsftpd stop
 			update-rc.d vsftpd remove
 			ufw deny ftp
-		fi
-	else
-		dpkg -l | grep vsftpd
+			dpkg -l | grep vsftpd
 			if [ $? -eq 0 ]; then
 				echo "Vsftpd is installed but /etc/vsftpd.conf does not exist "
 			else
 				echo "Vsftpd does not appear to be installed"
 			fi
-	fi
+		fi
 fi
 #Disables IPV6
 if [ $choice == "11" ]; then
@@ -565,12 +563,12 @@ if [ $choice == "11" ]; then
   	fi
   fi
 fi
-#Get rid of john
+#Removal of john
 if [ $choice == "12" ]; then
   echo "Do you want john installed [y/n]"
   read johninstalled
   if [ $johninstalled == "y" ]; then
-  	echo "Fine have your john"
+  	echo "John was left alone"
   fi
   if [ $johninstalled == "n" ]; then
   	apt-get purge john --auto-remove -y
