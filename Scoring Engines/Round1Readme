@@ -1,0 +1,47 @@
+Welcome to the WSHCP Round One competition image!
+
+To start the scoring engine, navigate to the "scripts" folder on your 
+Desktop in the terminal. 
+$ cd ~/Desktop/scripts
+Once you are in directory, run:
+$ git pull
+Then, run the script with the following command:
+$ sudo ./r1scoringengine.sh
+
+It will calculate your current score. Once you do something in the image, you can rerun the r1scoringengine script and it will update your score. Keep rerunning the script. 
+
+We ask that you do not read the scoringengine script, it contains all the answers. If you read all of the answers, you are invalidating this training. 
+
+Have fun!
+
+You and your friend Daniel have been developing a cool new phone app for a website called 8ch.org. 
+You want your friend Daniel to be secure and keep al of his development info safe. 
+Daniel has a development team that needs to be able to access this machine remotely. 
+Daniel needs an account on the computer, he wants it to be called "abracadaniel".
+
+Daniel hates fun, and his policies dictate that there are no games or mediafiles allowed on this pc computer. (Note: You don't need to remove the wallpaper)
+
+We all know that Daniel is an elite hacker, but Daniel doesn't want any of his dev team to know about his 'leet hacks and hack him back.
+So the use of any malware or password cracking tools is stricly prohibited. 
+
+This computer is to be used only as a development station / remote development station. The only critical server service on this pc is sshd.
+
+Authorized Admin Users:
+finn (you) 
+password: Student2!
+
+jake
+
+bmo
+
+
+Normal Users:
+marceline
+lemongrab
+bubblegumprincess
+lumpyspaceprincess
+treetrunks
+ladyrainicorn
+flameprincess
+peppermintbutler
+
