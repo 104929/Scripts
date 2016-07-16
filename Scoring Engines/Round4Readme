@@ -1,0 +1,31 @@
+Hello and welcome to the WSHSCP Round 4 Practice image4!
+
+Scoring engine instructions:
+Navigate to /home/jotaro/Scripts/Scoring Engines
+Run r4scoringengine.sh
+This will give you the latest score
+
+Welcome to  your first day as the intern for the Speedwagon Foundation. Your job is to properly configure this machine as a server while the usual users are currently on an extended crusade to Cairo, Edgypt. You must have SSH and samba running and properly set up for permitted users. No media files are permitted on any user accounts, including but not limited to images and videos. The default web browser for all users is the latest stable version of Firefox. Firewall must be enabled and must allow your critical services to properly communicate. This machine should only be used by the following users:
+
+holhorse
+boingo
+iggy
+kakyoin
+polnareff
+abdul
+
+You must also have the following users as Administrators:
+
+jotaro (YOU)
+Password: oraoraora
+
+joseph
+Password: ohno!
+
+All users must have password policy enforced, but it may not be currently enforced. The user must have a minimum password age of 7 days and a maximum password age of 60 days.
+
+Your critical services are
+
+sshd
+smb
+
