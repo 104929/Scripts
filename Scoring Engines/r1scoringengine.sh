@@ -170,7 +170,7 @@ if [ $? -eq 0 ]; then
 	let "score += 7"
 	echo "Sudo has been updated - 7 pts"
 else
-	echo "You missed a Sudo has been updated " >> /misseditems
+	echo "You missed Sudo has been updated " >> /misseditems
 fi
 
 #Prohibited MP3 files are removed - 6 pts
